@@ -1,0 +1,268 @@
+.projects {
+  padding: 6rem 0;
+  background: var(--color-surface);
+}
+
+.projectsContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 3rem;
+  color: var(--color-text-primary);
+}
+
+.filterContainer {
+  margin-bottom: 4rem;
+}
+
+.filterButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filterButton {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--color-border);
+  background: var(--color-background);
+  color: var(--color-text-secondary);
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filterButton:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.filterButton.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.projectCard {
+  background: var(--color-background);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px var(--color-shadow);
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.projectCard:hover {
+  box-shadow: 0 12px 32px var(--color-shadow);
+  border-color: var(--color-primary);
+  transform: translateY(-4px);
+}
+
+.projectImage {
+  position: relative;
+  overflow: hidden;
+  height: 250px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.projectCard:hover .image {
+  transform: scale(1.05);
+}
+
+.projectContent {
+  padding: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.projectTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+}
+
+.projectDescription {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.techBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.techBadge {
+  background: var(--color-primary);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.projectActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.demoButton,
+.codeButton {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2px solid;
+  cursor: pointer;
+}
+
+.demoButton {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.demoButton:hover {
+  background: transparent;
+  color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
+}
+
+.codeButton {
+  background: transparent;
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+.codeButton:hover {
+  background: var(--color-text-primary);
+  color: var(--color-background);
+  border-color: var(--color-text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .projects {
+    padding: 4rem 0;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .filterContainer {
+    margin-bottom: 3rem;
+  }
+  
+  .filterButtons {
+    gap: 0.5rem;
+  }
+  
+  .filterButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .projectsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .projectImage {
+    height: 200px;
+  }
+  
+  .projectContent {
+    padding: 1.5rem;
+  }
+  
+  .projectTitle {
+    font-size: 1.25rem;
+  }
+  
+  .projectActions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .demoButton,
+  .codeButton {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .filterButtons {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+  
+  .filterButton {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  
+  .projectContent {
+    padding: 1rem;
+  }
+  
+  .projectTitle {
+    font-size: 1.1rem;
+  }
+  
+  .projectDescription {
+    font-size: 0.9rem;
+  }
+  
+  .techBadge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+  
+  .demoButton,
+  .codeButton {
+    padding: 0.625rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+

@@ -1,0 +1,206 @@
+.about {
+  padding: 6rem 0;
+  background: var(--color-surface);
+}
+
+.aboutContainer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 3rem;
+  color: var(--color-text-primary);
+}
+
+.content {
+  margin-bottom: 4rem;
+}
+
+.description {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin: 0;
+}
+
+.skillsSection {
+  margin-bottom: 4rem;
+}
+
+.skillsTitle {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.skillsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.skillItem {
+  background: var(--color-background);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px var(--color-shadow);
+  border: 1px solid var(--color-border);
+}
+
+.skillHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.skillName {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--color-text-primary);
+}
+
+.skillPercentage {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.skillBar {
+  height: 8px;
+  background: var(--color-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.skillProgress {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  border-radius: 4px;
+}
+
+.socialSection {
+  text-align: center;
+}
+
+.socialTitle {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--color-text-primary);
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.socialLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: var(--color-background);
+  border: 2px solid var(--color-border);
+  text-decoration: none;
+  color: var(--color-text-primary);
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+.socialLink:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 8px 24px var(--color-shadow);
+}
+
+.socialIcon {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.socialIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.socialName {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .about {
+    padding: 4rem 0;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .skillsTitle,
+  .socialTitle {
+    font-size: 1.75rem;
+  }
+  
+  .description {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .skillItem {
+    padding: 1rem;
+  }
+  
+  .socialLinks {
+    gap: 1rem;
+  }
+  
+  .socialLink {
+    min-width: 80px;
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .skillsTitle,
+  .socialTitle {
+    font-size: 1.5rem;
+  }
+  
+  .skillHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  
+  .socialLinks {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .socialLink {
+    flex-direction: row;
+    min-width: 200px;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+}
+
