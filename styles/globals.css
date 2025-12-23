@@ -3,6 +3,7 @@
 :root {
   /* Light theme colors */
   --color-primary: #2563eb;
+  --color-primary-rgb: 37, 99, 235;
   --color-primary-dark: #1d4ed8;
   --color-secondary: #64748b;
   --color-accent: #f59e0b;
@@ -14,11 +15,14 @@
   --color-shadow: rgba(0, 0, 0, 0.1);
   --color-success: #10b981;
   --color-error: #ef4444;
+  --color-snow: #cbd5e1;
+  /* Light grey for visibility on white background */
 }
 
 [data-theme="dark"] {
   /* Dark theme colors */
   --color-primary: #3b82f6;
+  --color-primary-rgb: 59, 130, 246;
   --color-primary-dark: #2563eb;
   --color-secondary: #94a3b8;
   --color-accent: #fbbf24;
@@ -30,6 +34,7 @@
   --color-shadow: rgba(0, 0, 0, 0.3);
   --color-success: #34d399;
   --color-error: #f87171;
+  --color-snow: #ffffff;
 }
 
 * {
@@ -40,7 +45,8 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px; /* Account for fixed navigation */
+  scroll-padding-top: 80px;
+  /* Account for fixed navigation */
 }
 
 body {
@@ -74,7 +80,12 @@ section {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 1rem;
@@ -146,7 +157,8 @@ a:hover {
 }
 
 /* Form elements */
-input, textarea {
+input,
+textarea {
   width: 100%;
   padding: 0.75rem;
   border: 2px solid var(--color-border);
@@ -157,7 +169,8 @@ input, textarea {
   transition: border-color 0.3s ease;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   outline: none;
   border-color: var(--color-primary);
 }
@@ -174,11 +187,11 @@ input:focus, textarea:focus {
   .container {
     padding: 0 2rem;
   }
-  
+
   h1 {
     font-size: 4rem;
   }
-  
+
   h2 {
     font-size: 3rem;
   }
@@ -188,7 +201,7 @@ input:focus, textarea:focus {
   h1 {
     font-size: 5rem;
   }
-  
+
   h2 {
     font-size: 3.5rem;
   }
@@ -205,8 +218,10 @@ input:focus, textarea:focus {
   html {
     scroll-behavior: auto;
   }
-  
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -218,4 +233,3 @@ input:focus, textarea:focus {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
-

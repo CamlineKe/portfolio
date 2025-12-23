@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { scrollToSection } from '../utils/helpers';
 import styles from '../styles/Hero.module.css';
+import ParticleBackground from './ParticleBackground';
+import Typewriter from 'typewriter-effect';
 
 const Hero: React.FC = () => {
   const handleViewProjects = () => {
@@ -19,49 +21,75 @@ const Hero: React.FC = () => {
       <div className={`container ${styles.heroContainer}`}>
         <motion.div
           className={styles.heroContent}
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
+          <ParticleBackground />
+
           <motion.div
             className={styles.avatarContainer}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
           >
             <Image
               src="/images/avatar.jpg"
-              alt="Camline's Avatar"
+              alt="Moses Maina"
               width={200}
               height={200}
               className={styles.avatar}
               priority
             />
           </motion.div>
-          
-          <motion.h1
-            className={styles.name}
-            initial={{ opacity: 0, y: 30 }}
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
           >
-            Moses Maina
-          </motion.h1>
-          
+            <h1 className={styles.name}>Moses Maina</h1>
+          </motion.div>
+
+          <motion.div
+            className={styles.typewriterWrapper}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            <span>I am </span>
+            <div className={styles.typewriterText}>
+              <Typewriter
+                options={{
+                  strings: [
+                    'a Full Stack Developer',
+                    'an AI-Assisted Problem Solver',
+                    'Turning Ideas Into Code',
+                    'a Context Engineer'
+                  ],
+                  autoStart: true,
+                  loop: true,
+                  delay: 50,
+                  deleteSpeed: 30,
+                }}
+              />
+            </div>
+          </motion.div>
+
           <motion.p
-            className={styles.tagline}
-            initial={{ opacity: 0, y: 30 }}
+            className={styles.bio}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
           >
-            MERN Fullstack Developer | Next.js & TypeScript Expert
+            I&apos;m a Computer Science graduate, MERN + Next.js and Flask developer who builds efficient, modern, and impactful solutions. I turn concepts into reality through clean code, seamless UI, and forward-thinking innovation.
           </motion.p>
-          
+
           <motion.div
             className={styles.buttonContainer}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
           >
             <motion.button
               className={`btn ${styles.primaryButton}`}
@@ -71,7 +99,7 @@ const Hero: React.FC = () => {
             >
               View Projects
             </motion.button>
-            
+
             <motion.button
               className={`btn btn-outline ${styles.secondaryButton}`}
               onClick={handleDownloadCV}
@@ -82,12 +110,12 @@ const Hero: React.FC = () => {
             </motion.button>
           </motion.div>
         </motion.div>
-        
+
         <motion.div
           className={styles.scrollIndicator}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
+          transition={{ duration: 1, delay: 1.5 }}
         >
           <motion.div
             className={styles.scrollArrow}
@@ -95,8 +123,8 @@ const Hero: React.FC = () => {
             transition={{ duration: 2, repeat: Infinity }}
           >
             <svg
-              width="24"
-              height="24"
+              width="32"
+              height="32"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
