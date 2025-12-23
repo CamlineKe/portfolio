@@ -116,20 +116,20 @@ const About: React.FC = () => {
               <div className={styles.sectionBlock}>
                 <h3 className={styles.subtitle}>About Me</h3>
                 <p className={styles.text}>
-                  I'm a MERN Stack Developer focused on Next.js and TypeScript, dedicated to building performant, scalable web applications. My strength lies in systematic problem-solving. I excel at tracing issues to their root and delivering clean, maintainable solutions.
+                  I&apos;m a MERN Stack Developer focused on Next.js and TypeScript, dedicated to building performant, scalable web applications. My strength lies in systematic problem-solving. I excel at tracing issues to their root and delivering clean, maintainable solutions.
                 </p>
                 <p className={styles.text}>
                   I believe great software balances speed, usability, and structure. Whether architecting server‑side rendered interfaces or building secure APIs, I write intentional, type‑safe code designed to scale.
                 </p>
                 <p className={styles.text}>
-                  Beyond my core stack, I actively explore new technologies and innovative solutions, including diving into how AI works and how it can be leveraged to build better, smarter applications. When I'm not coding, you might find me contributing to open‑source projects, experimenting with developer tools, or unwinding with a challenging puzzle or outdoor activity.
+                  Beyond my core stack, I actively explore new technologies and innovative solutions, including diving into how AI works and how it can be leveraged to build better, smarter applications. When I&apos;m not coding, you might find me contributing to open‑source projects, experimenting with developer tools, or unwinding with a challenging puzzle or outdoor activity.
                 </p>
               </div>
 
               <div className={styles.sectionBlock}>
-                <h3 className={styles.subtitle}>What's Next?</h3>
+                <h3 className={styles.subtitle}>What&apos;s Next?</h3>
                 <p className={styles.text}>
-                  I'm currently looking for opportunities to bring high-impact projects to life. Whether you're building a new product, scaling an existing platform, or simply want to brainstorm a challenging tech problem, I'd love to connect.
+                  I&apos;m currently looking for opportunities to bring high-impact projects to life. Whether you&apos;re building a new product, scaling an existing platform, or simply want to brainstorm a challenging tech problem, I&apos;d love to connect.
                 </p>
               </div>
             </motion.div>
