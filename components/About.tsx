@@ -35,19 +35,8 @@ const About: React.FC = () => {
       degree: 'BSc Computer Science',
       year: '2021 - 2025',
       school: 'Chuka University',
-    },
-    {
-      level: 'Secondary',
-      degree: 'Kenya Certificate of Secondary Education',
-      year: '2017 - 2020',
-      school: 'Nyambaria High School',
-    },
-    {
-      level: 'Primary',
-      degree: 'Kenya Certificate of Primary Education',
-      year: '2007 - 2016',
-      school: 'Omokirondo Primary',
-    },
+    }
+
   ];
 
   const containerVariants = {
