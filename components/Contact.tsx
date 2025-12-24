@@ -18,27 +18,27 @@ const Contact: React.FC = () => {
   const socialLinks: SocialLink[] = [
     {
       name: 'GitHub',
-      url: 'https://github.com/your-github',
+      url: 'https://github.com/CamlineKe',
       icon: 'github',
     },
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com/in/your-linkedin',
+      url: 'https://linkedin.com/in/camline-ke',
       icon: 'linkedin',
     },
     {
       name: 'Twitter',
-      url: 'https://twitter.com/your-twitter',
+      url: 'https://twitter.com/camline_moses',
       icon: 'twitter',
     },
     {
       name: 'TikTok',
-      url: 'https://tiktok.com/@your-tiktok',
+      url: 'https://tiktok.com/@camlineke',
       icon: 'tiktok',
     },
     {
       name: 'WhatsApp',
-      url: 'https://wa.me/254110101010',
+      url: 'https://wa.me/254110868049',
       icon: 'whatsapp',
     },
   ];
