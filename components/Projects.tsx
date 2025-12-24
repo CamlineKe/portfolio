@@ -14,8 +14,8 @@ const Projects: React.FC = () => {
       description: 'A comprehensive fitness tracking application built with React and Node.js. Features workout logging, progress tracking, and social sharing capabilities.',
       image: '/images/project1.jpg',
       technologies: ['React', 'Node.js', 'MongoDB', 'TypeScript'],
-      liveDemo: 'https://fitness-tracker-demo.com',
-      sourceCode: 'https://github.com/camline/fitness-tracker',
+      liveDemo: 'https://fitness-app-dusky-six.vercel.app/',
+      sourceCode: 'https://github.com/CamlineKe/fitnessApp',
     },
     {
       id: 2,
