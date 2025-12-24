@@ -12,7 +12,7 @@ const Projects: React.FC = () => {
       id: 1,
       title: 'Fitness Tracker',
       description: 'A comprehensive fitness tracking application built with React and Node.js. Features workout logging, progress tracking, and social sharing capabilities.',
-      image: '/images/project1.png',
+      image: '/images/project1.jpg',
       technologies: ['React', 'Node.js', 'MongoDB', 'TypeScript'],
       liveDemo: 'https://fitness-tracker-demo.com',
       sourceCode: 'https://github.com/camline/fitness-tracker',
@@ -21,7 +21,7 @@ const Projects: React.FC = () => {
       id: 2,
       title: 'Todo App',
       description: 'A modern task management application with real-time updates and collaborative features. Built using Next.js and Socket.io for seamless user experience.',
-      image: '/images/project2.png',
+      image: '/images/project2.jpg',
       technologies: ['Next.js', 'TypeScript', 'Socket.io', 'MongoDB'],
       liveDemo: 'https://todo-app-demo.com',
       sourceCode: 'https://github.com/camline/todo-app',
@@ -30,7 +30,7 @@ const Projects: React.FC = () => {
       id: 3,
       title: 'Chat App',
       description: 'Real-time messaging application with group chats, file sharing, and emoji reactions. Powered by Socket.io and React for instant communication.',
-      image: '/images/project3.png',
+      image: '/images/project3.jpg',
       technologies: ['React', 'Socket.io', 'Node.js', 'TypeScript'],
       liveDemo: 'https://chat-app-demo.com',
       sourceCode: 'https://github.com/camline/chat-app',
@@ -39,7 +39,7 @@ const Projects: React.FC = () => {
       id: 4,
       title: 'Cortex (Project Management)',
       description: 'Advanced project management platform with team collaboration, task tracking, and analytics. Built with Next.js and TypeScript for enterprise-level performance.',
-      image: '/images/project4.png',
+      image: '/images/project4.jpg',
       technologies: ['Next.js', 'TypeScript', 'React', 'MongoDB'],
       liveDemo: 'https://cortex-pm-demo.com',
       sourceCode: 'https://github.com/camline/cortex-pm',
@@ -48,8 +48,8 @@ const Projects: React.FC = () => {
 
   const technologies = ['all', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Socket.io', 'MongoDB'];
 
-  const filteredProjects = selectedFilter === 'all' 
-    ? projects 
+  const filteredProjects = selectedFilter === 'all'
+    ? projects
     : projects.filter(project => project.technologies.includes(selectedFilter));
 
   const containerVariants = {
@@ -104,15 +104,14 @@ const Projects: React.FC = () => {
           <motion.h2 className={styles.title} variants={itemVariants}>
             Featured Projects
           </motion.h2>
-          
+
           <motion.div className={styles.filterContainer} variants={itemVariants}>
             <div className={styles.filterButtons}>
               {technologies.map((tech) => (
                 <motion.button
                   key={tech}
-                  className={`${styles.filterButton} ${
-                    selectedFilter === tech ? styles.active : ''
-                  }`}
+                  className={`${styles.filterButton} ${selectedFilter === tech ? styles.active : ''
+                    }`}
                   onClick={() => setSelectedFilter(tech)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -134,7 +133,7 @@ const Projects: React.FC = () => {
                   animate="visible"
                   exit="exit"
                   layout
-                  whileHover={{ 
+                  whileHover={{
                     y: -10,
                     transition: { duration: 0.3 }
                   }}
@@ -148,11 +147,11 @@ const Projects: React.FC = () => {
                       className={styles.image}
                     />
                   </div>
-                  
+
                   <div className={styles.projectContent}>
                     <h3 className={styles.projectTitle}>{project.title}</h3>
                     <p className={styles.projectDescription}>{project.description}</p>
-                    
+
                     <div className={styles.techBadges}>
                       {project.technologies.map((tech) => (
                         <span key={tech} className={styles.techBadge}>
