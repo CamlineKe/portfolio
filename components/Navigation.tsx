@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import ThemeToggle from './ThemeToggle';
 import styles from '../styles/Navigation.module.css';
 
 const Navigation: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
 
-  const navItems = [
+  const navItems = useMemo(() => [
     { id: 'hero', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'skills', label: 'Skills' },
     { id: 'projects', label: 'Projects' },
     { id: 'contact', label: 'Contact' },
-  ];
+  ], []);
 
   // Handle smooth scrolling to sections
   const scrollToSection = (sectionId: string) => {
@@ -21,7 +20,6 @@ const Navigation: React.FC = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-    setIsMenuOpen(false);
   };
 
   // Track active section based on scroll position

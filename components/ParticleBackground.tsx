@@ -1,24 +1,17 @@
-import React, { useCallback } from 'react';
-import type { Container, Engine } from "@tsparticles/engine";
-import Particles from "@tsparticles/react";
+import React, { useEffect } from 'react';
+import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 
 const ParticleBackground = () => {
-    const particlesInit = useCallback(async (engine: Engine) => {
-        // you can initialize the tsParticles instance (engine) here, adding custom shapes or presets
-        // this loads the tsparticles-slim engine
-        await loadSlim(engine);
-    }, []);
-
-    const particlesLoaded = useCallback(async (container: Container | undefined) => {
-        // await console.log(container);
+    useEffect(() => {
+        initParticlesEngine(async (engine) => {
+            await loadSlim(engine);
+        });
     }, []);
 
     return (
         <Particles
             id="tsparticles"
-            init={particlesInit}
-            loaded={particlesLoaded}
             className="absolute inset-0 z-0"
             options={{
                 fullScreen: { enable: false }, // vivid requirement: we want it within the Hero section usually, or we can make it fixed. Let's start with false so it fits the container.
@@ -38,7 +31,9 @@ const ParticleBackground = () => {
                             enable: true,
                             mode: "bubble",
                         },
-                        resize: true,
+                        resize: {
+                            enable: true,
+                        },
                     },
                     modes: {
                         push: {
@@ -80,20 +75,22 @@ const ParticleBackground = () => {
                     number: {
                         density: {
                             enable: true,
-                            area: 800,
                         },
                         value: 100, // Number of snowflakes
                     },
                     opacity: {
                         value: 0.5,
-                        random: true, // Twinkling/fading effect
+                        animation: {
+                            enable: true,
+                            speed: 1,
+                            sync: false,
+                        },
                     },
                     shape: {
                         type: "circle",
                     },
                     size: {
                         value: { min: 1, max: 4 },
-                        random: true,
                     },
                 },
                 detectRetina: true,
