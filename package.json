@@ -13,7 +13,7 @@
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.0.3",
     "framer-motion": "latest",
-    "next": "latest",
+    "next": "^15.4.10",
     "nodemailer": "^7.0.5",
     "react": "latest",
     "react-dom": "latest",
