@@ -28,12 +28,12 @@ const Projects: React.FC = () => {
     },
     {
       id: 3,
-      title: 'Chat App',
+      title: 'SaaS Landing Page',
       description: 'Real-time messaging application with group chats, file sharing, and emoji reactions. Powered by Socket.io and React for instant communication.',
       image: '/images/project3.jpg',
       technologies: ['React', 'Socket.io', 'Node.js', 'TypeScript'],
-      liveDemo: 'https://chat-app-demo.com',
-      sourceCode: 'https://github.com/camline/chat-app',
+      liveDemo: 'https://saas-landing-page-mu-bay.vercel.app/',
+      sourceCode: 'https://github.com/CamlineKe/saas-landing-page',
     },
     {
       id: 4,
@@ -41,8 +41,8 @@ const Projects: React.FC = () => {
       description: 'Advanced project management platform with team collaboration, task tracking, and analytics. Built with Next.js and TypeScript for enterprise-level performance.',
       image: '/images/project4.jpg',
       technologies: ['Next.js', 'TypeScript', 'React', 'MongoDB'],
-      liveDemo: 'https://cortex-pm-demo.com',
-      sourceCode: 'https://github.com/camline/cortex-pm',
+      liveDemo: 'https://taskflow-zeta-dusky.vercel.app/',
+      sourceCode: 'https://github.com/CamlineKe/portfolio',
     },
   ];
 
@@ -194,4 +194,3 @@ const Projects: React.FC = () => {
 };
 
 export default Projects;
-
