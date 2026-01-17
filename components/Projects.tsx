@@ -10,6 +10,25 @@ const Projects: React.FC = () => {
   const projects: Project[] = [
     {
       id: 1,
+      title: 'Cortex (Project Management)',
+      description: 'Advanced project management platform with team collaboration, task tracking, and analytics. Built with Next.js and TypeScript for enterprise-level performance.',
+      image: '/images/project4.jpg',
+      technologies: ['Next.js', 'TypeScript', 'React', 'MongoDB'],
+      liveDemo: 'https://taskflow-zeta-dusky.vercel.app/',
+      sourceCode: 'https://github.com/CamlineKe/portfolio',
+    },
+    {
+      id: 2,
+      title: 'SaaS Landing Page',
+      description: 'Real-time messaging application with group chats, file sharing, and emoji reactions. Powered by Socket.io and React for instant communication.',
+      image: '/images/project3.jpg',
+      technologies: ['React', 'Socket.io', 'Node.js', 'TypeScript'],
+      liveDemo: 'https://saas-landing-page-mu-bay.vercel.app/',
+      sourceCode: 'https://github.com/CamlineKe/saas-landing-page',
+    },
+    
+    {
+      id: 3,
       title: 'Fitness Tracker',
       description: 'A comprehensive fitness tracking application built with React and Node.js. Features workout logging, progress tracking, and social sharing capabilities.',
       image: '/images/project1.jpg',
@@ -18,7 +37,7 @@ const Projects: React.FC = () => {
       sourceCode: 'https://github.com/CamlineKe/fitnessApp',
     },
     {
-      id: 2,
+      id: 4,
       title: 'Todo App',
       description: 'A modern task management application with real-time updates and collaborative features. Built using Next.js and Socket.io for seamless user experience.',
       image: '/images/project2.jpg',
@@ -26,24 +45,7 @@ const Projects: React.FC = () => {
       liveDemo: 'https://todo-app-demo.com',
       sourceCode: 'https://github.com/camline/todo-app',
     },
-    {
-      id: 3,
-      title: 'SaaS Landing Page',
-      description: 'Real-time messaging application with group chats, file sharing, and emoji reactions. Powered by Socket.io and React for instant communication.',
-      image: '/images/project3.jpg',
-      technologies: ['React', 'Socket.io', 'Node.js', 'TypeScript'],
-      liveDemo: 'https://saas-landing-page-mu-bay.vercel.app/',
-      sourceCode: 'https://github.com/CamlineKe/saas-landing-page',
-    },
-    {
-      id: 4,
-      title: 'Cortex (Project Management)',
-      description: 'Advanced project management platform with team collaboration, task tracking, and analytics. Built with Next.js and TypeScript for enterprise-level performance.',
-      image: '/images/project4.jpg',
-      technologies: ['Next.js', 'TypeScript', 'React', 'MongoDB'],
-      liveDemo: 'https://taskflow-zeta-dusky.vercel.app/',
-      sourceCode: 'https://github.com/CamlineKe/portfolio',
-    },
+    
   ];
 
   const technologies = ['all', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Socket.io', 'MongoDB'];
