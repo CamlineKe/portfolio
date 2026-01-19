@@ -13,7 +13,7 @@ const Hero: React.FC = () => {
 
   const handleDownloadCV = () => {
     // Open CV in new tab
-    window.open('/CV/Camline_CV.pdf', '_blank');
+    window.open('/CV/Moses_Maina_CV.pdf', '_blank');
   };
 
   return (
