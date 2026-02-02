@@ -38,12 +38,12 @@ const Projects: React.FC = () => {
     },
     {
       id: 4,
-      title: 'Todo App',
+      title: 'College Landing Page',
       description: 'A modern task management application with real-time updates and collaborative features. Built using Next.js and Socket.io for seamless user experience.',
       image: '/images/project2.jpg',
-      technologies: ['Next.js', 'TypeScript', 'Socket.io', 'MongoDB'],
-      liveDemo: 'https://todo-app-demo.com',
-      sourceCode: 'https://github.com/camline/todo-app',
+      technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'MongoDB'],
+      liveDemo: 'https://college-landing-zeta.vercel.app/',
+      sourceCode: 'https://github.com/CamlineKe/college-landing-page',
     },
     
   ];
