@@ -19,22 +19,21 @@ const Projects: React.FC = () => {
     },
     {
       id: 2,
-      title: 'SaaS Landing Page',
-      description: 'A high-performance SaaS landing page built with Next.js 15, Tailwind CSS v4, and shadcn/ui, featuring dark/light mode, interactive animations, and full responsiveness..',
-      image: '/images/project3.jpg',
-      technologies: ['Next.js', 'TypeScript'],
-      liveDemo: 'https://saas-landing-page-mu-bay.vercel.app/',
-      sourceCode: 'https://github.com/CamlineKe/saas-landing-page',
-    },
-    
-    {
-      id: 3,
       title: 'Fitness Tracker',
       description: 'A comprehensive fitness tracking application built with React and Node.js. Features workout logging, progress tracking, and social sharing capabilities.',
       image: '/images/project1.jpg',
       technologies: ['React', 'Node.js', 'MongoDB', 'Javascript', 'Python'],
       liveDemo: 'https://fitness-app-dusky-six.vercel.app/',
       sourceCode: 'https://github.com/CamlineKe/fitnessApp',
+    },
+    {
+      id: 3,
+      title: 'SaaS Landing Page',
+      description: 'A high-performance SaaS landing page built with Next.js 15, Tailwind CSS v4, and shadcn/ui, featuring dark/light mode, interactive animations, and full responsiveness..',
+      image: '/images/project3.jpg',
+      technologies: ['Next.js', 'TypeScript'],
+      liveDemo: 'https://saas-landing-page-mu-bay.vercel.app/',
+      sourceCode: 'https://github.com/CamlineKe/saas-landing-page',
     },
     {
       id: 4,
