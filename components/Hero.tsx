@@ -62,10 +62,10 @@ const Hero: React.FC = () => {
               <Typewriter
                 options={{
                   strings: [
-                    'a Full Stack Developer',
-                    'an AI-Assisted Problem Solver',
-                    'Turning Ideas Into Code',
-                    'a Context Engineer'
+                    'a Systems-Driven Full-Stack Engineer',
+                    'building with AI as a thinking partner',
+                    'designing stable, scalable architectures',
+                    'decomposing complex problems into clear solutions'
                   ],
                   autoStart: true,
                   loop: true,
@@ -82,7 +82,7 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            I&apos;m a Computer Science graduate, MERN + Next.js and Flask developer who builds efficient, modern, and impactful solutions. I turn concepts into reality through clean code, seamless UI, and forward-thinking innovation.
+            Systems-driven full-stack engineer designing scalable web applications. I decompose complex problems, design stable architectures, and build with clarity using modern web technologies and AI-augmented workflows.
           </motion.p>
 
           <motion.div
