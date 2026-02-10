@@ -105,14 +105,18 @@ const About: React.FC = () => {
               <div className={styles.sectionBlock}>
                 <h3 className={styles.subtitle}>About Me</h3>
                 <p className={styles.text}>
-                  I&apos;m a MERN Stack Developer focused on Next.js and TypeScript, dedicated to building performant, scalable web applications. My strength lies in systematic problem-solving. I excel at tracing issues to their root and delivering clean, maintainable solutions.
+                  I’m a systems-driven full-stack engineer building scalable web applications with the MERN stack, Next.js, and TypeScript. I approach software by decomposing messy problems, understanding root causes and effects, and designing stable architectures before writing code. That upfront clarity is what allows me to build maintainable systems with confidence.
                 </p>
                 <p className={styles.text}>
-                  I believe great software balances speed, usability, and structure. Whether architecting server‑side rendered interfaces or building secure APIs, I write intentional, type‑safe code designed to scale.
+                  I think deeply about why a system works the way it does. Whether I’m designing APIs, structuring frontends, or debugging broken features, I rely on systems thinking, feature-based architecture, and clear abstractions to identify issues quickly and prevent them from recurring.
                 </p>
                 <p className={styles.text}>
-                  Beyond my core stack, I actively explore new technologies and innovative solutions, including diving into how AI works and how it can be leveraged to build better, smarter applications. When I&apos;m not coding, you might find me contributing to open‑source projects, experimenting with developer tools, or unwinding with a challenging puzzle or outdoor activity.
+                  AI is a core part of my workflow - not as a shortcut, but as a thinking partner. I use it to challenge assumptions, validate architectural decisions, refine requirements, and prototype deliberately. My belief is simple: engineers who combine strong thinking with effective AI collaboration are fundamentally unbreakable.
                 </p>
+                <p className={styles.text}>
+                  I’m drawn to teams and problems that value thoughtful planning, long-term scalability, and real-world impact over rushed delivery.
+                </p>
+                
               </div>
 
               <div className={styles.sectionBlock}>
