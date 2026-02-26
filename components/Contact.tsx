@@ -23,12 +23,12 @@ const Contact: React.FC = () => {
     },
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com/in/camline-ke',
+      url: 'https://www.linkedin.com/in/moses-ongware/',
       icon: 'linkedin',
     },
     {
       name: 'Twitter',
-      url: 'https://twitter.com/camline_moses',
+      url: 'https://x.com/camline_moses',
       icon: 'twitter',
     },
     {
