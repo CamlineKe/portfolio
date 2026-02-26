@@ -23,11 +23,14 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="twitter:description" content="MERN Fullstack Developer | Next.js & TypeScript Expert" />
         <meta name="twitter:image" content="/images/avatar.jpg" />
 
-        <link rel="icon" href="/favicon.ico" />
+        {/* Favicon - Modern browsers use SVG */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        {/* Fallback for older browsers */}
+        <link rel="alternate icon" href="/favicon.ico" />
+        
         <title>Moses&apos;s Portfolio</title>
       </Head>
       <Component {...pageProps} />
     </>
   );
 }
-

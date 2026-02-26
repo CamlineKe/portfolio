@@ -21,7 +21,7 @@ const Home: React.FC = () => {
         <meta property="og:title" content="Moses&apos;s Portfolio - MERN Fullstack Developer" />
         <meta property="og:description" content="Professional portfolio showcasing MERN stack expertise, Next.js projects, and TypeScript development skills." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://camline-portfolio.com" />
+        <meta property="og:url" content="https://camlineportfolio.vercel.app/" />
         <meta property="og:image" content="/images/avatar.jpg" />
 
         {/* Twitter Card tags */}
@@ -35,7 +35,7 @@ const Home: React.FC = () => {
         <meta name="language" content="English" />
         <meta name="revisit-after" content="7 days" />
 
-        <link rel="canonical" href="https://camline-portfolio.com" />
+        <link rel="canonical" href="https://camlineportfolio.vercel.app/" />
       </Head>
 
       <Navigation />
