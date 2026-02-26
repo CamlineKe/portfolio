@@ -14,17 +14,17 @@ const About: React.FC = () => {
   const socialLinks: SocialLink[] = [
     {
       name: 'GitHub',
-      url: 'https://github.com',
+      url: 'https://github.com/CamlineKe',
       icon: 'github',
     },
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com',
+      url: 'https://www.linkedin.com/in/moses-ongware/',
       icon: 'linkedin',
     },
     {
       name: 'Twitter',
-      url: 'https://twitter.com',
+      url: 'https://x.com/camline_moses',
       icon: 'twitter',
     },
   ];
