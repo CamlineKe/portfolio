@@ -10,41 +10,51 @@ const Projects: React.FC = () => {
   const projects: Project[] = [
     {
       id: 1,
-      title: 'Cortex (Project Management)',
-      description: 'Advanced project management platform with team collaboration, task tracking, and analytics. Built with Next.js and TypeScript for enterprise-level performance.',
-      image: '/images/project4.jpg',
-      technologies: ['Next.js', 'TypeScript', 'React', 'MongoDB'],
-      liveDemo: 'https://taskflow-zeta-dusky.vercel.app/',
-      sourceCode: 'https://github.com/CamlineKe/portfolio',
+      title: "TaskFlow — Enterprise Project Management",
+      description:
+        "Full-stack project management platform featuring JWT-authenticated user access, interactive Kanban workflow with drag-and-drop task management, and real-time team collaboration. Implements secure email verification, password recovery, priority-based task assignment, and visual progress analytics. Deployed with automated CI/CD pipelines.",
+      image: "/images/project4.jpg",
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "MongoDB",
+        "JWT",
+        "Node.js",
+        "TailwindCSS",
+      ],
+      liveDemo: "https://taskflow-zeta-dusky.vercel.app/",
+      sourceCode: "https://github.com/CamlineKe/portfolio",
     },
     {
       id: 2,
-      title: 'Fitness Tracker',
-      description: 'A comprehensive fitness tracking application built with React and Node.js. Features workout logging, progress tracking, and social sharing capabilities.',
-      image: '/images/project1.jpg',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Javascript', 'Python'],
-      liveDemo: 'https://fitness-app-dusky-six.vercel.app/',
-      sourceCode: 'https://github.com/CamlineKe/fitnessApp',
+      title: "Fitness Tracker — Personalized Wellness Platform",
+      description:
+        "Full-stack wellness platform with multi-metric health tracking including workouts, meals, and mood patterns. Features Flask-powered age-adaptive recommendation engine that analyzes user input to deliver personalized fitness and nutrition guidance. Integrates smartwatch connectivity for automatic calorie tracking during workouts. Implements interactive dashboards with progress visualization and social wellness community features.",
+      image: "/images/project1.jpg",
+      technologies: ["React", "Node.js", "MongoDB", "Python", "Flask", "Express", "TailwindCSS"],
+      liveDemo: "https://fitness-app-dusky-six.vercel.app/",
+      sourceCode: "https://github.com/CamlineKe/fitnessApp",
     },
     {
       id: 3,
-      title: 'SaaS Landing Page',
-      description: 'A high-performance SaaS landing page built with Next.js 15, Tailwind CSS v4, and shadcn/ui, featuring dark/light mode, interactive animations, and full responsiveness..',
-      image: '/images/project3.jpg',
-      technologies: ['Next.js', 'TypeScript'],
-      liveDemo: 'https://saas-landing-page-mu-bay.vercel.app/',
-      sourceCode: 'https://github.com/CamlineKe/saas-landing-page',
+      title: "SaaS Landing Page",
+      description:
+        "A high-performance SaaS landing page built with Next.js 15, Tailwind CSS v4, and shadcn/ui, featuring dark/light mode, interactive animations, and full responsiveness..",
+      image: "/images/project3.jpg",
+      technologies: ["Next.js", "TypeScript"],
+      liveDemo: "https://saas-landing-page-mu-bay.vercel.app/",
+      sourceCode: "https://github.com/CamlineKe/saas-landing-page",
     },
     {
       id: 4,
-      title: 'College Landing Page',
-      description: 'A modern college landing page built with v0.app and deployed on Vercel, featuring responsive design and automatically synced deployments.',
-      image: '/images/project2.jpg',
-      technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'MongoDB'],
-      liveDemo: 'https://college-landing-zeta.vercel.app/',
-      sourceCode: 'https://github.com/CamlineKe/college-landing-page',
+      title: "College Landing Page",
+      description:
+        "A modern college landing page built with v0.app and deployed on Vercel, featuring responsive design and automatically synced deployments.",
+      image: "/images/project2.jpg",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "MongoDB"],
+      liveDemo: "https://college-landing-zeta.vercel.app/",
+      sourceCode: "https://github.com/CamlineKe/college-landing-page",
     },
-    
   ];
 
   const technologies = ['all', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Socket.io', 'MongoDB'];
