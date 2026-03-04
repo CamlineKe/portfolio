@@ -33,7 +33,7 @@ const Contact: React.FC = () => {
     },
     {
       name: 'TikTok',
-      url: 'https://tiktok.com/@camlineke',
+      url: 'https://tiktok.com/@camlinemoses',
       icon: 'tiktok',
     },
     {
