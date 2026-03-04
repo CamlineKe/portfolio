@@ -31,7 +31,7 @@ const Projects: React.FC = () => {
       description:
         "Full-stack wellness platform with multi-metric health tracking including workouts, meals, and mood patterns. Features Flask-powered age-adaptive recommendation engine that analyzes user input to deliver personalized fitness and nutrition guidance. Integrates smartwatch connectivity for automatic calorie tracking during workouts. Implements interactive dashboards with progress visualization and social wellness community features.",
       image: "/images/project1.jpg",
-      technologies: ["React", "Node.js", "MongoDB", "Python", "Flask", "Express", "TailwindCSS"],
+      technologies: ["React", "Node.js", "MongoDB", "Python", "Flask", "Express"],
       liveDemo: "https://fitness-app-dusky-six.vercel.app/",
       sourceCode: "https://github.com/CamlineKe/fitnessApp",
     },
