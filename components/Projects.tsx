@@ -43,7 +43,7 @@ const Projects: React.FC = () => {
         "Vite",
         "PostgreSQL",
       ],
-      liveDemo: "https://fitness-app-dusky-six.vercel.app/",
+      liveDemo: "https://drive.google.com/file/d/1faXK3lD3dghm01WamZfxO6ZezgGi0vtC/view?usp=drive_link",
       sourceCode: "https://github.com/CamlineKe/fitnessApp",
     },
     {
