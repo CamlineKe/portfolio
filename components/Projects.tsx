@@ -41,6 +41,7 @@ const Projects: React.FC = () => {
         "Express",
         "Socket.io",
         "Vite",
+        "PostgreSQL",
       ],
       liveDemo: "https://fitness-app-dusky-six.vercel.app/",
       sourceCode: "https://github.com/CamlineKe/fitnessApp",
@@ -49,7 +50,7 @@ const Projects: React.FC = () => {
       id: 3,
       title: "Whatsapp Product Verification System",
       description:
-        "A modern college landing page built with v0.app and deployed on Vercel, featuring responsive design and automatically synced deployments.",
+        "WhatsApp-based product authentication system that lets customers verify product authenticity by sending a code via WhatsApp. Brands can generate millions of unique codes in batches, print QR stickers, and monitor verifications in real-time through an admin dashboard. The system automatically detects counterfeit attempts, blocks reused codes, and maintains complete audit trails. Built with row-level database locking to prevent fraud, rate limiting to stop abuse, and sub-second response times even under heavy load.",
       image: "/images/wpv.jpg",
       technologies: ["React","PostgreSQL","Node.js","TypeScript", "Tailwind CSS"],
       liveDemo: "https://drive.google.com/file/d/1xt5kZx6q7KmOfrBF4r63dKaF2WdWumXn/view?usp=drive_link",
