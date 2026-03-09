@@ -66,16 +66,6 @@ const Projects: React.FC = () => {
       liveDemo: "https://saas-landing-page-mu-bay.vercel.app/",
       sourceCode: "https://github.com/CamlineKe/saas-landing-page",
     },
-    {
-      id: 5,
-      title: "College Landing Page",
-      description:
-        "A modern college landing page built with v0.app and deployed on Vercel, featuring responsive design and automatically synced deployments.",
-      image: "/images/project2.jpg",
-      technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
-      liveDemo: "https://college-landing-zeta.vercel.app/",
-      sourceCode: "https://github.com/CamlineKe/college-landing-page",
-    },
   ];
 
   const technologies = ['all', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Socket.io', 'MongoDB'];
