@@ -39,7 +39,7 @@ const Projects: React.FC = () => {
         "Python",
         "Flask",
         "Express",
-        "Socket.IO",
+        "Socket.io",
         "Vite",
       ],
       liveDemo: "https://fitness-app-dusky-six.vercel.app/",
@@ -61,7 +61,7 @@ const Projects: React.FC = () => {
       description:
         "A modern college landing page built with v0.app and deployed on Vercel, featuring responsive design and automatically synced deployments.",
       image: "/images/project2.jpg",
-      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "MongoDB"],
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
       liveDemo: "https://college-landing-zeta.vercel.app/",
       sourceCode: "https://github.com/CamlineKe/college-landing-page",
     },
