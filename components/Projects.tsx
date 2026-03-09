@@ -47,6 +47,16 @@ const Projects: React.FC = () => {
     },
     {
       id: 3,
+      title: "Whatsapp Product Verification System",
+      description:
+        "A modern college landing page built with v0.app and deployed on Vercel, featuring responsive design and automatically synced deployments.",
+      image: "/images/wpv.jpg",
+      technologies: ["React","PostgreSQL","Node.js","TypeScript", "Tailwind CSS"],
+      liveDemo: "https://drive.google.com/file/d/1xt5kZx6q7KmOfrBF4r63dKaF2WdWumXn/view?usp=drive_link",
+      sourceCode: "https://github.com/CamlineKe/whatsapp-product-verification",
+    },
+    {
+      id: 4,
       title: "SaaS Landing Page",
       description:
         "A high-performance SaaS landing page built with Next.js 15, Tailwind CSS v4, and shadcn/ui, featuring dark/light mode, interactive animations, and full responsiveness..",
@@ -56,7 +66,7 @@ const Projects: React.FC = () => {
       sourceCode: "https://github.com/CamlineKe/saas-landing-page",
     },
     {
-      id: 4,
+      id: 5,
       title: "College Landing Page",
       description:
         "A modern college landing page built with v0.app and deployed on Vercel, featuring responsive design and automatically synced deployments.",
