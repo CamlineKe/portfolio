@@ -24,7 +24,7 @@ const Projects: React.FC = () => {
         "Express",
       ],
       liveDemo: "https://taskflow-zeta-dusky.vercel.app/",
-      sourceCode: "https://github.com/CamlineKe/portfolio",
+      sourceCode: "https://github.com/CamlineKe/TaskFLow",
     },
     {
       id: 2,
