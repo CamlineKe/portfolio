@@ -46,6 +46,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  overflow-x: hidden;
   /* Account for fixed navigation */
 }
 
@@ -59,6 +60,7 @@ body {
   color: var(--color-text-primary);
   line-height: 1.6;
   transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
 }
 
 /* Account for navigation spacing */
@@ -74,10 +76,11 @@ body {
   }
 }
 
-/* Section snap points */
+/* Section snap points - DISABLED due to Firefox autoscroll issues
 section {
   scroll-snap-align: start;
 }
+*/
 
 /* Typography */
 h1,
