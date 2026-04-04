@@ -12,7 +12,7 @@ const Projects: React.FC = () => {
       id: 1,
       title: "TaskFlow — Enterprise Project Management",
       description:
-        "Full-stack project management platform featuring JWT-authenticated user access, interactive Kanban workflow with drag-and-drop task management, and real-time team collaboration. Implements secure email verification, password recovery, priority-based task assignment, and visual progress analytics. Deployed with automated CI/CD pipelines.",
+        "High-performance project management platform built for scale. Implements O(log n) database queries via compound indexing, intelligent Redis caching with TTL optimization, and server-side analytics aggregation. Features secure JWT authentication, interactive Kanban boards, email verification, and automated CI/CD. Handles 1000+ concurrent tasks with seamless UX.",
       image: "/images/project4.jpg",
       technologies: [
         "Next.js",
