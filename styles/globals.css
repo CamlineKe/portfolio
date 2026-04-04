@@ -216,6 +216,40 @@ textarea:focus {
   }
 }
 
+/* Tablet landscape breakpoint */
+@media (max-width: 991px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  h3 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+  html {
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+}
+
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   html {

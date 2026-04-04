@@ -239,6 +239,10 @@
     padding: 4rem 0;
   }
 
+  .aboutContainer {
+    padding: 0 1rem;
+  }
+
   .title {
     font-size: 2.5rem;
     margin-bottom: 3rem;
