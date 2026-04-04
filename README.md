@@ -15,7 +15,7 @@ A professional portfolio website showcasing MERN fullstack development expertise
 - ✅ Mobile-first responsive design
 - ✅ Responsive navigation bar (top on desktop, bottom on mobile)
 - ✅ Dark/light mode toggle with system preference detection
-- ✅ Smooth scrolling with section snapping
+- ✅ Smooth scrolling navigation
 - ✅ Accessibility compliance (ARIA, keyboard navigation)
 - ✅ SEO optimized with Open Graph tags
 - ✅ Performance optimized with code splitting and lazy loading
@@ -127,7 +127,7 @@ npm run type-check  # TypeScript type checking
    - `avatar.jpg` - Your profile photo
    - `project1.jpg` to `project4.jpg` - Project screenshots
 
-2. **CV**: Replace `/public/CV/Camline_CV.pdf` with your resume
+2. **CV**: Replace `/public/CV/Moses_Maina_CV.pdf` with your resume
 
 3. **Personal Information**: Update content in components:
    - `Navigation.tsx` - Logo and navigation items
@@ -180,6 +180,55 @@ The theme system automatically:
 
 Modify theme colors in `/styles/globals.css` under `:root` and `[data-theme="dark"]` selectors.
 
+### Customize Navigation
+
+The navigation bar is responsive and includes:
+- **Desktop**: Fixed top navigation with logo, menu items, and theme toggle
+- **Mobile**: Fixed bottom navigation with icons and theme toggle
+
+To customize navigation items, edit `/components/Navigation.tsx`:
+
+```typescript
+const navItems = [
+  { id: 'hero', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'contact', label: 'Contact' },
+  // Add more sections as needed
+];
+```
+
+Navigation automatically highlights the active section based on scroll position and provides smooth scrolling to sections when clicked.
+
+### Email Sending Setup (Gmail SMTP)
+
+To enable the contact form to send emails, you need to configure environment variables for your Gmail account. The application uses Nodemailer with Gmail SMTP.
+
+**Important:** For security, you **MUST** use a [Gmail App Password](https://support.google.com/accounts/answer/185833?hl=en) instead of your regular Gmail password.
+
+1.  **Generate a Gmail App Password:**
+    *   Go to your [Google Account Security page](https://myaccount.google.com/security).
+    *   Under "How you sign in to Google," select **2-Step Verification** and ensure it's turned on.
+    *   Scroll down and select **App passwords**.
+    *   Follow the instructions to generate a new app password. Select "Mail" for the app and "Other (Custom name)" for the device, then enter a name like "Portfolio Website".
+    *   Copy the generated 16-character password (e.g., `abcd efgh ijkl mnop`). You will only see this once.
+
+2.  **Create a `.env.local` file:**
+    In the root of your `portfolio` directory (where `package.json` is located), create a file named `.env.local`.
+
+3.  **Add the following environment variables to `.env.local`:**
+    ```
+    GMAIL_USER=your_gmail_address@gmail.com
+    GMAIL_APP_PASSWORD=your_16_character_app_password
+    TARGET_EMAIL=cmosesmaina@gmail.com
+    ```
+    *   Replace `your_gmail_address@gmail.com` with the Gmail address you used to generate the App Password.
+    *   Replace `your_16_character_app_password` with the actual 16-character App Password you copied.
+    *   `TARGET_EMAIL` is the email address where you want to receive messages from the contact form.
+
+    **Note:** The `.env.local` file is ignored by Git (`.gitignore`) for security reasons and should not be committed to version control.
+
 ## ♿ Accessibility Features
 
 - Semantic HTML5 elements
@@ -192,7 +241,7 @@ Modify theme colors in `/styles/globals.css` under `:root` and `[data-theme="dar
 ## 📱 Responsive Design
 
 - Mobile-first approach
-- Breakpoints: 480px, 768px, 1024px, 1200px
+- Breakpoints: 375px, 480px, 768px, 991px, 1024px, 1200px
 - Flexible grid layouts
 - Touch-friendly interactions
 - Optimized typography scaling
@@ -231,66 +280,13 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 📞 Support
 
 For questions or support, please contact:
-- Email: your-email@example.com
-- GitHub: [@your-username](https://github.com/your-username)
-- LinkedIn: [Your Name](https://linkedin.com/in/your-profile)
+- Email: mosesmaina.dev@gmail.com
+- GitHub: [@CamlineKe](https://github.com/CamlineKe)
+- LinkedIn: [Moses Maina](https://linkedin.com/in/moses-ongware)
 
 ---
 
 **Built with ❤️ using Next.js & TypeScript by Camline**
-
-
-
-### Customize Navigation
-
-The navigation bar is responsive and includes:
-- **Desktop**: Fixed top navigation with logo, menu items, and theme toggle
-- **Mobile**: Fixed bottom navigation with icons and theme toggle
-
-To customize navigation items, edit `/components/Navigation.tsx`:
-
-```typescript
-const navItems = [
-  { id: 'hero', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'contact', label: 'Contact' },
-  // Add more sections as needed
-];
-```
-
-Navigation automatically highlights the active section based on scroll position and provides smooth scrolling to sections when clicked.
-
-
-
-### Email Sending Setup (Gmail SMTP)
-
-To enable the contact form to send emails, you need to configure environment variables for your Gmail account. The application uses Nodemailer with Gmail SMTP.
-
-**Important:** For security, you **MUST** use a [Gmail App Password](https://support.google.com/accounts/answer/185833?hl=en) instead of your regular Gmail password.
-
-1.  **Generate a Gmail App Password:**
-    *   Go to your [Google Account Security page](https://myaccount.google.com/security).
-    *   Under "How you sign in to Google," select **2-Step Verification** and ensure it's turned on.
-    *   Scroll down and select **App passwords**.
-    *   Follow the instructions to generate a new app password. Select "Mail" for the app and "Other (Custom name)" for the device, then enter a name like "Portfolio Website".
-    *   Copy the generated 16-character password (e.g., `abcd efgh ijkl mnop`). You will only see this once.
-
-2.  **Create a `.env.local` file:**
-    In the root of your `portfolio` directory (where `package.json` is located), create a file named `.env.local`.
-
-3.  **Add the following environment variables to `.env.local`:**
-    ```
-    GMAIL_USER=your_gmail_address@gmail.com
-    GMAIL_APP_PASSWORD=your_16_character_app_password
-    TARGET_EMAIL=cmosesmaina@gmail.com
-    ```
-    *   Replace `your_gmail_address@gmail.com` with the Gmail address you used to generate the App Password.
-    *   Replace `your_16_character_app_password` with the actual 16-character App Password you copied.
-    *   `TARGET_EMAIL` is the email address where you want to receive messages from the contact form.
-
-    **Note:** The `.env.local` file is ignored by Git (`.gitignore`) for security reasons and should not be committed to version control.
 
 
 
