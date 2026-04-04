@@ -53,7 +53,7 @@ const Projects: React.FC = () => {
         "WhatsApp-based product authentication system that lets customers verify product authenticity by sending a code via WhatsApp. Brands can generate millions of unique codes in batches, print QR stickers, and monitor verifications in real-time through an admin dashboard. The system automatically detects counterfeit attempts, blocks reused codes, and maintains complete audit trails. Built with row-level database locking to prevent fraud, rate limiting to stop abuse, and sub-second response times even under heavy load.",
       image: "/images/wpv.jpg",
       technologies: ["React","PostgreSQL","Node.js","TypeScript", "Tailwind CSS"],
-      liveDemo: "https://drive.google.com/file/d/1Hz8t7HKPFMAEyOtWqiVow3kSxXmoi945/view?usp=drive_link",
+      liveDemo: "https://drive.google.com/file/d/1k8IMdTW8HkxCL6cUuAIUIV_9_cCGeBal/view?usp=drive_link",
       sourceCode: "https://github.com/CamlineKe/whatsapp-product-verification",
     },
     {
