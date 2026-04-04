@@ -50,7 +50,7 @@ const Projects: React.FC = () => {
       id: 3,
       title: "Whatsapp Product Verification System",
       description:
-        "WhatsApp-based product authentication system that lets customers verify product authenticity by sending a code via WhatsApp. Brands can generate millions of unique codes in batches, print QR stickers, and monitor verifications in real-time through an admin dashboard. The system automatically detects counterfeit attempts, blocks reused codes, and maintains complete audit trails. Built with row-level database locking to prevent fraud, rate limiting to stop abuse, and sub-second response times even under heavy load.",
+        "WhatsApp-based product authentication system enabling instant product verification via Meta Business API. Brands generate millions of unique codes with QR URLs, track batch performance through a React admin dashboard, and monitor real-time verification analytics. Eliminated fraudulent duplicate activations using PostgreSQL row-level locking (FOR UPDATE), JWT authentication, and rate-limited verification flows. Achieved 24ms p95 response times under 200+ concurrent user load testing with zero failed requests.",
       image: "/images/wpv.jpg",
       technologies: ["React","PostgreSQL","Node.js","TypeScript", "Tailwind CSS"],
       liveDemo: "https://drive.google.com/file/d/1k8IMdTW8HkxCL6cUuAIUIV_9_cCGeBal/view?usp=drive_link",
