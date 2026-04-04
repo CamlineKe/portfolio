@@ -93,7 +93,7 @@ const About: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.1 }}
         >
           <motion.h2 className={styles.title} variants={itemVariants}>
             My <span className={styles.highlight}>Background</span>

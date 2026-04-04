@@ -144,7 +144,7 @@ const Contact: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
         >
           <motion.h2 className={styles.title} variants={itemVariants}>
             Get In Touch
