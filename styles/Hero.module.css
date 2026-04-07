@@ -99,6 +99,7 @@
   margin-bottom: 0.5rem;
   min-height: 3rem;
   /* Prevent layout shift */
+  overflow-anchor: none;
 }
 
 .typewriterText {
