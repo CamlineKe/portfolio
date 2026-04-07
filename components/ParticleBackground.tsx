@@ -29,7 +29,7 @@ const ParticleBackground = () => {
                         },
                         onHover: {
                             enable: true,
-                            mode: "bubble",
+                            mode: "grab",
                         },
                         resize: {
                             enable: true,
@@ -39,11 +39,11 @@ const ParticleBackground = () => {
                         push: {
                             quantity: 4,
                         },
-                        bubble: {
+                        grab: {
                             distance: 200,
-                            duration: 2,
-                            size: 0,
-                            opacity: 0,
+                            links: {
+                                opacity: 0.5,
+                            },
                         },
                         repulse: {
                             distance: 200,
@@ -53,36 +53,37 @@ const ParticleBackground = () => {
                 },
                 particles: {
                     color: {
-                        value: ["#cbd5e1", "#ffffff"],
+                        value: ["#94a3b8", "#64748b"],
                     },
                     links: {
-                        color: "#ffffff",
+                        color: "#94a3b8",
                         distance: 150,
-                        enable: false,
-                        opacity: 0.5,
+                        enable: true,
+                        opacity: 0.3,
                         width: 1,
                     },
                     move: {
-                        direction: "bottom", // Snow falls down
+                        direction: "none",
                         enable: true,
                         outModes: {
-                            default: "out",
+                            default: "bounce",
                         },
                         random: false,
-                        speed: 2, // Falling speed
+                        speed: 1,
                         straight: false,
                     },
                     number: {
                         density: {
                             enable: true,
+                            area: 800,
                         },
-                        value: 100, // Number of snowflakes
+                        value: 80,
                     },
                     opacity: {
-                        value: 0.5,
+                        value: 0.6,
                         animation: {
                             enable: true,
-                            speed: 1,
+                            speed: 0.5,
                             sync: false,
                         },
                     },
@@ -90,7 +91,7 @@ const ParticleBackground = () => {
                         type: "circle",
                     },
                     size: {
-                        value: { min: 1, max: 4 },
+                        value: { min: 2, max: 5 },
                     },
                 },
                 detectRetina: true,
