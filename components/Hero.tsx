@@ -31,6 +31,7 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
+            whileHover={{ scale: 1.05, boxShadow: "0 12px 40px var(--color-primary)" }}
           >
             <Image
               src="/images/avatar.jpg"
@@ -70,6 +71,8 @@ const Hero: React.FC = () => {
                   loop: true,
                   delay: 50,
                   deleteSpeed: 30,
+                  cursor: '_',
+                  cursorClassName: styles.typewriterCursor,
                 }}
               />
             </div>
@@ -115,6 +118,7 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.5 }}
+          onClick={handleViewProjects}
         >
           <motion.div
             className={styles.scrollArrow}
@@ -131,8 +135,7 @@ const Hero: React.FC = () => {
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              <path d="M7 13l3 3 7-7" />
-              <path d="M7 6l3 3 7-7" />
+              <path d="M12 5v14M19 12l-7 7-7-7" />
             </svg>
           </motion.div>
         </motion.div>
