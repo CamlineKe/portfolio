@@ -17,10 +17,10 @@ const Footer: React.FC = () => {
         >
           <div className={styles.footerText}>
             <p className={styles.copyright}>
-              © {currentYear} Camline. All rights reserved.
+              © {currentYear} Moses Maina. All rights reserved.
             </p>
             <p className={styles.builtWith}>
-              Built with Next.js & TypeScript by Camline.
+              Built with Next.js & TypeScript by Moses Maina.
             </p>
           </div>
         </motion.div>

@@ -12,7 +12,7 @@ const ParticleBackground = () => {
     return (
         <Particles
             id="tsparticles"
-            className="absolute inset-0 z-0"
+            className="absolute inset-0"
             options={{
                 fullScreen: { enable: false }, // vivid requirement: we want it within the Hero section usually, or we can make it fixed. Let's start with false so it fits the container.
                 background: {
