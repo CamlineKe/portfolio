@@ -58,17 +58,17 @@ const Projects: React.FC = () => {
     },
     {
       id: 4,
-      title: "SaaS Landing Page",
+      title: "Task Management Platform",
       description:
-        "A high-performance SaaS landing page built with Next.js 15, Tailwind CSS v4, and shadcn/ui, featuring dark/light mode, interactive animations, and full responsiveness..",
+        "Full-stack task management platform with intelligent workflow enforcement and real-time analytics. Vue 3 SPA with Pinia state management paired with Laravel 13 REST API featuring strict status transition rules and 8 strategic database indexes for optimized query performance. Containerized with multi-stage Docker builds (~80MB), deployed on Aiven MySQL, Render, and Vercel. 100% PHPUnit test coverage with edge case validation.",
       image: "/images/project3.jpg",
-      technologies: ["Next.js", "TypeScript"],
-      liveDemo: "https://saas-landing-page-mu-bay.vercel.app/",
-      sourceCode: "https://github.com/CamlineKe/saas-landing-page",
+      technologies: ["Vue", "Laravel", "MySQL", "TypeScript", "Docker"],
+      liveDemo: "https://task-management-psi-jade.vercel.app/",
+      sourceCode: "https://github.com/CamlineKe/Task_Management",
     },
   ];
 
-  const technologies = ['all', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Socket.io', 'MongoDB'];
+  const technologies = ['all', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Socket.io', 'MongoDB', 'Vue', 'Laravel', 'MySQL'];
 
   const filteredProjects = selectedFilter === 'all'
     ? projects
