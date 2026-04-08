@@ -145,7 +145,7 @@ const Projects: React.FC = () => {
           </motion.div>
 
           <motion.div className={styles.projectsGrid} layout>
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="sync">
               {filteredProjects.map((project) => (
                 <motion.div
                   key={project.id}
