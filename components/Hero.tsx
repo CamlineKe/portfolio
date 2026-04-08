@@ -18,7 +18,6 @@ const Hero: React.FC = () => {
 
   return (
     <section className={styles.hero} id="hero">
-      <ParticleBackground />
       <div className={`container ${styles.heroContainer}`}>
         <motion.div
           className={styles.heroContent}
@@ -26,6 +25,7 @@ const Hero: React.FC = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
+          <ParticleBackground />
           <motion.div
             className={styles.avatarContainer}
             initial={{ opacity: 0, scale: 0.8 }}
