@@ -35,6 +35,17 @@
   width: 100%;
 }
 
+/* Particles wrapper - positioned behind hero content but visible through glass */
+.particlesWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
 /* ... previous styles ... */
 
 .heroContent {
@@ -97,6 +108,14 @@
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.3),
     0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+}
+
+/* Enhanced avatar glow in dark mode */
+[data-theme="dark"] .avatarContainer {
+  box-shadow: 
+    0 8px 32px var(--color-shadow),
+    0 0 80px rgba(var(--color-primary-rgb), 0.35);
+  border-color: var(--color-primary);
 }
 
 .avatar {
@@ -181,6 +200,46 @@
 
 .secondaryButton {
   backdrop-filter: blur(4px);
+}
+
+/* Glass-morphic secondary button */
+.glassButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+  font-size: 1.1rem;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.glassButton:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(var(--color-primary-rgb), 0.15);
+}
+
+[data-theme="dark"] .glassButton {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .glassButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(var(--color-primary-rgb), 0.25);
 }
 
 .scrollIndicator {

@@ -19,13 +19,15 @@ const Hero: React.FC = () => {
   return (
     <section className={styles.hero} id="hero">
       <div className={`container ${styles.heroContainer}`}>
+        <div className={styles.particlesWrapper}>
+          <ParticleBackground />
+        </div>
         <motion.div
           className={styles.heroContent}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <ParticleBackground />
           <motion.div
             className={styles.avatarContainer}
             initial={{ opacity: 0, scale: 0.8 }}
@@ -103,7 +105,7 @@ const Hero: React.FC = () => {
             </motion.button>
 
             <motion.button
-              className={`btn btn-outline ${styles.secondaryButton}`}
+              className={`${styles.glassButton}`}
               onClick={handleDownloadCV}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
