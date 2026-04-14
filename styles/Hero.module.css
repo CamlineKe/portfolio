@@ -249,6 +249,19 @@
   transform: translateX(-50%);
   color: var(--color-text-secondary);
   cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+
+.scrollIndicator:hover {
+  color: var(--color-primary);
+  transform: translateX(-50%) scale(1.1);
+  filter: drop-shadow(0 0 8px rgba(var(--color-primary-rgb), 0.5));
+}
+
+[data-theme="dark"] .scrollIndicator:hover {
+  filter: drop-shadow(0 0 12px rgba(var(--color-primary-rgb), 0.6));
 }
 
 .scrollArrow {
