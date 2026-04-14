@@ -30,7 +30,7 @@ const Projects: React.FC = () => {
       id: 2,
       title: "Fitness Tracker — Personalized Wellness Platform",
       description:
-        "Full-stack wellness platform with secure JWT authentication, real-time Socket.IO integration, and MongoDB-optimized data persistence. Implements Flask/scikit-learn ML recommendation engine with confidence scoring for personalized fitness, nutrition, and stress management. Features Google Fit & Fitbit API integration for automatic health data synchronization. Built with React/Vite frontend, Node.js/Express backend, and deployed via Vercel & Render with comprehensive CI/CD pipelines.",
+        "AI-powered fitness platform enabling users to log workouts, nutrition, and mental health check-ins while receiving personalized ML-generated recommendations via 3 RandomForest models. Architected as decoupled microservices with React frontend, Node.js API gateway, and Python Flask AI service. Achieved 70% cache hit rates through multi-layer LRU caching and reduced AI latency by 60% via batch API parallelization. Integrated Google Fit and Fitbit OAuth2 for device synchronization. Real-time gamification with Socket.IO WebSocket rooms and atomic streak calculations. Delivered sub-500ms p95 response times under concurrent load with zero service degradation.",
       image: "/images/project1.jpg",
       technologies: [
         "React",
