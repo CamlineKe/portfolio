@@ -1,12 +1,30 @@
 .projects {
   padding: 6rem 0;
   background: var(--color-surface);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle radial gradient for visual continuity with Hero */
+.projects::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400px;
+  background: radial-gradient(ellipse at 50% 0%, 
+    rgba(var(--color-primary-rgb), 0.06) 0%, 
+    transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .projectsContainer {
-  max-width: 1200px;
-  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
+
 
 .title {
   text-align: center;

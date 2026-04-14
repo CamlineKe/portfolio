@@ -1,9 +1,28 @@
 .skills {
   padding: 6rem 0;
   background: var(--color-background);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle radial gradient for visual continuity */
+.skills::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400px;
+  background: radial-gradient(ellipse at 50% 0%, 
+    rgba(var(--color-primary-rgb), 0.05) 0%, 
+    transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .skillsContainer {
+  position: relative;
+  z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -34,7 +53,10 @@
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  background: linear-gradient(90deg, 
+    var(--color-primary) 0%, 
+    #7c3aed 50%, 
+    var(--color-accent) 100%);
   border-radius: 2px;
 }
 
@@ -51,8 +73,10 @@
 
 .skillCard {
   position: relative;
-  background: var(--color-surface);
-  border: 2px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 1rem;
   padding: 2rem 1.5rem;
   text-align: center;
@@ -60,7 +84,14 @@
   cursor: pointer;
   width: 100%;
   max-width: 200px;
-  box-shadow: 0 4px 12px var(--color-shadow);
+  box-shadow: 
+    0 4px 12px var(--color-shadow),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+}
+
+[data-theme="dark"] .skillCard {
+  background: rgba(15, 23, 42, 0.5);
+  border-color: rgba(255, 255, 255, 0.06);
 }
 
 .skillCard:hover {
@@ -133,11 +164,19 @@
 }
 
 .categoryColumn {
-  background: var(--color-surface);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   padding: 2rem;
   border-radius: 1rem;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   transition: all 0.3s ease;
+  box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+[data-theme="dark"] .categoryColumn {
+  background: rgba(15, 23, 42, 0.45);
+  border-color: rgba(255, 255, 255, 0.05);
 }
 
 .categoryColumn:hover {

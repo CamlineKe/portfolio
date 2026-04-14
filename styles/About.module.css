@@ -1,13 +1,30 @@
 .about {
   padding: 6rem 0;
   background: var(--color-surface);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle radial gradient for visual continuity */
+.about::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400px;
+  background: radial-gradient(ellipse at 50% 0%, 
+    rgba(245, 158, 11, 0.05) 0%, 
+    transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .aboutContainer {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
 }
+
 
 .title {
   text-align: center;
@@ -97,13 +114,21 @@
 }
 
 .educationCard {
-  background: var(--color-background);
-  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 2rem;
   border-radius: 1rem;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
   position: relative;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
+  box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+[data-theme="dark"] .educationCard {
+  background: rgba(15, 23, 42, 0.5);
+  border-color: rgba(255, 255, 255, 0.06);
 }
 
 .educationCard::before {

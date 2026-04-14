@@ -1,6 +1,23 @@
 .contact {
   padding: 6rem 0;
   background: var(--color-background);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle radial gradient for visual continuity */
+.contact::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400px;
+  background: radial-gradient(ellipse at 50% 0%, 
+    rgba(245, 158, 11, 0.04) 0%, 
+    transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .contactContainer {
@@ -33,11 +50,23 @@
 }
 
 .formSection {
-  background: var(--color-surface);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 3rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 12px var(--color-shadow);
-  border: 1px solid var(--color-border);
+  box-shadow: 
+    0 4px 12px var(--color-shadow),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .formSection {
+  background: rgba(15, 23, 42, 0.5);
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset;
 }
 
 .contactForm {
@@ -137,11 +166,18 @@
   gap: 1rem;
   padding: 1rem;
   border-radius: 0.75rem;
-  background: var(--color-surface);
-  border: 2px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   text-decoration: none;
   color: var(--color-text-primary);
   transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .socialLink {
+  background: rgba(15, 23, 42, 0.4);
+  border-color: rgba(255, 255, 255, 0.05);
 }
 
 .socialLink:hover {
