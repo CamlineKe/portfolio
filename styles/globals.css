@@ -8,7 +8,9 @@
   --color-secondary: #64748b;
   --color-accent: #f59e0b;
   --color-background: #ffffff;
+  --color-background-rgb: 255, 255, 255;
   --color-surface: #f8fafc;
+  --color-surface-rgb: 248, 250, 252;
   --color-text-primary: #1e293b;
   --color-text-secondary: #64748b;
   --color-border: #e2e8f0;
@@ -27,7 +29,9 @@
   --color-secondary: #94a3b8;
   --color-accent: #fbbf24;
   --color-background: #0f172a;
+  --color-background-rgb: 15, 23, 42;
   --color-surface: #1e293b;
+  --color-surface-rgb: 30, 41, 59;
   --color-text-primary: #f1f5f9;
   --color-text-secondary: #94a3b8;
   --color-border: #334155;

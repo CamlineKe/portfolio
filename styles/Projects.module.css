@@ -74,14 +74,26 @@
 }
 
 .projectCard {
-  background: var(--color-background);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: 1rem;
   overflow: hidden;
-  box-shadow: 0 4px 12px var(--color-shadow);
-  border: 1px solid var(--color-border);
+  box-shadow: 
+    0 4px 12px var(--color-shadow),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
+}
+
+[data-theme="dark"] .projectCard {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset;
 }
 
 .projectCard:hover {
