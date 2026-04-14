@@ -12,7 +12,7 @@ const Projects: React.FC = () => {
       id: 1,
       title: "TaskFlow — Enterprise Project Management",
       description:
-        "High-performance project management platform built for scale. Implements O(log n) database queries via compound indexing, intelligent Redis caching with TTL optimization, and server-side analytics aggregation. Features secure JWT authentication, interactive Kanban boards, email verification, and automated CI/CD. Handles 1000+ concurrent tasks with seamless UX.",
+        "Full-stack project management platform with interactive drag-and-drop Kanban boards powered by @dnd-kit. Implements tiered Redis caching (2-10 min TTL) eliminating redundant DB queries for board data, projects, and task lists. Architected with Next.js 14, Node.js/Express, MongoDB with compound indexing for O(log n) query performance. Aggregates dashboard stats via MongoDB pipelines, minimizing database round-trips. Delivers instant drag-and-drop feedback with zero page reloads. Features JWT auth with Passport.js, email verification via SMTP, and server-side data fetching with TanStack Query.",
       image: "/images/project4.jpg",
       technologies: [
         "Next.js",
