@@ -42,7 +42,7 @@ const Projects: React.FC = () => {
         "Socket.io",
         "Vite"
       ],
-      liveDemo: "https://drive.google.com/file/d/1faXK3lD3dghm01WamZfxO6ZezgGi0vtC/view?usp=drive_link",
+      liveDemo: "https://drive.google.com/file/d/1OSUo07irLjerI88OrYMRGNLAUqE5C_68/view?usp=drive_link",
       sourceCode: "https://github.com/CamlineKe/fitnessApp",
     },
     {
