@@ -1,13 +1,37 @@
 // Type definitions for the portfolio project
 
+export interface ProjectRepositoryPublic {
+  visibility: 'public';
+  url: string;
+}
+
+export interface ProjectRepositoryPrivate {
+  visibility: 'private';
+  reason?: string;
+}
+
+export type ProjectRepository = ProjectRepositoryPublic | ProjectRepositoryPrivate;
+
+export interface ProjectDemoLive {
+  type: 'live';
+  url: string;
+}
+
+export interface ProjectDemoVideo {
+  type: 'video';
+  url: string;
+}
+
+export type ProjectDemo = ProjectDemoLive | ProjectDemoVideo;
+
 export interface Project {
   id: number;
   title: string;
   description: string;
   image: string;
   technologies: string[];
-  liveDemo: string;
-  sourceCode: string;
+  demo: ProjectDemo;
+  repository: ProjectRepository;
 }
 
 export interface Skill {
@@ -29,4 +53,3 @@ export interface SocialLink {
 }
 
 export type Theme = 'light' | 'dark';
-

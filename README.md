@@ -23,6 +23,9 @@ A professional portfolio website showcasing MERN fullstack development expertise
 - ✅ Spam protection via honeypot
 - ✅ Animated progress bars and interactive elements
 - ✅ Always visible project action buttons
+- ✅ Project action system with explicit `public` vs `private` repository handling
+- ✅ Smart demo actions with `Live Demo` and `Video Demo` modes
+- ✅ Centralized project data file for easy long-term maintenance
 
 ## 📁 Project Structure
 
@@ -33,10 +36,12 @@ A professional portfolio website showcasing MERN fullstack development expertise
 │   ├── Hero.tsx         # Hero section with intro
 │   ├── About.tsx        # About section with skills
 │   ├── Skills.tsx       # Tech stack showcase
-│   ├── Projects.tsx     # Project portfolio
+│   ├── Projects.tsx     # Project portfolio UI + action handling
 │   ├── Contact.tsx      # Contact form
 │   ├── Footer.tsx       # Footer
 │   └── ThemeToggle.tsx  # Dark/light mode switcher
+├── /data                # Centralized content data
+│   └── projects.ts      # Project records (demo + repository states)
 ├── /pages              # Next.js pages
 │   ├── index.tsx       # Main page
 │   └── _app.tsx        # App configuration
@@ -133,12 +138,12 @@ npm run type-check  # TypeScript type checking
    - `Navigation.tsx` - Logo and navigation items
    - `Hero.tsx` - Name and tagline
    - `About.tsx` - Bio and skills
-   - `Projects.tsx` - Project details
+   - `data/projects.ts` - Project details and project actions
    - `Contact.tsx` - Social links
 
 ### Add/Update Projects
 
-Edit `/components/Projects.tsx`:
+Edit `/data/projects.ts`:
 
 ```typescript
 const projects: Project[] = [
@@ -148,12 +153,44 @@ const projects: Project[] = [
     description: "Project description highlighting tech stack and problem solved.",
     image: "/images/your-project.jpg",
     technologies: ["React", "Node.js", "MongoDB"],
-    demoUrl: "https://your-demo-url.com",
-    codeUrl: "https://github.com/your-repo"
+    demo: {
+      type: "live", // "live" | "video"
+      url: "https://your-demo-url.com"
+    },
+    repository: {
+      visibility: "public", // "public" | "private"
+      url: "https://github.com/your-repo"
+    }
   }
   // Add more projects...
 ];
 ```
+
+For a private/client repository:
+
+```typescript
+{
+  id: 2,
+  title: "Client Project",
+  description: "Confidential delivery for a client",
+  image: "/images/client-project.jpg",
+  technologies: ["React", "Node.js"],
+  demo: {
+    type: "video",
+    url: "https://drive.google.com/your-video-link"
+  },
+  repository: {
+    visibility: "private",
+    reason: "Client project repository is private and not publicly shareable."
+  }
+}
+```
+
+How it behaves in UI:
+- `demo.type = "live"` → button label is `Live Demo`
+- `demo.type = "video"` → button label is `Video Demo`
+- `repository.visibility = "public"` → opens GitHub repository
+- `repository.visibility = "private"` → opens private-project modal with reason + demo access
 
 ### Customize Theme Colors
 
@@ -287,6 +324,5 @@ For questions or support, please contact:
 ---
 
 **Built with ❤️ using Next.js & TypeScript by Camline**
-
 
 

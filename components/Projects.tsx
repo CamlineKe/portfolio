@@ -1,77 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '../types';
+import { projects } from '../data/projects';
 import styles from '../styles/Projects.module.css';
 
 const Projects: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
+  const [privateProject, setPrivateProject] = useState<Project | null>(null);
 
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "TaskFlow — Enterprise Project Management",
-      description:
-        "Full-stack project management platform with interactive drag-and-drop Kanban boards powered by @dnd-kit. Implements tiered Redis caching (2-10 min TTL) eliminating redundant DB queries for board data, projects, and task lists. Architected with Next.js 14, Node.js/Express, MongoDB with compound indexing for O(log n) query performance. Aggregates dashboard stats via MongoDB pipelines, minimizing database round-trips. Delivers instant drag-and-drop feedback with zero page reloads. Features JWT auth with Passport.js, email verification via SMTP, and server-side data fetching with TanStack Query.",
-      image: "/images/project4.jpg",
-      technologies: [
-        "Next.js",
-        "TypeScript",
-        "MongoDB",
-        "JWT",
-        "Node.js",
-        "Material-UI",
-        "Express",
-      ],
-      liveDemo: "https://taskflow-zeta-dusky.vercel.app/",
-      sourceCode: "https://github.com/CamlineKe/TaskFLow",
-    },
-    {
-      id: 2,
-      title: "Fitness Tracker — Personalized Wellness Platform",
-      description:
-        "AI-powered fitness platform enabling users to log workouts, nutrition, and mental health check-ins while receiving personalized ML-generated recommendations via 3 RandomForest models. Architected as decoupled microservices with React frontend, Node.js API gateway, and Python Flask AI service. Achieved 70% cache hit rates through multi-layer LRU caching and reduced AI latency by 60% via batch API parallelization. Integrated Google Fit and Fitbit OAuth2 for device synchronization. Real-time gamification with Socket.IO WebSocket rooms and atomic streak calculations. Delivered sub-500ms p95 response times under concurrent load with zero service degradation.",
-      image: "/images/project1.jpg",
-      technologies: [
-        "React",
-        "Node.js",
-        "MongoDB",
-        "Python",
-        "Flask",
-        "Express",
-        "Socket.io",
-        "Vite"
-      ],
-      liveDemo: "https://drive.google.com/file/d/1X5lo3IBWAwOMf14NYUZI8D0OR4TGH0tR/view?usp=drive_link",
-      sourceCode: "https://github.com/CamlineKe/fitnessApp",
-    },
-    {
-      id: 3,
-      title: "Whatsapp Product Verification System",
-      description:
-        "WhatsApp-based product authentication system enabling instant product verification via Meta Business API. Brands generate millions of unique codes with QR URLs, track batch performance through a React admin dashboard, and monitor real-time verification analytics. Eliminated fraudulent duplicate activations using PostgreSQL row-level locking (FOR UPDATE), JWT authentication, and rate-limited verification flows. Achieved 24ms p95 response times under 200+ concurrent user load testing with zero failed requests.",
-      image: "/images/wpv.jpg",
-      technologies: ["React","PostgreSQL","Node.js","TypeScript", "Tailwind CSS"],
-      liveDemo: "https://drive.google.com/file/d/1BdUkJHmL-Ukdo0jpJoPSkKfXYp_lkJei/view?usp=drive_link",
-      sourceCode: "https://github.com/CamlineKe/whatsapp-product-verification",
-    },
-    {
-      id: 4,
-      title: "Task Management Platform",
-      description:
-        "Full-stack task management platform with intelligent workflow enforcement and real-time analytics. Vue 3 SPA with Pinia state management paired with Laravel 13 REST API featuring strict status transition rules and 8 strategic database indexes for optimized query performance. Containerized with multi-stage Docker builds (~80MB), deployed on Aiven MySQL, Render, and Vercel. 100% PHPUnit test coverage with edge case validation.",
-      image: "/images/project3.jpg",
-      technologies: ["Vue", "Laravel", "MySQL", "TypeScript", "Docker"],
-      liveDemo: "https://task-management-psi-jade.vercel.app/",
-      sourceCode: "https://github.com/CamlineKe/Task_Management",
-    },
-  ];
-
-  const technologies = ['all', 'React', 'Next.js', 'TypeScript', 'Node.js', 'Socket.io', 'MongoDB', 'Vue', 'Laravel', 'MySQL'];
+  const technologies = useMemo(() => {
+    const uniqueTechnologies = new Set(projects.flatMap((project) => project.technologies));
+    return ['all', ...Array.from(uniqueTechnologies)];
+  }, []);
 
   const filteredProjects = selectedFilter === 'all'
     ? projects
     : projects.filter(project => project.technologies.includes(selectedFilter));
+
+  useEffect(() => {
+    if (!privateProject) {
+      return;
+    }
+
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setPrivateProject(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [privateProject]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -110,6 +70,19 @@ const Projects: React.FC = () => {
         duration: 0.3,
       },
     },
+  };
+
+  const handleRepositoryClick = (project: Project) => {
+    if (project.repository.visibility === 'public') {
+      window.open(project.repository.url, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    setPrivateProject(project);
+  };
+
+  const getDemoLabel = (project: Project) => {
+    return project.demo.type === 'video' ? 'Video Demo' : 'Live Demo';
   };
 
   return (
@@ -183,25 +156,24 @@ const Projects: React.FC = () => {
 
                     <div className={styles.projectActions}>
                       <motion.a
-                        href={project.liveDemo}
+                        href={project.demo.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={styles.demoButton}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        Live Demo
+                        {getDemoLabel(project)}
                       </motion.a>
-                      <motion.a
-                        href={project.sourceCode}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <motion.button
+                        type="button"
                         className={styles.codeButton}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
+                        onClick={() => handleRepositoryClick(project)}
                       >
-                        Source Code
-                      </motion.a>
+                        {project.repository.visibility === 'public' ? 'Source Code' : 'Private Repo'}
+                      </motion.button>
                     </div>
                   </div>
                 </motion.div>
@@ -210,6 +182,64 @@ const Projects: React.FC = () => {
           </motion.div>
         </motion.div>
       </div>
+
+      <AnimatePresence>
+        {privateProject && (
+          <motion.div
+            className={styles.modalOverlay}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setPrivateProject(null)}
+          >
+            <motion.div
+              className={styles.modal}
+              initial={{ opacity: 0, y: 24, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 12, scale: 0.97 }}
+              transition={{ duration: 0.2 }}
+              onClick={(event) => event.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="private-repo-title"
+            >
+              <h3 id="private-repo-title" className={styles.modalTitle}>
+                Private Repository
+              </h3>
+              <p className={styles.modalText}>
+                This project&apos;s source code is private.
+              </p>
+              <p className={styles.modalText}>
+                {privateProject.repository.visibility === 'private'
+                  ? (privateProject.repository.reason ?? 'It was built for a client and cannot be shared publicly.')
+                  : 'It was built for a client and cannot be shared publicly.'}
+              </p>
+
+              <div className={styles.modalActions}>
+                <motion.a
+                  href={privateProject.demo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.demoButton}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {getDemoLabel(privateProject)}
+                </motion.a>
+                <motion.button
+                  type="button"
+                  className={styles.codeButton}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setPrivateProject(null)}
+                >
+                  Close
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
