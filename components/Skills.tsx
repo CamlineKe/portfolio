@@ -26,7 +26,7 @@ const Skills: React.FC = () => {
     { name: "CSS", icon: "css", category: "frontend" },
     { name: "JavaScript", icon: "javascript", category: "language" },
     { name: "TypeScript", icon: "typescript", category: "language" },
-    { name: "React", icon: "react", category: "frontend" },
+    { name: "React 19", icon: "react", category: "frontend" },
     { name: "Vue", icon: "vue", category: "frontend" },
     { name: "Next.js", icon: "nextjs", category: "frontend" },
     { name: "Node.js", icon: "nodejs", category: "backend" },
@@ -47,6 +47,14 @@ const Skills: React.FC = () => {
     { name: "FastAPI", icon: "fastapi", category: "backend" },
     { name: "Prisma", icon: "prisma", category: "backend" },
     { name: "Tailwind CSS", icon: "tailwind", category: "frontend" },
+    { name: "React Router", icon: "react-router", category: "frontend" },
+    { name: "TanStack Query", icon: "tanstack-query", category: "frontend" },
+    { name: "Redis", icon: "redis", category: "database" },
+    { name: "BullMQ", icon: "bullmq", category: "backend" },
+    { name: "Zod", icon: "zod", category: "backend" },
+    { name: "JWT RS256", icon: "jwt-rs256", category: "security" },
+    { name: "Cloudinary", icon: "cloudinary", category: "integration" },
+    { name: "Africa's Talking", icon: "africas-talking", category: "integration" },
     { name: "Winston", icon: "winston", category: "tools" },
     { name: "Nginx", icon: "nginx", category: "devops" },
     { name: "Vite", icon: "vite", category: "frontend" },
@@ -304,6 +312,13 @@ const Skills: React.FC = () => {
     'Content Creation'
   ];
 
+  const integrations = [
+    "Africa's Talking SMS reminders",
+    'Cloudinary signed complaint media',
+    'Redis cooldown/cache layer',
+    'Shared auth and audit infrastructure',
+  ];
+
   return (
     <section className={styles.skills} id="skills">
       <div className="container">
@@ -385,6 +400,15 @@ const Skills: React.FC = () => {
                 <div className={styles.tagCloud}>
                   {mediaSkills.map((skill, index) => (
                     <span key={index} className={styles.skillTag}>{skill}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div className={styles.categoryColumn}>
+                <h4 className={styles.categoryTitle}>Integrations</h4>
+                <div className={styles.tagCloud}>
+                  {integrations.map((integration, index) => (
+                    <span key={index} className={styles.skillTag}>{integration}</span>
                   ))}
                 </div>
               </div>
