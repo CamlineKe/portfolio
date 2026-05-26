@@ -119,14 +119,17 @@ npm run type-check  # TypeScript type checking
 
 ```json
 {
-  "next": "^15.4.6",
-  "react": "^18.3.1", 
-  "react-dom": "^18.3.1",
-  "typescript": "^5.7.3",
-  "@types/react": "^18.3.17",
-  "@types/node": "^22.10.7",
-  "framer-motion": "^11.15.0",
-  "react-hook-form": "^7.54.2"
+  "next": "^15.4.10",
+  "react": "latest",
+  "react-dom": "latest",
+  "typescript": "latest",
+  "@types/react": "latest",
+  "@types/node": "latest",
+  "framer-motion": "latest",
+  "react-hook-form": "latest",
+  "@tsparticles/react": "^3.0.0",
+  "@tsparticles/slim": "^3.0.3",
+  "nodemailer": "^7.0.5"
 }
 ```
 
@@ -197,6 +200,20 @@ How it behaves in UI:
 - `demo.type = "video"` → button label is `Video Demo`
 - `repository.visibility = "public"` → opens GitHub repository
 - `repository.visibility = "private"` → opens private-project modal with reason + demo access
+
+### Current Project Modules (RMS)
+
+The portfolio currently includes these RMS modules as separate project entries:
+
+- `RMS Admin Portal`
+- `RMS Landlord Dashboard`
+- `RMS Tenant Portal`
+- `RMS Caretaker Portal`
+
+All are configured with:
+
+- `demo.type = "video"`
+- `repository.visibility = "private"`
 
 ### Customize Theme Colors
 
