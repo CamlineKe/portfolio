@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { ContactFormData, SocialLink } from '../types';
+import { useCanHover } from '../hooks/useCanHover';
+import {
+  createContainerVariants,
+  createItemVariants,
+  hoverLift,
+  hoverScale,
+  sectionViewport,
+} from '../utils/motion';
 import styles from '../styles/Contact.module.css';
 
 const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const prefersReducedMotion = useReducedMotion();
+  const canHover = useCanHover();
+  const enableHoverMotion = canHover && !prefersReducedMotion;
 
   const {
     register,
@@ -77,26 +88,8 @@ const Contact: React.FC = () => {
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
-  };
+  const containerVariants = createContainerVariants(Boolean(prefersReducedMotion), 0.16);
+  const itemVariants = createItemVariants(Boolean(prefersReducedMotion), 24, 0.55);
 
   const renderSocialIcon = (iconName: string) => {
     switch (iconName) {
@@ -143,7 +136,7 @@ const Contact: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={sectionViewport}
         >
           <motion.h2 className={styles.title} variants={itemVariants}>
             Get In Touch
@@ -236,7 +229,7 @@ const Contact: React.FC = () => {
                   type="submit"
                   className={`btn ${styles.submitButton}`}
                   disabled={isSubmitting}
-                  whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
+                  whileHover={isSubmitting ? undefined : hoverScale(enableHoverMotion, 1.05)}
                   whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
@@ -274,7 +267,7 @@ const Contact: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.socialLink}
-                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileHover={hoverLift(enableHoverMotion, -2, 1.08)}
                     whileTap={{ scale: 0.95 }}
                     aria-label={`Visit ${social.name} profile`}
                   >
@@ -294,4 +287,3 @@ const Contact: React.FC = () => {
 };
 
 export default Contact;
-

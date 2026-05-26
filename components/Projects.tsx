@@ -1,13 +1,25 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Project } from '../types';
+import { useCanHover } from '../hooks/useCanHover';
 import { projects } from '../data/projects';
+import {
+  createCardVariants,
+  createContainerVariants,
+  createItemVariants,
+  hoverLift,
+  hoverScale,
+  sectionViewport,
+} from '../utils/motion';
 import styles from '../styles/Projects.module.css';
 
 const Projects: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   const [privateProject, setPrivateProject] = useState<Project | null>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const canHover = useCanHover();
+  const enableHoverMotion = canHover && !prefersReducedMotion;
 
   const technologies = useMemo(() => {
     const uniqueTechnologies = new Set(projects.flatMap((project) => project.technologies));
@@ -33,44 +45,21 @@ const Projects: React.FC = () => {
     return () => window.removeEventListener('keydown', handleEsc);
   }, [privateProject]);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
+  useEffect(() => {
+    if (!privateProject) {
+      return;
+    }
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
-  };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [privateProject]);
 
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-      },
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.8,
-      transition: {
-        duration: 0.3,
-      },
-    },
-  };
+  const containerVariants = createContainerVariants(Boolean(prefersReducedMotion), 0.18);
+  const itemVariants = createItemVariants(Boolean(prefersReducedMotion), 24, 0.55);
+  const cardVariants = createCardVariants(Boolean(prefersReducedMotion));
 
   const handleRepositoryClick = (project: Project) => {
     if (project.repository.visibility === 'public') {
@@ -93,7 +82,7 @@ const Projects: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={sectionViewport}
         >
           <motion.h2 className={styles.title} variants={itemVariants}>
             Featured Projects
@@ -107,7 +96,7 @@ const Projects: React.FC = () => {
                   className={`${styles.filterButton} ${selectedFilter === tech ? styles.active : ''
                     }`}
                   onClick={() => setSelectedFilter(tech)}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={hoverScale(enableHoverMotion, 1.05)}
                   whileTap={{ scale: 0.95 }}
                 >
                   {tech === 'all' ? 'All Projects' : tech}
@@ -127,10 +116,7 @@ const Projects: React.FC = () => {
                   animate="visible"
                   exit="exit"
                   layout
-                  whileHover={{
-                    y: -10,
-                    transition: { duration: 0.3 }
-                  }}
+                  whileHover={hoverLift(enableHoverMotion, -10, 1)}
                 >
                   <div className={styles.projectImage}>
                     <Image
@@ -160,7 +146,7 @@ const Projects: React.FC = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className={styles.demoButton}
-                        whileHover={{ scale: 1.02 }}
+                        whileHover={hoverScale(enableHoverMotion, 1.02)}
                         whileTap={{ scale: 0.98 }}
                       >
                         {getDemoLabel(project)}
@@ -168,7 +154,7 @@ const Projects: React.FC = () => {
                       <motion.button
                         type="button"
                         className={styles.codeButton}
-                        whileHover={{ scale: 1.02 }}
+                        whileHover={hoverScale(enableHoverMotion, 1.02)}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => handleRepositoryClick(project)}
                       >
@@ -197,7 +183,7 @@ const Projects: React.FC = () => {
               initial={{ opacity: 0, y: 24, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 12, scale: 0.97 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: prefersReducedMotion ? 0.15 : 0.2 }}
               onClick={(event) => event.stopPropagation()}
               role="dialog"
               aria-modal="true"
@@ -221,7 +207,7 @@ const Projects: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.demoButton}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={hoverScale(enableHoverMotion, 1.02)}
                   whileTap={{ scale: 0.98 }}
                 >
                   {getDemoLabel(privateProject)}
@@ -229,7 +215,7 @@ const Projects: React.FC = () => {
                 <motion.button
                   type="button"
                   className={styles.codeButton}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={hoverScale(enableHoverMotion, 1.02)}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setPrivateProject(null)}
                 >

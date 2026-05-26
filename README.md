@@ -26,6 +26,10 @@ A professional portfolio website showcasing MERN fullstack development expertise
 - ✅ Project action system with explicit `public` vs `private` repository handling
 - ✅ Smart demo actions with `Live Demo` and `Video Demo` modes
 - ✅ Centralized project data file for easy long-term maintenance
+- ✅ Fluid responsive typography and spacing using `clamp()` and layout tokens
+- ✅ Safe-area-aware navigation for modern mobile devices (`env(safe-area-inset-*)`)
+- ✅ Adaptive animation system with reduced-motion support and touch-aware hover behavior
+- ✅ Performance-optimized hero particles (screen-size + interaction aware)
 
 ## 📁 Project Structure
 
@@ -53,11 +57,13 @@ A professional portfolio website showcasing MERN fullstack development expertise
 │   ├── *.module.css    # Component styles
 │   └── globals.css     # Global styles
 ├── /utils              # Utility functions
-│   └── helpers.ts      # Helper functions
+│   ├── helpers.ts      # Helper functions
+│   └── motion.ts       # Shared motion variants and interaction helpers
 ├── /types              # TypeScript definitions
 │   └── index.ts        # Type definitions
 ├── /hooks              # Custom React hooks
-│   └── useTheme.ts     # Theme management
+│   ├── useTheme.ts     # Theme management
+│   └── useCanHover.ts  # Pointer capability detection for hover interactions
 ├── next.config.js      # Next.js configuration
 ├── tsconfig.json       # TypeScript configuration
 ├── package.json        # Dependencies
@@ -204,6 +210,18 @@ Update CSS custom properties in `/styles/globals.css`:
 }
 ```
 
+### Responsive & Motion System
+
+The portfolio now uses a centralized responsive/motion architecture:
+
+- Global layout + spacing + z-index + safe-area tokens live in `/styles/globals.css`
+- Shared animation variants and hover helpers live in `/utils/motion.ts`
+- Hover-heavy effects are automatically reduced on touch devices through `/hooks/useCanHover.ts`
+- Reduced-motion preferences are respected using Framer Motion's `useReducedMotion`
+- Hero particles adapt by viewport size and interaction mode for better performance
+
+If you add a new animated component, prefer reusing `createContainerVariants`, `createItemVariants`, and `hoverLift` from `/utils/motion.ts` to keep interactions consistent.
+
 ## 🌙 Dark/Light Theme
 
 The theme system automatically:
@@ -278,10 +296,11 @@ To enable the contact form to send emails, you need to configure environment var
 ## 📱 Responsive Design
 
 - Mobile-first approach
-- Breakpoints: 375px, 480px, 768px, 991px, 1024px, 1200px
+- Fluid scaling with CSS `clamp()` for typography, spacing, and controls
+- Breakpoint strategy: `360px`, `420px`, `480px`, `560px`, `768px`, `900px`, `1024px+`
 - Flexible grid layouts
 - Touch-friendly interactions
-- Optimized typography scaling
+- Safe-area-aware mobile navigation and section spacing
 
 ## 🔧 Development Notes
 
@@ -324,5 +343,3 @@ For questions or support, please contact:
 ---
 
 **Built with ❤️ using Next.js & TypeScript by Camline**
-
-

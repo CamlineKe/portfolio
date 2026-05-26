@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import ThemeToggle from './ThemeToggle';
+import { useCanHover } from '../hooks/useCanHover';
+import { hoverScale } from '../utils/motion';
 import styles from '../styles/Navigation.module.css';
 
 const Navigation: React.FC = () => {
   const [activeSection, setActiveSection] = useState('hero');
+  const prefersReducedMotion = useReducedMotion();
+  const canHover = useCanHover();
+  const enableHoverMotion = canHover && !prefersReducedMotion;
 
   const navItems = useMemo(() => [
     { id: 'hero', label: 'Home' },
@@ -22,23 +27,34 @@ const Navigation: React.FC = () => {
     }
   };
 
-  // Track active section based on scroll position
+  // Track active section based on viewport intersection for smoother behavior across breakpoints.
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = navItems.map(item => document.getElementById(item.id));
-      const scrollPosition = window.scrollY + 100;
+    const sections = navItems
+      .map((item) => ({ id: item.id, element: document.getElementById(item.id) }))
+      .filter((item): item is { id: string; element: HTMLElement } => Boolean(item.element));
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(navItems[i].id);
-          break;
+    if (!sections.length) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visibleEntries.length) {
+          setActiveSection(visibleEntries[0].target.id);
         }
+      },
+      {
+        rootMargin: '-20% 0px -55% 0px',
+        threshold: [0.2, 0.35, 0.5, 0.75],
       }
-    };
+    );
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    sections.forEach(({ element }) => observer.observe(element));
+    return () => observer.disconnect();
   }, [navItems]);
 
   return (
@@ -65,8 +81,9 @@ const Navigation: React.FC = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={hoverScale(enableHoverMotion, 1.05)}
                 whileTap={{ scale: 0.95 }}
+                aria-label={`Navigate to ${item.label}`}
               >
                 {item.label}
               </motion.button>
@@ -93,7 +110,7 @@ const Navigation: React.FC = () => {
               className={`${styles.mobileNavItem} ${activeSection === item.id ? styles.active : ''
                 }`}
               onClick={() => scrollToSection(item.id)}
-              whileHover={{ scale: 1.1 }}
+              whileHover={hoverScale(enableHoverMotion, 1.08)}
               whileTap={{ scale: 0.9 }}
               aria-label={`Navigate to ${item.label}`}
             >
@@ -130,7 +147,7 @@ const Navigation: React.FC = () => {
 
           <motion.div
             className={styles.mobileThemeToggle}
-            whileHover={{ scale: 1.1 }}
+            whileHover={hoverScale(enableHoverMotion, 1.08)}
             whileTap={{ scale: 0.9 }}
           >
             <ThemeToggle />
@@ -142,4 +159,3 @@ const Navigation: React.FC = () => {
 };
 
 export default Navigation;
-

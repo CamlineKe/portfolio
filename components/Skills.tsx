@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { useCanHover } from '../hooks/useCanHover';
+import {
+  createContainerVariants,
+  createItemVariants,
+  hoverLift,
+  sectionViewport,
+} from '../utils/motion';
 import styles from '../styles/Skills.module.css';
 
 interface TechSkill {
@@ -10,6 +17,9 @@ interface TechSkill {
 
 const Skills: React.FC = () => {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const canHover = useCanHover();
+  const enableHoverMotion = canHover && !prefersReducedMotion;
 
   const techSkills: TechSkill[] = [
     { name: "HTML", icon: "html", category: "frontend" },
@@ -43,27 +53,8 @@ const Skills: React.FC = () => {
     { name: "k6", icon: "k6", category: "testing" },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
+  const containerVariants = createContainerVariants(Boolean(prefersReducedMotion), 0.1);
+  const itemVariants = createItemVariants(Boolean(prefersReducedMotion), 20, 0.5);
 
   const renderTechIcon = (iconName: string) => {
     const iconProps = {
@@ -321,7 +312,7 @@ const Skills: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={sectionViewport}
         >
           <motion.h2 className={styles.title} variants={itemVariants}>
             Skills & Technologies
@@ -336,13 +327,12 @@ const Skills: React.FC = () => {
                   key={skill.name}
                   className={styles.skillCard}
                   variants={itemVariants}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -5,
-                    transition: { duration: 0.2 }
-                  }}
+                  whileHover={hoverLift(enableHoverMotion, -5, 1.05)}
                   onHoverStart={() => setHoveredSkill(skill.name)}
                   onHoverEnd={() => setHoveredSkill(null)}
+                  onFocus={() => setHoveredSkill(skill.name)}
+                  onBlur={() => setHoveredSkill(null)}
+                  tabIndex={0}
                 >
                   <div className={styles.skillIcon}>
                     {renderTechIcon(skill.icon)}
@@ -355,7 +345,7 @@ const Skills: React.FC = () => {
                     className={styles.tooltip}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{
-                      opacity: hoveredSkill === skill.name ? 1 : 0,
+                      opacity: enableHoverMotion && hoveredSkill === skill.name ? 1 : 0,
                       y: hoveredSkill === skill.name ? 0 : 10
                     }}
                     transition={{ duration: 0.2 }}
@@ -408,4 +398,3 @@ const Skills: React.FC = () => {
 };
 
 export default Skills;
-

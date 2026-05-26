@@ -3,13 +3,13 @@
   background: var(--color-surface);
   border: 2px solid var(--color-border);
   border-radius: 50%;
-  width: 3rem;
-  height: 3rem;
+  width: clamp(2.7rem, 3vw, 3rem);
+  height: clamp(2.7rem, 3vw, 3rem);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
   box-shadow: 0 2px 8px var(--color-shadow);
 }
 
@@ -38,10 +38,9 @@
 }
 
 .placeholder {
-  width: 3rem;
-  height: 3rem;
+  width: clamp(2.7rem, 3vw, 3rem);
+  height: clamp(2.7rem, 3vw, 3rem);
   background: var(--color-surface);
   border-radius: 50%;
   border: 2px solid var(--color-border);
 }
-

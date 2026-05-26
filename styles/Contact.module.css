@@ -1,11 +1,10 @@
 .contact {
-  padding: 6rem 0;
+  padding-block: var(--section-space);
   background: var(--color-background);
   position: relative;
   overflow: hidden;
 }
 
-/* Subtle radial gradient for visual continuity */
 .contact::before {
   content: '';
   position: absolute;
@@ -13,58 +12,60 @@
   left: 0;
   right: 0;
   height: 400px;
-  background: radial-gradient(ellipse at 50% 0%, 
-    rgba(245, 158, 11, 0.04) 0%, 
-    transparent 70%);
+  background: radial-gradient(ellipse at 50% 0%,
+      rgba(245, 158, 11, 0.04) 0%,
+      transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
 
 .contactContainer {
-  max-width: 1000px;
+  max-width: 1020px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .title {
   text-align: center;
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: clamp(2rem, 4.6vw, 3rem);
+  margin-bottom: 0.8rem;
   color: var(--color-text-primary);
 }
 
 .subtitle {
   text-align: center;
-  font-size: 1.125rem;
+  font-size: clamp(0.98rem, 2vw, 1.12rem);
   color: var(--color-text-secondary);
-  margin-bottom: 4rem;
-  max-width: 600px;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  max-width: 620px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .contactContent {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 4rem;
+  grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+  gap: clamp(1.2rem, 3vw, 3.6rem);
   align-items: start;
 }
 
 .formSection {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.54);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  padding: 3rem;
-  border-radius: 1rem;
-  box-shadow: 
+  padding: clamp(1rem, 3vw, 2.6rem);
+  border-radius: var(--radius-lg);
+  box-shadow:
     0 4px 12px var(--color-shadow),
     0 0 0 1px rgba(255, 255, 255, 0.1) inset;
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 [data-theme="dark"] .formSection {
-  background: rgba(15, 23, 42, 0.5);
+  background: rgba(15, 23, 42, 0.54);
   border-color: rgba(255, 255, 255, 0.06);
-  box-shadow: 
+  box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.3),
     0 0 0 1px rgba(255, 255, 255, 0.03) inset;
 }
@@ -72,13 +73,13 @@
 .contactForm {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.2rem;
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .label {
@@ -89,13 +90,13 @@
 
 .input,
 .textarea {
-  padding: 0.75rem;
+  padding: 0.72rem;
   border: 2px solid var(--color-border);
   border-radius: 0.5rem;
   background: var(--color-background);
   color: var(--color-text-primary);
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
+  font-size: 0.98rem;
+  transition: border-color var(--transition-fast);
   font-family: inherit;
 }
 
@@ -118,7 +119,7 @@
 .submitButton {
   align-self: flex-start;
   min-width: 150px;
-  margin-top: 1rem;
+  margin-top: 0.4rem;
 }
 
 .submitButton:disabled {
@@ -129,14 +130,14 @@
 .errorMessage {
   color: var(--color-error);
   font-size: 0.875rem;
-  margin-top: 0.25rem;
+  margin-top: 0.2rem;
 }
 
 .successMessage {
   color: var(--color-success);
   font-size: 0.875rem;
-  margin-top: 1rem;
-  padding: 1rem;
+  margin-top: 0.7rem;
+  padding: 0.8rem;
   background: rgba(16, 185, 129, 0.1);
   border: 1px solid var(--color-success);
   border-radius: 0.5rem;
@@ -145,51 +146,53 @@
 .socialSection {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.2rem;
 }
 
 .socialTitle {
-  font-size: 1.5rem;
+  font-size: clamp(1.1rem, 2.7vw, 1.45rem);
   color: var(--color-text-primary);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .socialLinks {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.7rem;
 }
 
 .socialLink {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 0.8rem;
+  padding: 0.9rem;
   border-radius: 0.75rem;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.42);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   text-decoration: none;
   color: var(--color-text-primary);
-  transition: all 0.3s ease;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
 }
 
 [data-theme="dark"] .socialLink {
-  background: rgba(15, 23, 42, 0.4);
+  background: rgba(15, 23, 42, 0.42);
   border-color: rgba(255, 255, 255, 0.05);
 }
 
-.socialLink:hover {
-  border-color: var(--color-primary);
-  background: var(--color-primary);
-  color: white;
-  box-shadow: 0 4px 12px var(--color-shadow);
+@media (hover: hover) and (pointer: fine) {
+  .socialLink:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 12px var(--color-shadow);
+  }
 }
 
 .socialIcon {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.45rem;
+  height: 1.45rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -202,103 +205,73 @@
 
 .socialName {
   font-weight: 600;
+  font-size: 0.92rem;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .contact {
-    padding: 4rem 0;
-  }
-  
-  .title {
-    font-size: 2.5rem;
-  }
-  
-  .subtitle {
-    font-size: 1rem;
-    margin-bottom: 3rem;
-  }
-  
+@media (max-width: 900px) {
   .contactContent {
     grid-template-columns: 1fr;
-    gap: 3rem;
   }
-  
-  .formSection {
-    padding: 2rem;
-  }
-  
+
   .socialSection {
     order: -1;
   }
-  
+
   .socialLinks {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .socialLink {
     flex-direction: column;
     text-align: center;
-    min-width: 100px;
-    padding: 1rem 0.75rem;
+    min-width: 96px;
+    padding: 0.8rem 0.7rem;
   }
-  
+
   .socialIcon {
-    width: 2rem;
-    height: 2rem;
+    width: 1.8rem;
+    height: 1.8rem;
   }
-  
+
   .socialName {
-    font-size: 0.875rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact {
+    padding-block: var(--section-space-compact);
   }
 }
 
 @media (max-width: 480px) {
-  .title {
-    font-size: 2rem;
-  }
-  
-  .formSection {
-    padding: 1.5rem;
-  }
-  
-  .contactForm {
-    gap: 1rem;
-  }
-  
   .input,
   .textarea {
-    padding: 0.625rem;
+    padding: 0.64rem;
     font-size: 0.9rem;
   }
-  
+
   .submitButton {
     width: 100%;
   }
-  
-  .socialTitle {
-    font-size: 1.25rem;
-    text-align: center;
-  }
-  
+
   .socialLinks {
-    gap: 0.75rem;
+    gap: 0.55rem;
   }
-  
+
   .socialLink {
-    min-width: 80px;
-    padding: 0.75rem 0.5rem;
+    min-width: 84px;
+    padding: 0.7rem 0.45rem;
   }
-  
+
   .socialIcon {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.4rem;
+    height: 1.4rem;
   }
-  
+
   .socialName {
-    font-size: 0.75rem;
+    font-size: 0.74rem;
   }
 }
-

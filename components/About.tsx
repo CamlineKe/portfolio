@@ -1,6 +1,13 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { SocialLink } from '../types';
+import { useCanHover } from '../hooks/useCanHover';
+import {
+  createContainerVariants,
+  createItemVariants,
+  hoverLift,
+  sectionViewport,
+} from '../utils/motion';
 import styles from '../styles/About.module.css';
 
 interface Education {
@@ -11,6 +18,10 @@ interface Education {
 }
 
 const About: React.FC = () => {
+  const prefersReducedMotion = useReducedMotion();
+  const canHover = useCanHover();
+  const enableHoverMotion = canHover && !prefersReducedMotion;
+
   const socialLinks: SocialLink[] = [
     {
       name: 'GitHub',
@@ -39,26 +50,8 @@ const About: React.FC = () => {
 
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
-  };
+  const containerVariants = createContainerVariants(Boolean(prefersReducedMotion), 0.18);
+  const itemVariants = createItemVariants(Boolean(prefersReducedMotion), 24, 0.55);
 
   const renderSocialIcon = (iconName: string) => {
     switch (iconName) {
@@ -93,7 +86,7 @@ const About: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={sectionViewport}
         >
           <motion.h2 className={styles.title} variants={itemVariants}>
             My <span className={styles.highlight}>Background</span>
@@ -135,7 +128,7 @@ const About: React.FC = () => {
                   <motion.div
                     key={index}
                     className={styles.educationCard}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={hoverLift(enableHoverMotion, -4, 1.02)}
                     transition={{ type: 'spring', stiffness: 300 }}
                   >
                     <div className={styles.educationHeader}>
@@ -160,7 +153,7 @@ const About: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.socialLink}
-                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileHover={hoverLift(enableHoverMotion, -2, 1.08)}
                   whileTap={{ scale: 0.95 }}
                   aria-label={`Visit ${social.name} profile`}
                 >
@@ -179,4 +172,3 @@ const About: React.FC = () => {
 };
 
 export default About;
-

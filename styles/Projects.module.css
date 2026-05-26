@@ -1,11 +1,10 @@
 .projects {
-  padding: 6rem 0;
+  padding-block: var(--section-space);
   background: var(--color-surface);
   position: relative;
   overflow: hidden;
 }
 
-/* Subtle radial gradient for visual continuity with Hero */
 .projects::before {
   content: '';
   position: absolute;
@@ -13,9 +12,9 @@
   left: 0;
   right: 0;
   height: 400px;
-  background: radial-gradient(ellipse at 50% 0%, 
-    rgba(var(--color-primary-rgb), 0.06) 0%, 
-    transparent 70%);
+  background: radial-gradient(ellipse at 50% 0%,
+      rgba(var(--color-primary-rgb), 0.06) 0%,
+      transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -25,48 +24,41 @@
   z-index: 1;
 }
 
-
 .title {
   text-align: center;
-  font-size: 3rem;
-  margin-bottom: 3rem;
+  font-size: clamp(2rem, 4.6vw, 3rem);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
   color: var(--color-text-primary);
 }
 
 .filterContainer {
-  margin-bottom: 4rem;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
 }
 
 .filterButtons {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
 .filterButton {
-  padding: 0.75rem 1.5rem;
+  padding: 0.65rem 1.2rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   color: var(--color-text-secondary);
   border-radius: 2rem;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
 }
 
 [data-theme="dark"] .filterButton {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.1);
-}
-
-.filterButton:hover {
-  border-color: rgba(var(--color-primary-rgb), 0.4);
-  color: var(--color-primary);
-  background: rgba(var(--color-primary-rgb), 0.1);
 }
 
 .filterButton.active {
@@ -77,109 +69,120 @@
 
 .projectsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  gap: clamp(1rem, 2.4vw, 2rem);
 }
 
 .projectCard {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-radius: 1rem;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 
+  box-shadow:
     0 4px 12px var(--color-shadow),
     0 0 0 1px rgba(255, 255, 255, 0.1) inset;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
   display: flex;
   flex-direction: column;
+  min-height: 100%;
 }
 
 [data-theme="dark"] .projectCard {
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(15, 23, 42, 0.62);
   border-color: rgba(255, 255, 255, 0.06);
-  box-shadow: 
+  box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.3),
     0 0 0 1px rgba(255, 255, 255, 0.03) inset;
 }
 
-.projectCard:hover {
-  box-shadow: 0 12px 32px var(--color-shadow);
-  border-color: var(--color-primary);
-  transform: translateY(-4px);
+@media (hover: hover) and (pointer: fine) {
+  .filterButton:hover {
+    border-color: rgba(var(--color-primary-rgb), 0.4);
+    color: var(--color-primary);
+    background: rgba(var(--color-primary-rgb), 0.1);
+    transform: translateY(-1px);
+  }
+
+  .projectCard:hover {
+    box-shadow: 0 12px 32px var(--color-shadow);
+    border-color: var(--color-primary);
+    transform: translateY(-4px);
+  }
+
+  .projectCard:hover .image {
+    transform: scale(1.05);
+  }
 }
 
 .projectImage {
   position: relative;
   overflow: hidden;
-  height: 250px;
+  height: clamp(11.5rem, 25vw, 15.5rem);
 }
 
 .image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.projectCard:hover .image {
-  transform: scale(1.05);
+  transition: transform var(--transition-base);
 }
 
 .projectContent {
-  padding: 2rem;
+  padding: clamp(1rem, 2.8vw, 2rem);
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
 .projectTitle {
-  font-size: 1.5rem;
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
   font-weight: 700;
   color: var(--color-text-primary);
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .projectDescription {
   color: var(--color-text-secondary);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
+  line-height: 1.65;
+  margin-bottom: 1.2rem;
   flex: 1;
+  font-size: clamp(0.9rem, 1.4vw, 0.98rem);
 }
 
 .techBadges {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
+  gap: 0.45rem;
+  margin-bottom: 1.4rem;
 }
 
 .techBadge {
   background: var(--color-primary);
   color: white;
-  padding: 0.25rem 0.75rem;
+  padding: 0.2rem 0.65rem;
   border-radius: 1rem;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   font-weight: 500;
 }
 
 .projectActions {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   margin-top: auto;
 }
 
 .demoButton,
 .codeButton {
   flex: 1;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.9rem;
-  border-radius: 0.5rem;
+  padding: 0.68rem 1rem;
+  font-size: 0.88rem;
+  border-radius: 0.55rem;
   text-decoration: none;
   font-weight: 600;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
   border: 2px solid;
   cursor: pointer;
   font-family: inherit;
@@ -191,165 +194,105 @@
   border-color: var(--color-primary);
 }
 
-.demoButton:hover {
-  background: transparent;
-  color: var(--color-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
-}
-
 .codeButton {
   background: transparent;
   color: var(--color-text-primary);
   border-color: var(--color-border);
 }
 
-.codeButton:hover {
-  background: var(--color-text-primary);
-  color: var(--color-background);
-  border-color: var(--color-text-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--color-shadow);
+@media (hover: hover) and (pointer: fine) {
+  .demoButton:hover {
+    background: transparent;
+    color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
+  }
+
+  .codeButton:hover {
+    background: var(--color-text-primary);
+    color: var(--color-background);
+    border-color: var(--color-text-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--color-shadow);
+  }
 }
 
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(2, 6, 23, 0.6);
+  background: rgba(2, 6, 23, 0.65);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  z-index: 1000;
+  z-index: var(--z-modal);
 }
 
 .modal {
-  width: 100%;
-  max-width: 520px;
-  background: rgba(255, 255, 255, 0.88);
+  width: min(100%, 32.5rem);
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: 1rem;
+  border-radius: var(--radius-lg);
   box-shadow: 0 24px 48px rgba(15, 23, 42, 0.3);
-  padding: 1.5rem;
+  padding: 1.25rem;
 }
 
 [data-theme="dark"] .modal {
-  background: rgba(15, 23, 42, 0.88);
+  background: rgba(15, 23, 42, 0.9);
   border-color: rgba(255, 255, 255, 0.08);
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
 }
 
 .modalTitle {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.65rem;
   color: var(--color-text-primary);
 }
 
 .modalText {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.7rem;
   color: var(--color-text-secondary);
 }
 
 .modalActions {
   display: flex;
   gap: 0.75rem;
-  margin-top: 1.25rem;
+  margin-top: 1.15rem;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .projects {
-    padding: 4rem 0;
+    padding-block: var(--section-space-compact);
   }
 
-  .title {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .filterContainer {
-    margin-bottom: 3rem;
-  }
-
-  .filterButtons {
-    gap: 0.5rem;
-  }
-
-  .filterButton {
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-  }
-
-  .projectsGrid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .projectImage {
-    height: 200px;
-  }
-
-  .projectContent {
-    padding: 1.5rem;
-  }
-
-  .projectTitle {
-    font-size: 1.25rem;
-  }
-
-  .projectActions {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .demoButton,
-  .codeButton {
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-  }
-
+  .projectActions,
   .modalActions {
     flex-direction: column;
   }
 }
 
-@media (max-width: 480px) {
-  .title {
-    font-size: 2rem;
-  }
-
+@media (max-width: 560px) {
   .filterButtons {
     justify-content: flex-start;
+    flex-wrap: nowrap;
     overflow-x: auto;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.35rem;
+    scrollbar-width: none;
+  }
+
+  .filterButtons::-webkit-scrollbar {
+    display: none;
   }
 
   .filterButton {
     white-space: nowrap;
     flex-shrink: 0;
-  }
-
-  .projectContent {
-    padding: 1rem;
-  }
-
-  .projectTitle {
-    font-size: 1.1rem;
-  }
-
-  .projectDescription {
-    font-size: 0.9rem;
-  }
-
-  .techBadge {
-    font-size: 0.7rem;
-    padding: 0.2rem 0.5rem;
-  }
-
-  .demoButton,
-  .codeButton {
-    padding: 0.625rem 1rem;
+    padding: 0.56rem 0.95rem;
     font-size: 0.8rem;
+  }
+
+  .modal {
+    padding: 1rem;
   }
 }
