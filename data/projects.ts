@@ -106,7 +106,7 @@ export const projects: Project[] = [
     ],
     demo: {
       type: 'video',
-      url: 'https://drive.google.com/file/d/1cnPHvzoPsThOcqoznf_PIPpyVNfJaRIV/view?usp=drive_link',
+      url: 'https://drive.google.com/file/d/1R94rdfVcKxPaScNo8wAFLSw5TUFVXI3y/view?usp=drive_link',
     },
     repository: {
       visibility: 'private',
@@ -137,7 +137,7 @@ export const projects: Project[] = [
     ],
     demo: {
       type: 'video',
-      url: 'https://drive.google.com/file/d/1cnPHvzoPsLhOcqoznf_QIPpyVNfJaRIV/view?usp=drive_link',
+      url: 'https://drive.google.com/file/d/11TKLNH353HkPKyhzq4fM0O4Ywo4Ex3w_/view?usp=drive_link',
     },
     repository: {
       visibility: 'private',
@@ -169,7 +169,7 @@ export const projects: Project[] = [
     ],
     demo: {
       type: 'video',
-      url: 'https://drive.google.com/file/d/1cnPHvzoPsThOcqoznf_QIPpyVTfJaRIV/view?usp=drive_link',
+      url: 'https://drive.google.com/file/d/1olpDXHofe2zXHk4APuJRLuPZHJUOd4VS/view?usp=drive_link',
     },
     repository: {
       visibility: 'private',
@@ -201,7 +201,7 @@ export const projects: Project[] = [
     ],
     demo: {
       type: 'video',
-      url: 'https://drive.google.com/file/d/1cnPKvzoPsThOcqoznf_QIPpyVNfJaRIV/view?usp=drive_link',
+      url: 'https://drive.google.com/file/d/1g8Jwq6WoqlLDQYdODDlj2hIyzxa7qaFn/view?usp=drive_link',
     },
     repository: {
       visibility: 'private',
