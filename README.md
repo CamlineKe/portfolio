@@ -353,7 +353,7 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 📞 Support
 
 For questions or support, please contact:
-- Email: mosesmaina.dev@gmail.com
+- Email: cmosesmaina@gmail.com
 - GitHub: [@CamlineKe](https://github.com/CamlineKe)
 - LinkedIn: [Moses Maina](https://linkedin.com/in/moses-ongware)
 
