@@ -101,7 +101,7 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: prefersReducedMotion ? 0.2 : 0.8, delay: prefersReducedMotion ? 0 : 0.7 }}
           >
-            Systems-driven full-stack engineer designing scalable web applications. I decompose complex problems, design stable architectures, and build with clarity using modern web technologies and AI-augmented workflows.
+            Systems-driven full-stack engineer building reliable, scalable web applications. I turn complex problems into clear architectures and production-ready systems using modern web technologies and AI-augmented workflows.
           </motion.p>
 
           <motion.div
