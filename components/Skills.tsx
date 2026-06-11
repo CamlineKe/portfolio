@@ -30,7 +30,6 @@ const Skills: React.FC = () => {
     { name: "Vue", icon: "vue", category: "frontend" },
     { name: "Next.js", icon: "nextjs", category: "frontend" },
     { name: "Node.js", icon: "nodejs", category: "backend" },
-    { name: "NestJS", icon: "nestjs", category: "backend" },
     { name: "Laravel", icon: "laravel", category: "backend" },
     { name: "Express", icon: "express", category: "backend" },
     { name: "MongoDB", icon: "mongodb", category: "database" },
@@ -102,12 +101,6 @@ const Skills: React.FC = () => {
         return (
           <svg {...iconProps} style={{ color: "#2088FF" }}>
             <path d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.777.42-1.305.76-1.605c-2.67-.3-5.462-1.335-5.462-5.922c0-1.307.465-2.38 1.235-3.22c-.12-.3-.535-1.515.11-3.177c0 0 1-.32 3.3-.87C9.69 4.7 11.33 4.45 12 4.45c.67 0 2.31.25 3.38.87c2.3-.55 3.29-.87 3.29-.87c.645 1.662.23 2.877.11 3.177c.77.84 1.235 1.913 1.235 3.22c0 4.6-2.792 5.625-5.462 5.922c.43.375.812 1.107.812 2.22c0 1.606-.015 2.89-.015 3.28c0 .32.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12z" />
-          </svg>
-        );
-      case "nestjs":
-        return (
-          <svg {...iconProps} style={{ color: "#E0234E" }}>
-            <path d="M.252 14.93v5.197h5.196V14.93zM9.427 12.164L1.312 21.03l2.875 2.875 8.114-8.866zm13.79 6.84L15.093 3.84l-2.876 2.875 8.114 8.866zM23.748 9.07V3.873h-5.196V9.07zM14.569.002H9.427L12 .002l2.569 0V.002zM12 24l-2.57-4.449h5.14L12 24z" />
           </svg>
         );
       case "vercel":
@@ -313,10 +306,12 @@ const Skills: React.FC = () => {
   ];
 
   const integrations = [
-    "Africa's Talking SMS reminders",
-    'Cloudinary signed complaint media',
-    'Redis cooldown/cache layer',
-    'Shared auth and audit infrastructure',
+    'Africa’s Talking',
+    'Cloudinary',
+    'Daraja API',
+    'Whatsapp WebHook',
+    'O.Auth',
+    'FitBit',
   ];
 
   return (
