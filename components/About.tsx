@@ -98,22 +98,25 @@ const About: React.FC = () => {
               <div className={styles.sectionBlock}>
                 <h3 className={styles.subtitle}>About Me</h3>
                 <p className={styles.text}>
-                  I’m a systems-driven full-stack engineer building scalable web applications with the MERN stack, Next.js, and TypeScript. I approach software by decomposing messy problems, understanding root causes and effects, and designing stable architectures before writing code. That upfront clarity is what allows me to build maintainable systems with confidence.
+                  I’m a systems-driven full-stack engineer who builds scalable web applications with Node.js, React, and PostgreSQL, but no stack defines me. I approach software by decomposing messy problems, understanding root causes and effects, and designing stable architectures before writing code. That upfront clarity is what allows me to build maintainable systems with confidence.
                 </p>
                 <p className={styles.text}>
-                  I think deeply about why a system works the way it does. Whether I’m designing APIs, structuring frontends, or debugging broken features, I rely on systems thinking, feature-based architecture, and clear abstractions to identify issues quickly and prevent them from recurring.
+                  I think deeply about why a system works the way it does. Whether I’m designing APIs, structuring frontends, or debugging production issues, I rely on systems thinking, clear abstractions, and deliberate tradeoffs to identify problems quickly and prevent them from recurring. I care about reliability, performance, cost efficiency, and the long-term health of everything I ship.
                 </p>
                 <p className={styles.text}>
-                  AI is a core part of my workflow - not as a shortcut, but as a thinking partner. I use it to challenge assumptions, validate architectural decisions, refine requirements, and prototype deliberately. My belief is simple: engineers who combine strong thinking with effective AI collaboration are fundamentally unbreakable.
+                  AI is core to how I operate, not as a shortcut, but as a thinking partner. Through agentic coding and AI-augmented development, I challenge assumptions, validate architectural decisions, stress-test tradeoffs, and prototype deliberately. My belief is simple: engineers who combine strong judgment with effective AI collaboration are fundamentally unbreakable.
                 </p>
                 <p className={styles.text}>
-                  I’m drawn to teams and problems that value thoughtful planning, long-term scalability, and real-world impact over rushed delivery.
+                  I own what I build. From architecture decisions to production observability, I take full accountability. I mentor, review ruthlessly, and communicate tradeoffs clearly, because software is a team sport, and clarity scales better than cleverness.
+                </p>
+                <p className={styles.text}>
+                  I’m drawn to teams and problems that value thoughtful planning, long-term scalability, and real-world impact over rushed delivery. A tool or framework doesn’t define me; each problem has its own solution, and I tailor my approach to the constraint at hand.
                 </p>
                 
               </div>
 
               <div className={styles.sectionBlock}>
-                <h3 className={styles.subtitle}>What&apos;s Next?</h3>
+                <h3 className={styles.subtitle}>What&apos;s Next</h3>
                 <p className={styles.text}>
                   I&apos;m currently looking for opportunities to bring high-impact projects to life. Whether you&apos;re building a new product, scaling an existing platform, or simply want to brainstorm a challenging tech problem, I&apos;d love to connect.
                 </p>
