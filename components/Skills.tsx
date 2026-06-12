@@ -15,6 +15,32 @@ interface TechSkill {
   category: string;
 }
 
+const brandedIconSources: Record<string, string> = {
+  css: 'https://cdn.simpleicons.org/css/663399',
+  'github-actions': 'https://cdn.simpleicons.org/githubactions/2088FF',
+  render: 'https://cdn.simpleicons.org/render/46E3B7',
+  postgresql: 'https://cdn.simpleicons.org/postgresql/4169E1',
+  fastapi: 'https://cdn.simpleicons.org/fastapi/009688',
+  prisma: 'https://cdn.simpleicons.org/prisma/2D3748',
+  tailwind: 'https://cdn.simpleicons.org/tailwindcss/06B6D4',
+  'react-router': 'https://cdn.simpleicons.org/reactrouter/CA4245',
+  'tanstack-query': 'https://cdn.simpleicons.org/reactquery/FF4154',
+  redis: 'https://cdn.simpleicons.org/redis/FF4438',
+  zod: 'https://cdn.simpleicons.org/zod/3E67B1',
+  'jwt-rs256': 'https://cdn.simpleicons.org/jsonwebtokens/2563EB',
+  cloudinary: 'https://cdn.simpleicons.org/cloudinary/3448C5',
+  nginx: 'https://cdn.simpleicons.org/nginx/009639',
+  vite: 'https://cdn.simpleicons.org/vite/646CFF',
+  k6: 'https://cdn.simpleicons.org/k6/7D64FF',
+};
+
+const brandedInitials: Record<string, { label: string; color: string }> = {
+  aiven: { label: 'AV', color: '#FF3554' },
+  bullmq: { label: 'BQ', color: '#15803D' },
+  winston: { label: 'WN', color: '#2563EB' },
+  'africas-talking': { label: 'AT', color: '#F59E0B' },
+};
+
 const Skills: React.FC = () => {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -64,6 +90,35 @@ const Skills: React.FC = () => {
   const itemVariants = createItemVariants(Boolean(prefersReducedMotion), 20, 0.5);
 
   const renderTechIcon = (iconName: string) => {
+    const brandedIconSource = brandedIconSources[iconName];
+
+    if (brandedIconSource) {
+      return (
+        <img
+          src={brandedIconSource}
+          alt=""
+          width="48"
+          height="48"
+          loading="lazy"
+          aria-hidden="true"
+        />
+      );
+    }
+
+    const brandedInitial = brandedInitials[iconName];
+
+    if (brandedInitial) {
+      return (
+        <div
+          className={styles.brandedInitials}
+          style={{ backgroundColor: brandedInitial.color }}
+          aria-hidden="true"
+        >
+          {brandedInitial.label}
+        </div>
+      );
+    }
+
     const iconProps = {
       width: "48",
       height: "48",
@@ -257,20 +312,8 @@ const Skills: React.FC = () => {
         );
       default:
         return (
-          <div
-            style={{
-              width: "48px",
-              height: "48px",
-              backgroundColor: "var(--color-primary)",
-              borderRadius: "8px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "white",
-              fontWeight: "bold",
-            }}
-          >
-            {iconName.charAt(0).toUpperCase()}
+          <div className={styles.brandedInitials} aria-hidden="true">
+            {iconName.slice(0, 2).toUpperCase()}
           </div>
         );
     }

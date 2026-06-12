@@ -113,6 +113,27 @@
   height: clamp(2.5rem, 6vw, 3.75rem);
 }
 
+.skillIcon img,
+.skillIcon svg {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.brandedInitials {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
 .skillName {
   font-size: clamp(0.9rem, 2vw, 1.05rem);
   font-weight: 600;
@@ -248,7 +269,9 @@
     grid-template-columns: 1fr;
   }
 
-  .skillIcon svg {
+  .skillIcon img,
+  .skillIcon svg,
+  .brandedInitials {
     width: 32px !important;
     height: 32px !important;
   }
