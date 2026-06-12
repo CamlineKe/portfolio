@@ -23,11 +23,12 @@ const Navigation: React.FC = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
+      setActiveSection(sectionId);
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  // Track active section based on viewport intersection for smoother behavior across breakpoints.
+  // Track the section crossing the upper viewport marker, regardless of section height.
   useEffect(() => {
     const sections = navItems
       .map((item) => ({ id: item.id, element: document.getElementById(item.id) }))
@@ -37,24 +38,45 @@ const Navigation: React.FC = () => {
       return;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntries = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    let animationFrameId: number | null = null;
 
-        if (visibleEntries.length) {
-          setActiveSection(visibleEntries[0].target.id);
-        }
-      },
-      {
-        rootMargin: '-20% 0px -55% 0px',
-        threshold: [0.2, 0.35, 0.5, 0.75],
+    const updateActiveSection = () => {
+      animationFrameId = null;
+
+      const viewportMarker = window.innerHeight * 0.3;
+      const isAtPageBottom =
+        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+      const currentSection = isAtPageBottom
+        ? sections[sections.length - 1]
+        : [...sections]
+            .reverse()
+            .find(({ element }) => element.getBoundingClientRect().top <= viewportMarker);
+
+      if (currentSection) {
+        setActiveSection((current) =>
+          current === currentSection.id ? current : currentSection.id
+        );
       }
-    );
+    };
 
-    sections.forEach(({ element }) => observer.observe(element));
-    return () => observer.disconnect();
+    const scheduleUpdate = () => {
+      if (animationFrameId === null) {
+        animationFrameId = window.requestAnimationFrame(updateActiveSection);
+      }
+    };
+
+    updateActiveSection();
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
+
+    return () => {
+      window.removeEventListener('scroll', scheduleUpdate);
+      window.removeEventListener('resize', scheduleUpdate);
+
+      if (animationFrameId !== null) {
+        window.cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, [navItems]);
 
   return (
