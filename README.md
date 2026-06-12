@@ -1,6 +1,6 @@
-# Camline's Portfolio
+# Moses Maina's Portfolio
 
-A professional portfolio website showcasing MERN fullstack development expertise, built with Next.js and TypeScript using CSS Modules for styling. The portfolio features a modern, sleek design with mobile-first responsive layout, dark/light mode toggle, smooth animations, and accessibility compliance.
+A professional portfolio for a systems-driven software engineer focused on reliable custom software, scalable products, and practical business solutions. Built with Next.js and TypeScript, the site presents selected work, technical capabilities, and contact channels through a responsive, accessible interface.
 
 ## 🚀 Tech Stack
 
@@ -22,10 +22,12 @@ A professional portfolio website showcasing MERN fullstack development expertise
 - ✅ Validated contact form with email sending via Next.js API Route (Gmail SMTP)
 - ✅ Spam protection via honeypot
 - ✅ Animated progress bars and interactive elements
-- ✅ Always visible project action buttons
-- ✅ Project action system with explicit `public` vs `private` repository handling
-- ✅ Smart demo actions with `Live Demo` and `Video Demo` modes
-- ✅ Centralized project data file for easy long-term maintenance
+- ✅ Five concise featured-project cards led by a flagship Rental Management System
+- ✅ Category-based project filtering that remains stable as technologies change
+- ✅ Support for multiple named demos on a single project
+- ✅ Explicit `public` vs `private` repository handling
+- ✅ Smart demo actions with `Live Demo`, `Video Demo`, and custom labels
+- ✅ Centralized project data for easy long-term maintenance
 - ✅ Fluid responsive typography and spacing using `clamp()` and layout tokens
 - ✅ Safe-area-aware navigation for modern mobile devices (`env(safe-area-inset-*)`)
 - ✅ Adaptive animation system with reduced-motion support and touch-aware hover behavior
@@ -45,7 +47,7 @@ A professional portfolio website showcasing MERN fullstack development expertise
 │   ├── Footer.tsx       # Footer
 │   └── ThemeToggle.tsx  # Dark/light mode switcher
 ├── /data                # Centralized content data
-│   └── projects.ts      # Project records (demo + repository states)
+│   └── projects.ts      # Project records, categories, demos, and repository states
 ├── /pages              # Next.js pages
 │   ├── index.tsx       # Main page
 │   └── _app.tsx        # App configuration
@@ -162,10 +164,13 @@ const projects: Project[] = [
     description: "Project description highlighting tech stack and problem solved.",
     image: "/images/your-project.jpg",
     technologies: ["React", "Node.js", "MongoDB"],
-    demo: {
-      type: "live", // "live" | "video"
-      url: "https://your-demo-url.com"
-    },
+    category: "SaaS", // "Custom Software" | "SaaS" | "AI & Data" | "Web Applications"
+    demos: [
+      {
+        type: "live", // "live" | "video"
+        url: "https://your-demo-url.com"
+      }
+    ],
     repository: {
       visibility: "public", // "public" | "private"
       url: "https://github.com/your-repo"
@@ -184,10 +189,14 @@ For a private/client repository:
   description: "Confidential delivery for a client",
   image: "/images/client-project.jpg",
   technologies: ["React", "Node.js"],
-  demo: {
-    type: "video",
-    url: "https://drive.google.com/your-video-link"
-  },
+  category: "Custom Software",
+  demos: [
+    {
+      label: "Admin Demo", // Optional custom action label
+      type: "video",
+      url: "https://drive.google.com/your-video-link"
+    }
+  ],
   repository: {
     visibility: "private",
     reason: "Client project repository is private and not publicly shareable."
@@ -196,24 +205,41 @@ For a private/client repository:
 ```
 
 How it behaves in UI:
-- `demo.type = "live"` → button label is `Live Demo`
-- `demo.type = "video"` → button label is `Video Demo`
+- `demos` supports one or multiple project actions
+- `demo.type = "live"` → default button label is `Live Demo`
+- `demo.type = "video"` → default button label is `Video Demo`
+- `demo.label` → replaces the default label with a named action such as `Admin Demo`
+- `featured = true` → displays the project as a full-width flagship card
+- `status` and `highlight` → add concise project context and a verified engineering result
 - `repository.visibility = "public"` → opens GitHub repository
 - `repository.visibility = "private"` → opens private-project modal with reason + demo access
 
-### Current Project Modules (RMS)
+### Flagship Rental Management System
 
-The portfolio currently includes these RMS modules as separate project entries:
+The Rental Management System is presented as one flagship PropertyTech platform rather than four separate project cards. Its `demos` array keeps each role-specific walkthrough directly accessible:
 
-- `RMS Admin Portal`
-- `RMS Landlord Dashboard`
-- `RMS Tenant Portal`
-- `RMS Caretaker Portal`
+- `Admin Demo`
+- `Landlord Demo`
+- `Tenant Demo`
+- `Caretaker Demo`
 
-All are configured with:
+The project is configured with:
 
-- `demo.type = "video"`
+- `featured = true`
+- `status = "Flagship Project · Currently Building"`
+- `category = "SaaS"`
 - `repository.visibility = "private"`
+
+### Project Categories
+
+Project filters are driven by the explicit `category` field instead of the technology list. This keeps the filter row concise even when new tools are added to a project.
+
+Available categories:
+
+- `Custom Software`
+- `SaaS`
+- `AI & Data`
+- `Web Applications`
 
 ### Customize Theme Colors
 

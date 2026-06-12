@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { Project } from '../types';
+import { Project, ProjectDemo } from '../types';
 import { useCanHover } from '../hooks/useCanHover';
 import { projects } from '../data/projects';
 import {
@@ -21,14 +21,14 @@ const Projects: React.FC = () => {
   const canHover = useCanHover();
   const enableHoverMotion = canHover && !prefersReducedMotion;
 
-  const technologies = useMemo(() => {
-    const uniqueTechnologies = new Set(projects.flatMap((project) => project.technologies));
-    return ['all', ...Array.from(uniqueTechnologies)];
+  const categories = useMemo(() => {
+    const uniqueCategories = new Set(projects.map((project) => project.category));
+    return ['all', ...Array.from(uniqueCategories)];
   }, []);
 
   const filteredProjects = selectedFilter === 'all'
     ? projects
-    : projects.filter(project => project.technologies.includes(selectedFilter));
+    : projects.filter(project => project.category === selectedFilter);
 
   useEffect(() => {
     if (!privateProject) {
@@ -70,8 +70,8 @@ const Projects: React.FC = () => {
     setPrivateProject(project);
   };
 
-  const getDemoLabel = (project: Project) => {
-    return project.demo.type === 'video' ? 'Video Demo' : 'Live Demo';
+  const getDemoLabel = (demo: ProjectDemo) => {
+    return demo.label ?? (demo.type === 'video' ? 'Video Demo' : 'Live Demo');
   };
 
   return (
@@ -90,16 +90,16 @@ const Projects: React.FC = () => {
 
           <motion.div className={styles.filterContainer} variants={itemVariants}>
             <div className={styles.filterButtons}>
-              {technologies.map((tech) => (
+              {categories.map((category) => (
                 <motion.button
-                  key={tech}
-                  className={`${styles.filterButton} ${selectedFilter === tech ? styles.active : ''
+                  key={category}
+                  className={`${styles.filterButton} ${selectedFilter === category ? styles.active : ''
                     }`}
-                  onClick={() => setSelectedFilter(tech)}
+                  onClick={() => setSelectedFilter(category)}
                   whileHover={hoverScale(enableHoverMotion, 1.05)}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {tech === 'all' ? 'All Projects' : tech}
+                  {category === 'all' ? 'All Projects' : category}
                 </motion.button>
               ))}
             </div>
@@ -110,7 +110,7 @@ const Projects: React.FC = () => {
               {filteredProjects.map((project) => (
                 <motion.div
                   key={project.id}
-                  className={styles.projectCard}
+                  className={`${styles.projectCard} ${project.featured ? styles.featuredProject : ''}`}
                   variants={cardVariants}
                   initial="hidden"
                   animate="visible"
@@ -129,8 +129,14 @@ const Projects: React.FC = () => {
                   </div>
 
                   <div className={styles.projectContent}>
+                    {project.status && (
+                      <span className={styles.projectStatus}>{project.status}</span>
+                    )}
                     <h3 className={styles.projectTitle}>{project.title}</h3>
                     <p className={styles.projectDescription}>{project.description}</p>
+                    {project.highlight && (
+                      <p className={styles.projectHighlight}>{project.highlight}</p>
+                    )}
 
                     <div className={styles.techBadges}>
                       {project.technologies.map((tech) => (
@@ -141,16 +147,19 @@ const Projects: React.FC = () => {
                     </div>
 
                     <div className={styles.projectActions}>
-                      <motion.a
-                        href={project.demo.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.demoButton}
-                        whileHover={hoverScale(enableHoverMotion, 1.02)}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        {getDemoLabel(project)}
-                      </motion.a>
+                      {project.demos.map((demo) => (
+                        <motion.a
+                          key={`${project.id}-${getDemoLabel(demo)}`}
+                          href={demo.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.demoButton}
+                          whileHover={hoverScale(enableHoverMotion, 1.02)}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          {getDemoLabel(demo)}
+                        </motion.a>
+                      ))}
                       <motion.button
                         type="button"
                         className={styles.codeButton}
@@ -202,16 +211,19 @@ const Projects: React.FC = () => {
               </p>
 
               <div className={styles.modalActions}>
-                <motion.a
-                  href={privateProject.demo.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.demoButton}
-                  whileHover={hoverScale(enableHoverMotion, 1.02)}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {getDemoLabel(privateProject)}
-                </motion.a>
+                {privateProject.demos.map((demo) => (
+                  <motion.a
+                    key={`${privateProject.id}-${getDemoLabel(demo)}`}
+                    href={demo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.demoButton}
+                    whileHover={hoverScale(enableHoverMotion, 1.02)}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {getDemoLabel(demo)}
+                  </motion.a>
+                ))}
                 <motion.button
                   type="button"
                   className={styles.codeButton}

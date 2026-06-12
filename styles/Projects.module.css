@@ -89,6 +89,15 @@
   min-height: 100%;
 }
 
+.featuredProject {
+  grid-column: 1 / -1;
+  border-color: rgba(var(--color-primary-rgb), 0.5);
+}
+
+.featuredProject .projectImage {
+  height: clamp(14rem, 34vw, 22rem);
+}
+
 [data-theme="dark"] .projectCard {
   background: rgba(15, 23, 42, 0.62);
   border-color: rgba(255, 255, 255, 0.06);
@@ -143,12 +152,34 @@
   margin-bottom: 0.8rem;
 }
 
+.projectStatus {
+  align-self: flex-start;
+  margin-bottom: 0.75rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid rgba(var(--color-primary-rgb), 0.35);
+  border-radius: 2rem;
+  background: rgba(var(--color-primary-rgb), 0.1);
+  color: var(--color-primary);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
 .projectDescription {
   color: var(--color-text-secondary);
   line-height: 1.65;
-  margin-bottom: 1.2rem;
-  flex: 1;
+  margin-bottom: 1rem;
   font-size: clamp(0.9rem, 1.4vw, 0.98rem);
+}
+
+.projectHighlight {
+  margin-bottom: 1.2rem;
+  padding-left: 0.9rem;
+  border-left: 3px solid var(--color-primary);
+  color: var(--color-text-primary);
+  font-size: clamp(0.86rem, 1.35vw, 0.94rem);
+  font-weight: 600;
+  line-height: 1.55;
 }
 
 .techBadges {
@@ -169,6 +200,7 @@
 
 .projectActions {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: auto;
 }
@@ -186,6 +218,7 @@
   border: 2px solid;
   cursor: pointer;
   font-family: inherit;
+  min-width: fit-content;
 }
 
 .demoButton {
@@ -257,6 +290,7 @@
 
 .modalActions {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 1.15rem;
 }
@@ -269,6 +303,10 @@
   .projectActions,
   .modalActions {
     flex-direction: column;
+  }
+
+  .featuredProject .projectImage {
+    height: clamp(12rem, 52vw, 17rem);
   }
 }
 

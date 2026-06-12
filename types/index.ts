@@ -15,11 +15,13 @@ export type ProjectRepository = ProjectRepositoryPublic | ProjectRepositoryPriva
 export interface ProjectDemoLive {
   type: 'live';
   url: string;
+  label?: string;
 }
 
 export interface ProjectDemoVideo {
   type: 'video';
   url: string;
+  label?: string;
 }
 
 export type ProjectDemo = ProjectDemoLive | ProjectDemoVideo;
@@ -30,7 +32,11 @@ export interface Project {
   description: string;
   image: string;
   technologies: string[];
-  demo: ProjectDemo;
+  category: 'Custom Software' | 'SaaS' | 'AI & Data' | 'Web Applications';
+  demos: ProjectDemo[];
+  featured?: boolean;
+  status?: string;
+  highlight?: string;
   repository: ProjectRepository;
 }
 
