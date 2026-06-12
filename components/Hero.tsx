@@ -73,15 +73,15 @@ const Hero: React.FC = () => {
             <span>I am </span>
             <div className={styles.typewriterText}>
               {prefersReducedMotion ? (
-                <span>a Systems-Driven Full-Stack Engineer</span>
+                <span>a Systems-Driven Software Engineer</span>
               ) : (
                 <Typewriter
                   options={{
                     strings: [
-                      'a Systems-Driven Full-Stack Engineer',
-                      'building with AI as a thinking partner',
-                      'designing stable, scalable architectures',
-                      'decomposing complex problems into clear solutions',
+                      'a Systems-Driven Software Engineer',
+                      'building reliable custom software',
+                      'turning complex problems into clear solutions',
+                      'engineering products from idea to production',
                     ],
                     autoStart: true,
                     loop: true,
