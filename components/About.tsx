@@ -137,6 +137,22 @@ const About: React.FC = () => {
                   </motion.div>
                 ))}
               </div>
+
+              <h3 className={styles.credibilityTitle}>Credibility</h3>
+              <div className={styles.credibilityList}>
+                <div className={styles.credibilityItem}>
+                  <strong>2</strong>
+                  <span>Confidential client systems delivered and currently in use</span>
+                </div>
+                <div className={styles.credibilityItem}>
+                  <strong>263</strong>
+                  <span>Passing RMS backend tests across 67 suites</span>
+                </div>
+                <div className={styles.credibilityItem}>
+                  <strong>3</strong>
+                  <span>Completed certifications across AI, cloud tooling, and cybersecurity</span>
+                </div>
+              </div>
             </motion.div>
           </div>
 

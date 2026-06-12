@@ -17,11 +17,6 @@ const Hero: React.FC = () => {
     scrollToSection('projects');
   };
 
-  const handleDownloadCV = () => {
-    // Open CV in new tab
-    window.open('/CV/Moses_Maina_CV.pdf', '_blank');
-  };
-
   return (
     <section className={styles.hero} id="hero">
       <div className={`container ${styles.heroContainer}`}>
@@ -101,7 +96,8 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: prefersReducedMotion ? 0.2 : 0.8, delay: prefersReducedMotion ? 0 : 0.7 }}
           >
-            Systems-driven full-stack engineer building reliable, scalable web applications. I turn complex problems into clear architectures and production-ready systems using modern web technologies and AI-augmented workflows.
+            I design and build reliable custom software that turns complex business
+            problems into secure, maintainable, and production-ready systems.
           </motion.p>
 
           <motion.div
@@ -119,23 +115,26 @@ const Hero: React.FC = () => {
               View Projects
             </motion.button>
 
-            <motion.button
+            <motion.a
+              href="/CV/Moses_Maina_CV.pdf"
+              download
               className={`${styles.glassButton}`}
-              onClick={handleDownloadCV}
               whileHover={hoverScale(enableHoverMotion, 1.05)}
               whileTap={{ scale: 0.95 }}
             >
               Download CV
-            </motion.button>
+            </motion.a>
           </motion.div>
         </motion.div>
 
-        <motion.div
+        <motion.button
+          type="button"
           className={styles.scrollIndicator}
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: prefersReducedMotion ? 0.2 : 1, delay: prefersReducedMotion ? 0 : 1.5 }}
           onClick={handleViewProjects}
+          aria-label="Scroll to featured projects"
         >
           <motion.div
             className={styles.scrollArrow}
@@ -155,7 +154,7 @@ const Hero: React.FC = () => {
               <path d="M12 5v14M19 12l-7 7-7-7" />
             </svg>
           </motion.div>
-        </motion.div>
+        </motion.button>
       </div>
     </section>
   );

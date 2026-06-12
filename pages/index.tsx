@@ -9,33 +9,38 @@ import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 
 const Home: React.FC = () => {
+  const siteUrl = 'https://moses-maina-portfolio.vercel.app';
+  const title = 'Moses Maina | Systems-Driven Software Engineer';
+  const description = 'Portfolio of Moses Maina, a systems-driven software engineer building reliable custom software, scalable products, and secure production-ready systems.';
+  const socialImage = `${siteUrl}/images/avatar.jpg`;
+
   return (
     <>
       <Head>
-        <title>Moses&apos;s Portfolio - MERN Fullstack Developer</title>
-        <meta name="description" content="Professional portfolio of Moses&apos;s, a MERN fullstack developer specializing in Next.js and TypeScript. View projects, skills, and get in touch." />
-        <meta name="keywords" content="Moses, Portfolio, MERN Stack, Fullstack Developer, Next.js, TypeScript, React, Node.js, MongoDB, Web Development" />
-        <meta name="author" content="Moses" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="keywords" content="Moses Maina, Systems-Driven Software Engineer, Custom Software, Full-Stack Engineering, Backend Engineering, Product Engineering, TypeScript, Node.js, React, PostgreSQL" />
+        <meta name="author" content="Moses Maina" />
 
         {/* Open Graph tags */}
-        <meta property="og:title" content="Moses&apos;s Portfolio - MERN Fullstack Developer" />
-        <meta property="og:description" content="Professional portfolio showcasing MERN stack expertise, Next.js projects, and TypeScript development skills." />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://camlineportfolio.vercel.app/" />
-        <meta property="og:image" content="/images/avatar.jpg" />
+        <meta property="og:url" content={siteUrl} />
+        <meta property="og:image" content={socialImage} />
+        <meta property="og:image:alt" content="Moses Maina" />
 
         {/* Twitter Card tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Moses&apos;s Portfolio - MERN Fullstack Developer" />
-        <meta name="twitter:description" content="Professional portfolio showcasing MERN stack expertise, Next.js projects, and TypeScript development skills." />
-        <meta name="twitter:image" content="/images/avatar.jpg" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={socialImage} />
+        <meta name="twitter:image:alt" content="Moses Maina" />
 
         {/* Additional SEO tags */}
         <meta name="robots" content="index, follow" />
         <meta name="language" content="English" />
-        <meta name="revisit-after" content="7 days" />
-
-        <link rel="canonical" href="https://camlineportfolio.vercel.app/" />
+        <link rel="canonical" href={siteUrl} />
       </Head>
 
       <Navigation />
@@ -54,4 +59,3 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-

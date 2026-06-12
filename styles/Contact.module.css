@@ -149,6 +149,31 @@
   gap: 1.2rem;
 }
 
+.opportunityCard {
+  padding: 1rem;
+  border: 1px solid rgba(var(--color-primary-rgb), 0.3);
+  border-radius: var(--radius-lg);
+  background: rgba(var(--color-primary-rgb), 0.08);
+}
+
+.opportunityCard .socialTitle {
+  margin-bottom: 0.55rem;
+}
+
+.opportunityText,
+.opportunityMeta {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.opportunityMeta {
+  margin-top: 0.55rem;
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
 .socialTitle {
   font-size: clamp(1.1rem, 2.7vw, 1.45rem);
   color: var(--color-text-primary);

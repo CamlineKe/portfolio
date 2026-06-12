@@ -256,6 +256,9 @@
   transition: color var(--transition-fast), transform var(--transition-fast);
   padding: 0.5rem;
   border-radius: 50%;
+  border: 0;
+  background: transparent;
+  font: inherit;
 }
 
 .scrollArrow {

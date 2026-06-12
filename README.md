@@ -1,6 +1,8 @@
 # Moses Maina's Portfolio
 
-A professional portfolio for a systems-driven software engineer focused on reliable custom software, scalable products, and practical business solutions. Built with Next.js and TypeScript, the site presents selected work, technical capabilities, and contact channels through a responsive, accessible interface.
+A professional portfolio for a systems-driven software engineer focused on reliable custom software, scalable products, and practical business solutions. Built with Next.js and TypeScript, the site presents selected work, verified engineering highlights, opportunity preferences, and secure contact channels through a responsive, accessible interface.
+
+**Canonical URL:** [https://moses-maina-portfolio.vercel.app](https://moses-maina-portfolio.vercel.app)
 
 ## 🚀 Tech Stack
 
@@ -16,11 +18,11 @@ A professional portfolio for a systems-driven software engineer focused on relia
 - ✅ Responsive navigation bar (top on desktop, bottom on mobile)
 - ✅ Dark/light mode toggle with system preference detection
 - ✅ Smooth scrolling navigation
-- ✅ Accessibility compliance (ARIA, keyboard navigation)
-- ✅ SEO optimized with Open Graph tags
+- ✅ Accessibility-aware interactions with ARIA, keyboard navigation, and reduced-motion support
+- ✅ Centralized SEO metadata with canonical, Open Graph, and social-card tags
 - ✅ Performance optimized with code splitting and lazy loading
-- ✅ Validated contact form with email sending via Next.js API Route (Gmail SMTP)
-- ✅ Spam protection via honeypot
+- ✅ Validated contact form with secure email sending via Next.js API Route (Gmail SMTP)
+- ✅ Server-side input validation, HTML escaping, honeypot checks, and best-effort rate limiting
 - ✅ Animated progress bars and interactive elements
 - ✅ Five concise featured-project cards led by a flagship Rental Management System
 - ✅ Category-based project filtering that remains stable as technologies change
@@ -32,6 +34,8 @@ A professional portfolio for a systems-driven software engineer focused on relia
 - ✅ Safe-area-aware navigation for modern mobile devices (`env(safe-area-inset-*)`)
 - ✅ Adaptive animation system with reduced-motion support and touch-aware hover behavior
 - ✅ Performance-optimized hero particles (screen-size + interaction aware)
+- ✅ Resized project source images with responsive Next.js image sizing
+- ✅ Professional opportunity positioning and compact credibility evidence
 
 ## 📁 Project Structure
 
@@ -327,12 +331,30 @@ To enable the contact form to send emails, you need to configure environment var
 
     **Note:** The `.env.local` file is ignored by Git (`.gitignore`) for security reasons and should not be committed to version control.
 
+### Contact Form Security
+
+The contact API treats all form data as untrusted input and applies:
+
+- Server-side type, format, and length validation
+- Honeypot verification on both the client and API route
+- HTML escaping before content is inserted into email markup
+- Plain-text and HTML email alternatives
+- Controlled sender identity using `GMAIL_USER` with the visitor assigned to `replyTo`
+- Best-effort per-instance IP throttling of five accepted submissions per 15 minutes
+
+For high-volume production traffic, replace the in-memory throttle with a shared store such as Redis or a managed rate-limiting service.
+
+### SEO Configuration
+
+Page-specific metadata is maintained in `/pages/index.tsx`, while `/pages/_app.tsx` contains only global viewport and favicon tags. When changing domains, update `siteUrl` in `/pages/index.tsx` so canonical and social-preview URLs remain aligned.
+
 ## ♿ Accessibility Features
 
 - Semantic HTML5 elements
 - ARIA labels and roles
 - Keyboard navigation support
-- Focus management
+- Focus trapping and restoration for the private-project dialog
+- Live regions for contact form submission feedback
 - Screen reader compatibility
 - Color contrast compliance
 

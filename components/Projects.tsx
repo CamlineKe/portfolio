@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Project, ProjectDemo } from '../types';
@@ -17,6 +17,8 @@ import styles from '../styles/Projects.module.css';
 const Projects: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   const [privateProject, setPrivateProject] = useState<Project | null>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const lastTriggerRef = useRef<HTMLButtonElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
   const canHover = useCanHover();
   const enableHoverMotion = canHover && !prefersReducedMotion;
@@ -35,14 +37,42 @@ const Projects: React.FC = () => {
       return;
     }
 
-    const handleEsc = (event: KeyboardEvent) => {
+    modalRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setPrivateProject(null);
+        return;
+      }
+
+      if (event.key !== 'Tab' || !modalRef.current) {
+        return;
+      }
+
+      const focusableElements = Array.from(
+        modalRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (!firstElement || !lastElement) {
+        event.preventDefault();
+      } else if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
       }
     };
 
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      lastTriggerRef.current?.focus();
+    };
   }, [privateProject]);
 
   useEffect(() => {
@@ -61,12 +91,13 @@ const Projects: React.FC = () => {
   const itemVariants = createItemVariants(Boolean(prefersReducedMotion), 24, 0.55);
   const cardVariants = createCardVariants(Boolean(prefersReducedMotion));
 
-  const handleRepositoryClick = (project: Project) => {
+  const handleRepositoryClick = (project: Project, trigger: HTMLButtonElement) => {
     if (project.repository.visibility === 'public') {
       window.open(project.repository.url, '_blank', 'noopener,noreferrer');
       return;
     }
 
+    lastTriggerRef.current = trigger;
     setPrivateProject(project);
   };
 
@@ -124,6 +155,7 @@ const Projects: React.FC = () => {
                       alt={project.title}
                       width={400}
                       height={250}
+                      sizes={project.featured ? '(max-width: 768px) 95vw, 90vw' : '(max-width: 768px) 95vw, 45vw'}
                       className={styles.image}
                     />
                   </div>
@@ -165,7 +197,7 @@ const Projects: React.FC = () => {
                         className={styles.codeButton}
                         whileHover={hoverScale(enableHoverMotion, 1.02)}
                         whileTap={{ scale: 0.98 }}
-                        onClick={() => handleRepositoryClick(project)}
+                        onClick={(event) => handleRepositoryClick(project, event.currentTarget)}
                       >
                         {project.repository.visibility === 'public' ? 'Source Code' : 'Private Repo'}
                       </motion.button>
@@ -188,6 +220,7 @@ const Projects: React.FC = () => {
             onClick={() => setPrivateProject(null)}
           >
             <motion.div
+              ref={modalRef}
               className={styles.modal}
               initial={{ opacity: 0, y: 24, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -197,6 +230,7 @@ const Projects: React.FC = () => {
               role="dialog"
               aria-modal="true"
               aria-labelledby="private-repo-title"
+              tabIndex={-1}
             >
               <h3 id="private-repo-title" className={styles.modalTitle}>
                 Private Repository

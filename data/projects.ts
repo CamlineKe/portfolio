@@ -8,7 +8,7 @@ export const projects: Project[] = [
       'A multi-tenant PropertyTech platform connecting administrators, landlords, tenants, and caretakers through secure role-specific applications. It supports property operations, M-Pesa rent payments, instalment plans, maintenance workflows, reporting, and operational analytics.',
     highlight:
       'Backed by 263 passing backend tests across 67 suites, with reliable payment reconciliation using idempotent callbacks, PostgreSQL advisory locks, and serializable transactions.',
-    image: '/images/rms_admin.jpg',
+    image: '/images/rms.png',
     technologies: [
       'React',
       'TypeScript',

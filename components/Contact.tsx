@@ -143,8 +143,8 @@ const Contact: React.FC = () => {
           </motion.h2>
 
           <motion.p className={styles.subtitle} variants={itemVariants}>
-            I&apos;m always open to discussing new opportunities and interesting projects.
-            Let&apos;s connect and create something amazing together!
+            Have a role, business challenge, or product idea? Let&apos;s discuss how I
+            can contribute through reliable software and thoughtful engineering.
           </motion.p>
 
           <div className={styles.contactContent}>
@@ -170,6 +170,10 @@ const Contact: React.FC = () => {
                     className={`${styles.input} ${errors.name ? styles.error : ''}`}
                     {...register('name', {
                       required: 'Name is required',
+                      maxLength: {
+                        value: 80,
+                        message: 'Name must be 80 characters or fewer',
+                      },
                       minLength: {
                         value: 2,
                         message: 'Name must be at least 2 characters',
@@ -192,6 +196,10 @@ const Contact: React.FC = () => {
                     className={`${styles.input} ${errors.email ? styles.error : ''}`}
                     {...register('email', {
                       required: 'Email is required',
+                      maxLength: {
+                        value: 254,
+                        message: 'Email must be 254 characters or fewer',
+                      },
                       pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                         message: 'Please enter a valid email address',
@@ -214,6 +222,10 @@ const Contact: React.FC = () => {
                     className={`${styles.textarea} ${errors.message ? styles.error : ''}`}
                     {...register('message', {
                       required: 'Message is required',
+                      maxLength: {
+                        value: 3000,
+                        message: 'Message must be 3,000 characters or fewer',
+                      },
                       minLength: {
                         value: 10,
                         message: 'Message must be at least 10 characters',
@@ -238,6 +250,8 @@ const Contact: React.FC = () => {
                 {submitStatus === 'success' && (
                   <motion.div
                     className={styles.successMessage}
+                    role="status"
+                    aria-live="polite"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                   >
@@ -248,6 +262,7 @@ const Contact: React.FC = () => {
                 {submitStatus === 'error' && (
                   <motion.div
                     className={styles.errorMessage}
+                    role="alert"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                   >
@@ -258,6 +273,16 @@ const Contact: React.FC = () => {
             </motion.div>
 
             <motion.div className={styles.socialSection} variants={itemVariants}>
+              <div className={styles.opportunityCard}>
+                <h3 className={styles.socialTitle}>Open To</h3>
+                <p className={styles.opportunityText}>
+                  Full-time and graduate engineering roles, freelance projects, and
+                  strong early-stage startup collaborations.
+                </p>
+                <p className={styles.opportunityMeta}>
+                  Kenya &amp; international · Remote, hybrid, or onsite
+                </p>
+              </div>
               <h3 className={styles.socialTitle}>Connect With Me</h3>
               <div className={styles.socialLinks}>
                 {socialLinks.map((social) => (

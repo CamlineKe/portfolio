@@ -49,7 +49,7 @@ export interface ContactFormData {
   name: string;
   email: string;
   message: string;
-  honeypot?: any;
+  honeypot?: string;
 }
 
 export interface SocialLink {
