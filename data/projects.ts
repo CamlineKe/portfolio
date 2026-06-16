@@ -63,7 +63,7 @@ export const projects: Project[] = [
     demos: [
       {
         type: 'video',
-        url: 'https://drive.google.com/file/d/1BdUkJHmL-Ukdo0jpJoPSkKfXYp_lkJei/view?usp=drive_link',
+        url: 'https://drive.google.com/file/d/1kN6E4lQUvSvTXl7VgjtQydb0BUZK9OMs/view?usp=sharing',
       },
     ],
     repository: {

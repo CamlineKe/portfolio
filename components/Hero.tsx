@@ -42,7 +42,7 @@ const Hero: React.FC = () => {
             whileHover={enableHoverMotion ? { scale: 1.05 } : undefined}
           >
             <Image
-              src="/images/avatar.jpg"
+              src="/images/avatar.png"
               alt="Moses Maina"
               width={200}
               height={200}
