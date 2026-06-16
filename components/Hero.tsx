@@ -116,7 +116,7 @@ const Hero: React.FC = () => {
             </motion.button>
 
             <motion.a
-              href="/CV/Moses_Maina_CV.pdf"
+              href="/CV/Moses_Maina_Software_Engineer_Resume.pdf"
               download
               className={`${styles.glassButton}`}
               whileHover={hoverScale(enableHoverMotion, 1.05)}
