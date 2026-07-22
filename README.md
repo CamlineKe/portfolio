@@ -24,7 +24,7 @@ A professional portfolio for a systems-driven software engineer focused on relia
 - ✅ Validated contact form with secure email sending via Next.js API Route (Gmail SMTP)
 - ✅ Server-side input validation, HTML escaping, honeypot checks, and best-effort rate limiting
 - ✅ Animated progress bars and interactive elements
-- ✅ Five concise featured-project cards led by a flagship Rental Management System
+- ✅ Six concise featured-project cards led by a flagship Rental Management System
 - ✅ Category-based project filtering that remains stable as technologies change
 - ✅ Support for multiple named demos on a single project
 - ✅ Explicit `public` vs `private` repository handling

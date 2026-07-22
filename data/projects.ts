@@ -115,6 +115,26 @@ export const projects: Project[] = [
   },
   {
     id: 5,
+    title: 'Viesta Nutrition',
+    description:
+      'A conversion-focused e-commerce storefront for a Kenyan nutrition and wellness brand. Customers can discover products, compare confirmed offers, manage a persistent cart, validate delivery details, and send structured order requests through WhatsApp, creating a low-friction purchase journey without a traditional checkout backend.',
+    image: '/images/viesta.png',
+    technologies: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Zod', 'Vitest'],
+    category: 'Web Applications',
+    status: 'Live Website',
+    demos: [
+      {
+        type: 'live',
+        url: 'https://viestanutrition.com/',
+      },
+    ],
+    repository: {
+      visibility: 'private',
+      reason: 'This production website has a private proprietary repository.',
+    },
+  },
+  {
+    id: 6,
     title: 'Task Management Platform',
     description:
       'A full-stack task management platform with enforced workflow transitions and real-time analytics. A Vue 3 interface connects to a Laravel REST API backed by indexed MySQL queries and containerized deployment.',
