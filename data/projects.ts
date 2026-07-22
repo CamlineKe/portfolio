@@ -73,7 +73,7 @@ export const projects: Project[] = [
   },
   {
     id: 3,
-    title: 'TaskFlow — Project Management Platform',
+    title: 'TaskFlow - Project Management Platform',
     description:
       'A project management platform for organizing team workflows, tracking progress, and managing tasks through interactive Kanban boards. Tiered Redis caching, MongoDB aggregation pipelines, and targeted query optimization keep project views responsive.',
     highlight:

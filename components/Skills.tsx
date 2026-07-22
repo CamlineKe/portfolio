@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useCanHover } from '../hooks/useCanHover';
 import {
@@ -12,7 +12,12 @@ import styles from '../styles/Skills.module.css';
 interface TechSkill {
   name: string;
   icon: string;
-  category: string;
+}
+
+interface TechCategory {
+  id: string;
+  title: string;
+  technologies: TechSkill[];
 }
 
 const brandedIconSources: Record<string, string> = {
@@ -39,52 +44,103 @@ const brandedInitials: Record<string, { label: string; color: string }> = {
   bullmq: { label: 'BQ', color: '#15803D' },
   winston: { label: 'WN', color: '#2563EB' },
   'africas-talking': { label: 'AT', color: '#F59E0B' },
+  python: { label: 'PY', color: '#3776AB' },
+  flask: { label: 'FL', color: '#334155' },
+  'scikit-learn': { label: 'ML', color: '#F7931E' },
+  'socket-io': { label: 'IO', color: '#475569' },
+  vitest: { label: 'VT', color: '#6E9F18' },
+  'm-pesa': { label: 'MP', color: '#16A34A' },
+  whatsapp: { label: 'WA', color: '#25D366' },
+  oauth: { label: 'O2', color: '#7C3AED' },
+  fitbit: { label: 'FB', color: '#00B0B9' },
 };
 
+const technologyCategories: TechCategory[] = [
+  {
+    id: 'languages-foundations',
+    title: 'Languages & Foundations',
+    technologies: [
+      { name: 'TypeScript', icon: 'typescript' },
+      { name: 'JavaScript', icon: 'javascript' },
+      { name: 'Python', icon: 'python' },
+      { name: 'HTML', icon: 'html' },
+      { name: 'CSS', icon: 'css' },
+    ],
+  },
+  {
+    id: 'frontend-engineering',
+    title: 'Frontend Engineering',
+    technologies: [
+      { name: 'React 19', icon: 'react' },
+      { name: 'Next.js', icon: 'nextjs' },
+      { name: 'Vue', icon: 'vue' },
+      { name: 'Tailwind CSS', icon: 'tailwind' },
+      { name: 'TanStack Query', icon: 'tanstack-query' },
+      { name: 'React Router', icon: 'react-router' },
+      { name: 'Vite', icon: 'vite' },
+    ],
+  },
+  {
+    id: 'backend-apis',
+    title: 'Backend & APIs',
+    technologies: [
+      { name: 'Node.js', icon: 'nodejs' },
+      { name: 'Express', icon: 'express' },
+      { name: 'Laravel', icon: 'laravel' },
+      { name: 'FastAPI', icon: 'fastapi' },
+      { name: 'Flask', icon: 'flask' },
+      { name: 'Zod', icon: 'zod' },
+    ],
+  },
+  {
+    id: 'data-queues-ai',
+    title: 'Data, Queues & AI',
+    technologies: [
+      { name: 'PostgreSQL', icon: 'postgresql' },
+      { name: 'Redis', icon: 'redis' },
+      { name: 'MongoDB', icon: 'mongodb' },
+      { name: 'MySQL', icon: 'mysql' },
+      { name: 'Prisma', icon: 'prisma' },
+      { name: 'BullMQ', icon: 'bullmq' },
+      { name: 'scikit-learn', icon: 'scikit-learn' },
+      { name: 'Socket.IO', icon: 'socket-io' },
+    ],
+  },
+  {
+    id: 'cloud-devops-quality',
+    title: 'Cloud, DevOps & Quality',
+    technologies: [
+      { name: 'Git', icon: 'git' },
+      { name: 'GitHub Actions', icon: 'github-actions' },
+      { name: 'Docker', icon: 'docker' },
+      { name: 'Nginx', icon: 'nginx' },
+      { name: 'Vercel', icon: 'vercel' },
+      { name: 'Render', icon: 'render' },
+      { name: 'Aiven', icon: 'aiven' },
+      { name: 'Winston', icon: 'winston' },
+      { name: 'k6', icon: 'k6' },
+      { name: 'Vitest', icon: 'vitest' },
+    ],
+  },
+  {
+    id: 'integrations-security',
+    title: 'Integrations & Security',
+    technologies: [
+      { name: 'M-Pesa Daraja', icon: 'm-pesa' },
+      { name: 'WhatsApp Cloud API', icon: 'whatsapp' },
+      { name: "Africa's Talking", icon: 'africas-talking' },
+      { name: 'Cloudinary', icon: 'cloudinary' },
+      { name: 'JWT RS256', icon: 'jwt-rs256' },
+      { name: 'OAuth 2.0', icon: 'oauth' },
+      { name: 'Fitbit', icon: 'fitbit' },
+    ],
+  },
+];
+
 const Skills: React.FC = () => {
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const prefersReducedMotion = useReducedMotion();
   const canHover = useCanHover();
   const enableHoverMotion = canHover && !prefersReducedMotion;
-
-  const techSkills: TechSkill[] = [
-    { name: "HTML", icon: "html", category: "frontend" },
-    { name: "CSS", icon: "css", category: "frontend" },
-    { name: "JavaScript", icon: "javascript", category: "language" },
-    { name: "TypeScript", icon: "typescript", category: "language" },
-    { name: "React 19", icon: "react", category: "frontend" },
-    { name: "Vue", icon: "vue", category: "frontend" },
-    { name: "Next.js", icon: "nextjs", category: "frontend" },
-    { name: "Node.js", icon: "nodejs", category: "backend" },
-    { name: "Laravel", icon: "laravel", category: "backend" },
-    { name: "Express", icon: "express", category: "backend" },
-    { name: "MongoDB", icon: "mongodb", category: "database" },
-    { name: "MySQL", icon: "mysql", category: "database" },
-    { name: "Git", icon: "git", category: "tools" },
-    { name: "GitHub Actions", icon: "github-actions", category: "tools" },
-    { name: "Docker", icon: "docker", category: "tools" },
-    { name: "VS Code", icon: "vscode", category: "tools" },
-    { name: "Vercel", icon: "vercel", category: "tools" },
-    { name: "Render", icon: "render", category: "tools" },
-    { name: "Aiven", icon: "aiven", category: "tools" },
-    { name: "Heroku", icon: "heroku", category: "tools" },
-    { name: "PostgreSQL", icon: "postgresql", category: "database" },
-    { name: "FastAPI", icon: "fastapi", category: "backend" },
-    { name: "Prisma", icon: "prisma", category: "backend" },
-    { name: "Tailwind CSS", icon: "tailwind", category: "frontend" },
-    { name: "React Router", icon: "react-router", category: "frontend" },
-    { name: "TanStack Query", icon: "tanstack-query", category: "frontend" },
-    { name: "Redis", icon: "redis", category: "database" },
-    { name: "BullMQ", icon: "bullmq", category: "backend" },
-    { name: "Zod", icon: "zod", category: "backend" },
-    { name: "JWT RS256", icon: "jwt-rs256", category: "security" },
-    { name: "Cloudinary", icon: "cloudinary", category: "integration" },
-    { name: "Africa's Talking", icon: "africas-talking", category: "integration" },
-    { name: "Winston", icon: "winston", category: "tools" },
-    { name: "Nginx", icon: "nginx", category: "devops" },
-    { name: "Vite", icon: "vite", category: "frontend" },
-    { name: "k6", icon: "k6", category: "testing" },
-  ];
 
   const containerVariants = createContainerVariants(Boolean(prefersReducedMotion), 0.1);
   const itemVariants = createItemVariants(Boolean(prefersReducedMotion), 20, 0.5);
@@ -123,7 +179,9 @@ const Skills: React.FC = () => {
       width: "48",
       height: "48",
       viewBox: "0 0 24 24",
-      fill: "currentColor"
+      fill: "currentColor",
+      "aria-hidden": true,
+      focusable: "false",
     };
 
     switch (iconName) {
@@ -204,7 +262,7 @@ const Skills: React.FC = () => {
         );
       case "nextjs":
         return (
-          <svg {...iconProps} style={{ color: "#000000" }}>
+          <svg {...iconProps} style={{ color: "var(--color-text-primary)" }}>
             <path d="M11.5725 0c-.1763 0-.3098.0013-.3584.0067-.0516.0053-.2159.021-.3636.0328-3.4088.3073-6.6017 2.1463-8.624 4.9728C1.1004 6.584.3802 8.3666.1082 10.255c-.0962.659-.108.8537-.108 1.7474s.012 1.0884.108 1.7476c.652 4.506 3.8591 8.2919 8.2087 9.6945.7789.2511 1.6.4223 2.5337.5255.3636.04 1.9354.04 2.299 0 1.6117-.1783 2.9772-.577 4.3237-1.2643.2065-.1056.2464-.1337.2183-.1573-.0188-.0139-.8987-1.1938-1.9543-2.62l-1.919-2.592-2.4047-3.5583c-1.3231-1.9564-2.4117-3.556-2.4211-3.556-.0094-.0026-.0187 1.5787-.0235 3.509-.0067 3.3802-.0093 3.5162-.0516 3.596-.061.115-.108.1618-.2064.2134-.075.0374-.1408.0445-.5429.0445h-.4570l-.0803-.0516c-.0516-.0336-.0939-.0822-.1188-.1297l-.0446-.0844.0094-4.4873.0094-4.4993.0637-.0803c.0362-.0459.0995-.0881.1652-.1075.0524-.0139.1990-.0169.4665-.0169.3850 0 .4007.0030.4618.0637.0362.0327 1.3648 2.0411 2.9540 4.4651l2.8985 4.3740 1.4606 2.1906 1.4672 2.1967c.0094.0139.0329-.0046.0516-.0419.2697-.5329.4007-1.0718.4007-1.6463 0-.8863-.012-1.0884-.108-1.7476-.652-4.506-3.8591-8.2919-8.2087-9.6945-.7672-.2487-1.5589-.4223-2.4211-.5255-.3636-.04-1.9354-.04-2.299 0z" />
           </svg>
         );
@@ -348,15 +406,6 @@ const Skills: React.FC = () => {
     'Content Creation'
   ];
 
-  const integrations = [
-    'Africa’s Talking',
-    'Cloudinary',
-    'Daraja API',
-    'Whatsapp WebHook',
-    'O.Auth',
-    'FitBit',
-  ];
-
   return (
     <section className={styles.skills} id="skills">
       <div className="container">
@@ -374,38 +423,43 @@ const Skills: React.FC = () => {
           {/* Technologies Section */}
           <motion.div className={styles.sectionBlock} variants={itemVariants}>
             <h3 className={styles.subtitle}>Technologies</h3>
-            <motion.div className={styles.skillsGrid} variants={containerVariants}>
-              {techSkills.map((skill) => (
-                <motion.div
-                  key={skill.name}
-                  className={styles.skillCard}
-                  variants={itemVariants}
-                  whileHover={hoverLift(enableHoverMotion, -5, 1.05)}
-                  onHoverStart={() => setHoveredSkill(skill.name)}
-                  onHoverEnd={() => setHoveredSkill(null)}
-                  onFocus={() => setHoveredSkill(skill.name)}
-                  onBlur={() => setHoveredSkill(null)}
-                  tabIndex={0}
-                >
-                  <div className={styles.skillIcon}>
-                    {renderTechIcon(skill.icon)}
-                  </div>
-                  <h3 className={styles.skillName}>{skill.name}</h3>
-                  <div className={styles.skillCategory}>{skill.category}</div>
+            <p className={styles.technologiesIntro}>
+              Tools I use to build, ship, and operate reliable products.
+            </p>
 
-                  {/* Tooltip */}
-                  <motion.div
-                    className={styles.tooltip}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{
-                      opacity: enableHoverMotion && hoveredSkill === skill.name ? 1 : 0,
-                      y: hoveredSkill === skill.name ? 0 : 10
-                    }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {skill.name}
-                  </motion.div>
-                </motion.div>
+            <nav className={styles.categoryNavigation} aria-label="Technology categories">
+              {technologyCategories.map((category) => (
+                <a
+                  key={category.id}
+                  className={styles.categoryLink}
+                  href={`#technology-${category.id}`}
+                >
+                  {category.title}
+                </a>
+              ))}
+            </nav>
+
+            <motion.div className={styles.technologyMatrix} variants={containerVariants}>
+              {technologyCategories.map((category) => (
+                <motion.article
+                  key={category.id}
+                  id={`technology-${category.id}`}
+                  className={styles.technologyCategory}
+                  variants={itemVariants}
+                  whileHover={hoverLift(enableHoverMotion, -4, 1)}
+                >
+                  <h4 className={styles.technologyCategoryTitle}>{category.title}</h4>
+                  <div className={styles.technologyGrid}>
+                    {category.technologies.map((technology) => (
+                      <div key={technology.name} className={styles.technologyItem}>
+                        <div className={styles.technologyIcon}>
+                          {renderTechIcon(technology.icon)}
+                        </div>
+                        <span className={styles.technologyName}>{technology.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.article>
               ))}
             </motion.div>
           </motion.div>
@@ -442,14 +496,6 @@ const Skills: React.FC = () => {
                 </div>
               </div>
 
-              <div className={styles.categoryColumn}>
-                <h4 className={styles.categoryTitle}>Integrations</h4>
-                <div className={styles.tagCloud}>
-                  {integrations.map((integration, index) => (
-                    <span key={index} className={styles.skillTag}>{integration}</span>
-                  ))}
-                </div>
-              </div>
             </div>
           </motion.div>
 
