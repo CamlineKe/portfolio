@@ -46,6 +46,7 @@ const Hero: React.FC = () => {
               alt="Moses Maina"
               width={200}
               height={200}
+              sizes="(max-width: 375px) 105px, (max-width: 750px) 120px, (max-width: 1250px) 16vw, 200px"
               className={styles.avatar}
               priority
             />

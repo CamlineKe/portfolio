@@ -153,9 +153,12 @@ const Projects: React.FC = () => {
                     <Image
                       src={project.image}
                       alt={project.title}
-                      width={400}
-                      height={250}
-                      sizes={project.featured ? '(max-width: 768px) 95vw, 90vw' : '(max-width: 768px) 95vw, 45vw'}
+                      fill
+                      sizes={
+                        project.featured
+                          ? '(max-width: 375px) calc(100vw - 1.5rem), (max-width: 899px) calc(100vw - 3rem), (max-width: 1304px) calc(55vw - 2.2rem), 682px'
+                          : '(max-width: 375px) calc(100vw - 1.5rem), (max-width: 655px) calc(100vw - 2rem), (max-width: 1025px) calc(50vw - 2rem), (max-width: 1304px) calc(33.333vw - 2.667rem), 392px'
+                      }
                       className={styles.image}
                     />
                   </div>

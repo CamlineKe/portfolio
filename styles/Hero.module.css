@@ -76,7 +76,7 @@
   overflow: visible;
   margin-bottom: 0.5rem;
   width: clamp(7.5rem, 16vw, 12.5rem);
-  height: clamp(7.5rem, 16vw, 12.5rem);
+  aspect-ratio: 1;
   box-shadow:
     0 10px 28px var(--color-shadow),
     0 0 56px rgba(var(--color-primary-rgb), 0.22);
