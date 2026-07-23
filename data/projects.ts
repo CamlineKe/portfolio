@@ -27,22 +27,22 @@ export const projects: Project[] = [
       {
         label: 'Admin Demo',
         type: 'video',
-        url: 'https://drive.google.com/file/d/1DOFbN0GnWjiN7cANHy4w8kvCmp8-dZJW/view?usp=drive_link',
+        url: 'https://drive.google.com/file/d/1vQkj6HdHQXVyt0Cn9McN_gwkQ01NUPmT/view?usp=drive_link',
       },
       {
         label: 'Landlord Demo',
         type: 'video',
-        url: 'https://drive.google.com/file/d/1xkMx80WlkMuEGq2fB5vwMTZ2rtjG7HIm/view?usp=drive_link',
+        url: 'https://drive.google.com/file/d/1tyP9-ITQJWi44fHPQATA_t1kcUpM2Hmi/view?usp=drive_link',
       },
       {
         label: 'Tenant Demo',
         type: 'video',
-        url: 'https://drive.google.com/file/d/1E3_p-YuJOxaewBxg2JLNz0qKb6U0784F/view?usp=drive_link',
+        url: 'https://drive.google.com/file/d/1nriaaCbh1VZjzqmMHOISmeayJXjALIWs/view?usp=drive_link',
       },
       {
         label: 'Caretaker Demo',
         type: 'video',
-        url: 'https://drive.google.com/file/d/1LLT6Y3GvmBj_yhgV0ZEiarbOJQkT5nwT/view?usp=drive_link',
+        url: 'https://drive.google.com/file/d/13jv4YrgeIuqRz8JzQdQTpclrVQ9M0LSZ/view?usp=drive_link',
       },
     ],
     repository: {
@@ -63,7 +63,7 @@ export const projects: Project[] = [
     demos: [
       {
         type: 'video',
-        url: 'https://drive.google.com/file/d/1kN6E4lQUvSvTXl7VgjtQydb0BUZK9OMs/view?usp=drive_link',
+        url: 'https://drive.google.com/file/d/1_ZWE9rzfNjEr_7ETKJySSls2yZEnjVwC/view?usp=drive_link',
       },
     ],
     repository: {

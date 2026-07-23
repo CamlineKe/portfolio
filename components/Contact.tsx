@@ -44,7 +44,7 @@ const Contact: React.FC = () => {
     },
     {
       name: 'TikTok',
-      url: 'https://tiktok.com/@camlinemoses',
+      url: 'https://tiktok.com/@camline_moses',
       icon: 'tiktok',
     },
     {
