@@ -174,13 +174,13 @@ const Skills: React.FC = () => {
       );
     }
 
-    const iconProps = {
+    const iconProps: React.SVGProps<SVGSVGElement> = {
       width: "48",
       height: "48",
       viewBox: "0 0 24 24",
       fill: "currentColor",
       "aria-hidden": true,
-      focusable: "false",
+      focusable: false,
     };
 
     switch (iconName) {
