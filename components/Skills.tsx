@@ -149,6 +149,7 @@ const Skills: React.FC = () => {
 
     if (brandedIconSource) {
       return (
+        // eslint-disable-next-line @next/next/no-img-element -- These small remote SVG icons are dimensioned, lazy-loaded, and intentionally served directly.
         <img
           src={brandedIconSource}
           alt=""
