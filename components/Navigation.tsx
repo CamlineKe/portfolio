@@ -24,7 +24,9 @@ const Navigation: React.FC = () => {
     const element = document.getElementById(sectionId);
     if (element) {
       setActiveSection(sectionId);
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      });
     }
   };
 
@@ -82,61 +84,68 @@ const Navigation: React.FC = () => {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className={styles.desktopNav}>
+      <nav className={styles.desktopNav} aria-label="Primary navigation">
         <div className={styles.navContainer}>
-          <motion.div
+          <motion.button
+            type="button"
             className={styles.logo}
-            initial={{ opacity: 0, x: -20 }}
+            onClick={() => scrollToSection('hero')}
+            initial={prefersReducedMotion ? false : { opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.45 }}
+            aria-label="Return to the top of the portfolio"
           >
             <span className={styles.logoText}>Moses Maina</span>
-          </motion.div>
+          </motion.button>
 
           <div className={styles.navItems}>
             {navItems.map((item, index) => (
               <motion.button
                 key={item.id}
-                className={`${styles.navItem} ${activeSection === item.id ? styles.active : ''
-                  }`}
+                type="button"
+                className={`${styles.navItem} ${
+                  activeSection === item.id ? styles.active : ''
+                }`}
                 onClick={() => scrollToSection(item.id)}
-                initial={{ opacity: 0, y: -20 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: -12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={hoverScale(enableHoverMotion, 1.05)}
-                whileTap={{ scale: 0.95 }}
+                transition={{
+                  duration: prefersReducedMotion ? 0 : 0.4,
+                  delay: prefersReducedMotion ? 0 : index * 0.05,
+                }}
+                whileHover={hoverScale(enableHoverMotion, 1.02)}
+                whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
                 aria-label={`Navigate to ${item.label}`}
+                aria-current={activeSection === item.id ? 'location' : undefined}
               >
                 {item.label}
               </motion.button>
             ))}
           </div>
 
-          <motion.div
-            className={styles.themeToggleContainer}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+          <div className={styles.themeToggleContainer}>
             <ThemeToggle />
-          </motion.div>
+          </div>
         </div>
       </nav>
 
       {/* Mobile Navigation */}
-      <nav className={styles.mobileNav}>
+      <nav className={styles.mobileNav} aria-label="Mobile navigation">
         <div className={styles.mobileNavContainer}>
           {navItems.map((item) => (
             <motion.button
               key={item.id}
-              className={`${styles.mobileNavItem} ${activeSection === item.id ? styles.active : ''
-                }`}
+              type="button"
+              className={`${styles.mobileNavItem} ${
+                activeSection === item.id ? styles.active : ''
+              }`}
               onClick={() => scrollToSection(item.id)}
-              whileHover={hoverScale(enableHoverMotion, 1.08)}
-              whileTap={{ scale: 0.9 }}
+              whileHover={hoverScale(enableHoverMotion, 1.03)}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.96 }}
               aria-label={`Navigate to ${item.label}`}
+              aria-current={activeSection === item.id ? 'location' : undefined}
             >
-              <div className={styles.navIcon}>
+              <div className={styles.navIcon} aria-hidden="true">
                 {item.id === 'hero' && (
                   <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
@@ -167,13 +176,9 @@ const Navigation: React.FC = () => {
             </motion.button>
           ))}
 
-          <motion.div
-            className={styles.mobileThemeToggle}
-            whileHover={hoverScale(enableHoverMotion, 1.08)}
-            whileTap={{ scale: 0.9 }}
-          >
+          <div className={styles.mobileThemeToggle}>
             <ThemeToggle />
-          </motion.div>
+          </div>
         </div>
       </nav>
     </>

@@ -26,6 +26,13 @@
   --section-space-compact: clamp(3rem, 5vw, 4.5rem);
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
+  --radius-card: 1rem;
+  --surface-elevated: rgba(255, 255, 255, 0.72);
+  --surface-elevated-strong: rgba(255, 255, 255, 0.88);
+  --border-subtle: rgba(15, 23, 42, 0.1);
+  --shadow-card: 0 0.65rem 1.8rem rgba(15, 23, 42, 0.08);
+  --shadow-card-hover: 0 0.9rem 2.2rem rgba(15, 23, 42, 0.13);
+  --content-measure: 42rem;
   --transition-fast: 0.2s ease;
   --transition-base: 0.3s ease;
 
@@ -60,6 +67,11 @@
   --color-success: #34d399;
   --color-error: #f87171;
   --color-snow: #ffffff;
+  --surface-elevated: rgba(15, 23, 42, 0.72);
+  --surface-elevated-strong: rgba(15, 23, 42, 0.88);
+  --border-subtle: rgba(255, 255, 255, 0.09);
+  --shadow-card: 0 0.65rem 1.8rem rgba(0, 0, 0, 0.24);
+  --shadow-card-hover: 0 0.9rem 2.2rem rgba(0, 0, 0, 0.32);
 }
 
 * {
@@ -213,7 +225,6 @@ textarea:focus {
   }
 
   body {
-    padding-top: calc(var(--nav-height-desktop) + var(--safe-top));
     padding-bottom: 0;
   }
 }

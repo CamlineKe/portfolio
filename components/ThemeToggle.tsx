@@ -1,29 +1,37 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { useCanHover } from '../hooks/useCanHover';
 import { useTheme } from '../hooks/useTheme';
+import { hoverScale } from '../utils/motion';
 import styles from '../styles/ThemeToggle.module.css';
 
 const ThemeToggle: React.FC = () => {
   const { theme, toggleTheme, mounted } = useTheme();
+  const prefersReducedMotion = useReducedMotion();
+  const canHover = useCanHover();
+  const enableHoverMotion = canHover && !prefersReducedMotion;
 
   // Don't render until mounted to avoid hydration mismatch
   if (!mounted) {
-    return <div className={styles.placeholder}></div>;
+    return <div className={styles.placeholder} aria-hidden="true" />;
   }
 
   return (
     <motion.button
+      type="button"
       className={styles.themeToggle}
       onClick={toggleTheme}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={hoverScale(enableHoverMotion, 1.03)}
+      whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+      aria-pressed={theme === 'dark'}
     >
       <motion.div
         className={styles.iconContainer}
         initial={false}
         animate={{ rotate: theme === 'dark' ? 180 : 0 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.25 }}
+        aria-hidden="true"
       >
         {theme === 'light' ? (
           <svg
@@ -62,4 +70,3 @@ const ThemeToggle: React.FC = () => {
 };
 
 export default ThemeToggle;
-
