@@ -279,6 +279,7 @@
   .primaryAction:hover {
     background: var(--color-primary-dark);
     border-color: var(--color-primary-dark);
+    color: white;
     transform: translateY(-2px);
     box-shadow: 0 0.4rem 1rem rgba(var(--color-primary-rgb), 0.24);
   }
