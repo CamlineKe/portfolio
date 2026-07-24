@@ -24,15 +24,36 @@
   z-index: 1;
 }
 
+.eyebrow {
+  margin: 0 0 0.65rem;
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 .title {
   text-align: center;
   font-size: clamp(2rem, 4.6vw, 3rem);
-  margin-bottom: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 0.8rem;
   color: var(--color-text-primary);
 }
 
+.intro {
+  max-width: var(--content-measure);
+  margin: 0 auto clamp(1.75rem, 4vw, 2.75rem);
+  color: var(--color-text-secondary);
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  line-height: 1.7;
+  text-align: center;
+}
+
 .filterContainer {
-  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: clamp(1.75rem, 4vw, 3rem);
 }
 
 .filterButtons {
@@ -43,28 +64,39 @@
 }
 
 .filterButton {
-  padding: 0.65rem 1.2rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  min-height: 44px;
+  padding: 0.6rem 1.05rem;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-elevated);
   color: var(--color-text-secondary);
   border-radius: 2rem;
+  font-family: inherit;
   font-size: 0.88rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
-}
-
-[data-theme="dark"] .filterButton {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .filterButton.active {
-  background: rgba(var(--color-primary-rgb), 0.2);
-  border-color: rgba(var(--color-primary-rgb), 0.5);
+  background: rgba(var(--color-primary-rgb), 0.12);
+  border-color: rgba(var(--color-primary-rgb), 0.4);
   color: var(--color-primary);
+}
+
+.filterButton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.resultsSummary {
+  margin: 0;
+  color: var(--color-text-tertiary);
+  font-size: 0.78rem;
+  text-align: center;
 }
 
 .projectsGrid {
@@ -74,32 +106,24 @@
 }
 
 .projectCard {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow:
-    0 4px 12px var(--color-shadow),
-    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
   display: flex;
   flex-direction: column;
   min-height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--surface-elevated);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-card);
+  transition:
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
 .featuredProject {
   grid-column: 1 / -1;
-  border-color: rgba(var(--color-primary-rgb), 0.5);
-}
-
-[data-theme="dark"] .projectCard {
-  background: rgba(15, 23, 42, 0.62);
-  border-color: rgba(255, 255, 255, 0.06);
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+  border-color: rgba(var(--color-primary-rgb), 0.32);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -111,13 +135,12 @@
   }
 
   .projectCard:hover {
-    box-shadow: 0 12px 32px var(--color-shadow);
-    border-color: var(--color-primary);
-    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(var(--color-primary-rgb), 0.42);
   }
 
   .projectCard:hover .image {
-    transform: scale(1.05);
+    transform: scale(1.025);
   }
 }
 
@@ -125,6 +148,7 @@
   position: relative;
   overflow: hidden;
   aspect-ratio: 16 / 9;
+  background: rgba(var(--color-primary-rgb), 0.04);
 }
 
 .image {
@@ -159,12 +183,12 @@
 .projectStatus {
   align-self: flex-start;
   margin-bottom: 0.75rem;
-  padding: 0.3rem 0.75rem;
-  border: 1px solid rgba(var(--color-primary-rgb), 0.35);
+  padding: 0.3rem 0.7rem;
+  border: 1px solid rgba(var(--color-primary-rgb), 0.25);
   border-radius: 2rem;
-  background: rgba(var(--color-primary-rgb), 0.1);
+  background: rgba(var(--color-primary-rgb), 0.07);
   color: var(--color-primary);
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.02em;
 }
@@ -194,12 +218,13 @@
 }
 
 .techBadge {
-  background: var(--color-primary);
-  color: white;
-  padding: 0.2rem 0.65rem;
+  padding: 0.24rem 0.58rem;
+  border: 1px solid var(--border-subtle);
   border-radius: 1rem;
-  font-size: 0.76rem;
-  font-weight: 500;
+  background: rgba(var(--color-primary-rgb), 0.045);
+  color: var(--color-text-secondary);
+  font-size: 0.72rem;
+  font-weight: 600;
 }
 
 .projectActions {
@@ -209,48 +234,60 @@
   margin-top: auto;
 }
 
-.demoButton,
-.codeButton {
+.actionButton {
+  display: inline-flex;
   flex: 1;
-  padding: 0.68rem 1rem;
+  align-items: center;
+  justify-content: center;
+  min-width: fit-content;
+  min-height: 44px;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid;
+  border-radius: 0.65rem;
+  font-family: inherit;
   font-size: 0.88rem;
-  border-radius: 0.55rem;
-  text-decoration: none;
   font-weight: 600;
   text-align: center;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
-  border: 2px solid;
+  text-decoration: none;
   cursor: pointer;
-  font-family: inherit;
-  min-width: fit-content;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
-.demoButton {
+.primaryAction {
   background: var(--color-primary);
   color: white;
   border-color: var(--color-primary);
 }
 
-.codeButton {
-  background: transparent;
+.secondaryAction {
+  background: var(--surface-elevated-strong);
   color: var(--color-text-primary);
-  border-color: var(--color-border);
+  border-color: var(--border-subtle);
+}
+
+.actionButton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .demoButton:hover {
-    background: transparent;
-    color: var(--color-primary);
+  .primaryAction:hover {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
+    box-shadow: 0 0.4rem 1rem rgba(var(--color-primary-rgb), 0.24);
   }
 
-  .codeButton:hover {
-    background: var(--color-text-primary);
-    color: var(--color-background);
-    border-color: var(--color-text-primary);
+  .secondaryAction:hover {
+    background: rgba(var(--color-primary-rgb), 0.1);
+    color: var(--color-primary);
+    border-color: rgba(var(--color-primary-rgb), 0.4);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px var(--color-shadow);
   }
 }
 
@@ -268,28 +305,64 @@
 }
 
 .modal {
+  position: relative;
   width: min(100%, 32.5rem);
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: var(--radius-lg);
+  max-height: min(90vh, 36rem);
+  overflow-y: auto;
+  background: var(--surface-elevated-strong);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
   box-shadow: 0 24px 48px rgba(15, 23, 42, 0.3);
-  padding: 1.25rem;
-}
-
-[data-theme="dark"] .modal {
-  background: rgba(15, 23, 42, 0.9);
-  border-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+  padding: clamp(1.2rem, 3vw, 1.6rem);
 }
 
 .modalTitle {
-  margin-bottom: 0.65rem;
+  margin: 0 3rem 0.65rem 0;
   color: var(--color-text-primary);
 }
 
 .modalText {
   margin-bottom: 0.7rem;
   color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.modalClose {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.modalClose svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.modalClose:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .modalClose:hover {
+    border-color: rgba(var(--color-primary-rgb), 0.4);
+    background: rgba(var(--color-primary-rgb), 0.08);
+    color: var(--color-primary);
+  }
 }
 
 .modalActions {
@@ -308,7 +381,6 @@
   .modalActions {
     flex-direction: column;
   }
-
 }
 
 @media (max-width: 560px) {
@@ -327,11 +399,21 @@
   .filterButton {
     white-space: nowrap;
     flex-shrink: 0;
-    padding: 0.56rem 0.95rem;
+    padding-inline: 0.9rem;
     font-size: 0.8rem;
   }
 
   .modal {
     padding: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filterButton,
+  .projectCard,
+  .image,
+  .actionButton,
+  .modalClose {
+    transition-duration: 0.01ms;
   }
 }
