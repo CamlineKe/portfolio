@@ -1,410 +1,356 @@
-# Moses Maina's Portfolio
+# Moses Maina Portfolio
 
-A professional portfolio for a systems-driven software engineer focused on reliable custom software, scalable products, and practical business solutions. Built with Next.js and TypeScript, the site presents selected work, verified engineering highlights, opportunity preferences, and secure contact channels through a responsive, accessible interface.
+A responsive, single-page portfolio for Moses Maina, a systems-driven software
+engineer focused on reliable custom software, secure integrations, and
+production-ready digital products.
 
-**Canonical URL:** [https://moses-maina-portfolio.vercel.app](https://moses-maina-portfolio.vercel.app)
+Live site: [moses-maina-portfolio.vercel.app](https://moses-maina-portfolio.vercel.app)
 
-## 🚀 Tech Stack
+## What the portfolio includes
 
-### Core Technologies
-- **Next.js 15** - React framework for production
-- **TypeScript** - Type-safe JavaScript
-- **CSS Modules** - Scoped styling solution
-- **Framer Motion** - Animation library
-- **React Hook Form** - Form validation and handling
+- Mobile-first layout with fixed desktop and mobile navigation
+- Light and dark themes with saved and system preferences
+- Reduced-motion-aware transitions and pointer-aware hover effects
+- Responsive Next.js images for the portrait and project previews
+- One-open-at-a-time technology accordion with self-hosted brand icons
+- Category-based project filtering with accessible selected states
+- Public repository links and an accessible private-repository dialog
+- Direct phone and prefilled WhatsApp contact actions
+- Validated contact form backed by a Next.js API route and Gmail SMTP
+- Page-level canonical, Open Graph, and social-preview metadata
 
-### Key Features
-- ✅ Mobile-first responsive design
-- ✅ Responsive navigation bar (top on desktop, bottom on mobile)
-- ✅ Dark/light mode toggle with system preference detection
-- ✅ Smooth scrolling navigation
-- ✅ Accessibility-aware interactions with ARIA, keyboard navigation, and reduced-motion support
-- ✅ Centralized SEO metadata with canonical, Open Graph, and social-card tags
-- ✅ Performance optimized with code splitting and lazy loading
-- ✅ Validated contact form with secure email sending via Next.js API Route (Gmail SMTP)
-- ✅ Server-side input validation, HTML escaping, honeypot checks, and best-effort rate limiting
-- ✅ Animated progress bars and interactive elements
-- ✅ Six concise featured-project cards led by a flagship Rental Management System
-- ✅ Category-based project filtering that remains stable as technologies change
-- ✅ Support for multiple named demos on a single project
-- ✅ Explicit `public` vs `private` repository handling
-- ✅ Smart demo actions with `Live Demo`, `Video Demo`, and custom labels
-- ✅ Centralized project data for easy long-term maintenance
-- ✅ Fluid responsive typography and spacing using `clamp()` and layout tokens
-- ✅ Safe-area-aware navigation for modern mobile devices (`env(safe-area-inset-*)`)
-- ✅ Adaptive animation system with reduced-motion support and touch-aware hover behavior
-- ✅ Performance-optimized hero particles (screen-size + interaction aware)
-- ✅ Resized project source images with responsive Next.js image sizing
-- ✅ Professional opportunity positioning and compact credibility evidence
+## Technology stack
 
-## 📁 Project Structure
+### Application
 
+- Next.js 15 using the Pages Router
+- React and TypeScript
+- CSS Modules and shared CSS custom properties
+- Framer Motion
+- React Hook Form
+- tsParticles
+
+### Contact delivery
+
+- Next.js API route
+- Nodemailer
+- Gmail SMTP with an app password
+
+The exact dependency versions are maintained in `package.json` and
+`package-lock.json`.
+
+## Application structure
+
+```text
+portfolio/
+├── components/
+│   ├── About.tsx
+│   ├── Contact.tsx
+│   ├── Footer.tsx
+│   ├── Hero.tsx
+│   ├── Navigation.tsx
+│   ├── ParticleBackground.tsx
+│   ├── Projects.tsx
+│   ├── Skills.tsx
+│   └── ThemeToggle.tsx
+├── data/
+│   └── projects.ts
+├── hooks/
+│   ├── useCanHover.ts
+│   └── useTheme.ts
+├── pages/
+│   ├── api/
+│   │   └── contact.ts
+│   ├── _app.tsx
+│   └── index.tsx
+├── public/
+│   ├── CV/
+│   ├── icons/
+│   │   └── technologies/
+│   └── images/
+├── styles/
+│   ├── *.module.css
+│   └── globals.css
+├── types/
+│   └── index.ts
+└── utils/
+    ├── helpers.ts
+    └── motion.ts
 ```
-/portfolio
-├── /components          # React components
-│   ├── Navigation.tsx   # Navigation bar with theme toggle
-│   ├── Hero.tsx         # Hero section with intro
-│   ├── About.tsx        # About section with skills
-│   ├── Skills.tsx       # Tech stack showcase
-│   ├── Projects.tsx     # Project portfolio UI + action handling
-│   ├── Contact.tsx      # Contact form
-│   ├── Footer.tsx       # Footer
-│   └── ThemeToggle.tsx  # Dark/light mode switcher
-├── /data                # Centralized content data
-│   └── projects.ts      # Project records, categories, demos, and repository states
-├── /pages              # Next.js pages
-│   ├── index.tsx       # Main page
-│   └── _app.tsx        # App configuration
-├── /public             # Static assets
-│   ├── /images         # Placeholder images
-│   └── /CV             # CV download
-├── /styles             # CSS Modules
-│   ├── Navigation.module.css # Navigation styles
-│   ├── *.module.css    # Component styles
-│   └── globals.css     # Global styles
-├── /utils              # Utility functions
-│   ├── helpers.ts      # Helper functions
-│   └── motion.ts       # Shared motion variants and interaction helpers
-├── /types              # TypeScript definitions
-│   └── index.ts        # Type definitions
-├── /hooks              # Custom React hooks
-│   ├── useTheme.ts     # Theme management
-│   └── useCanHover.ts  # Pointer capability detection for hover interactions
-├── next.config.js      # Next.js configuration
-├── tsconfig.json       # TypeScript configuration
-├── package.json        # Dependencies
-└── README.md           # Documentation
-```
 
-## 🛠️ Installation & Setup
+### Main responsibilities
+
+- `pages/index.tsx` assembles the page sections and owns page-specific SEO
+  metadata.
+- `pages/_app.tsx` loads global styles and global viewport and favicon tags.
+- `data/projects.ts` is the source of truth for project content, categories,
+  demos, and repository visibility.
+- `components/Projects.tsx` handles filtering, project actions, and the private
+  repository dialog.
+- `components/Skills.tsx` owns the technology categories and maps their icon
+  identifiers to self-hosted assets.
+- `pages/api/contact.ts` validates contact submissions, applies a honeypot and
+  per-instance rate limit, and sends email.
+- `styles/globals.css` defines theme colors, shared surfaces, spacing, shadows,
+  navigation dimensions, safe-area values, and motion defaults.
+- `utils/motion.ts` provides shared entrance and hover helpers.
+
+## Local setup
 
 ### Prerequisites
-- Node.js 18+ 
-- npm or yarn
 
-### Installation Steps
+- Node.js `^18.18.0`, `^19.8.0`, or `>=20.0.0`
+- npm
 
-1. **Clone or download the project**
-   ```bash
-   cd portfolio
-   ```
+### Install and run
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start development server**
-   ```bash
-   npm run dev
-   ```
-
-4. **Open in browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-## 🏗️ Build & Deploy
-
-### Development
 ```bash
-npm run dev          # Start development server
+cd /path/to/portfolio
+npm install
+npm run dev
 ```
 
-### Production
+The development server listens on `0.0.0.0:3000`. Open
+[http://localhost:3000](http://localhost:3000).
+
+## Environment variables
+
+Create `.env.local` in the project root:
+
+```dotenv
+GMAIL_USER=your_gmail_address@gmail.com
+GMAIL_APP_PASSWORD=your_gmail_app_password
+TARGET_EMAIL=your_contact_destination@example.com
+```
+
+Requirements:
+
+- `GMAIL_USER` is the Gmail account used as the controlled sender.
+- `GMAIL_APP_PASSWORD` must be a Gmail app password, not the account password.
+- `TARGET_EMAIL` receives submitted portfolio messages.
+- `.env.local` is ignored by Git and must never be committed.
+
+The portfolio can render without these variables, but contact-form submissions
+will return a server error until email delivery is configured. Direct phone,
+WhatsApp, and social links remain available.
+
+## Available scripts
+
 ```bash
-npm run build        # Build for production
-npm start           # Start production server
+npm run dev
+npm run type-check
+npm run lint
+npm run build
+npm start
 ```
 
-### Additional Scripts
-```bash
-npm run lint        # Run ESLint
-npm run type-check  # TypeScript type checking
-```
+- `dev` starts the local development server.
+- `type-check` runs TypeScript without emitting files.
+- `lint` runs the configured Next.js ESLint checks.
+- `build` creates an optimized production build.
+- `start` serves a completed production build.
 
-## 📦 Core Dependencies
+There is currently no automated test script configured for the portfolio
+application.
 
-```json
-{
-  "next": "^15.4.10",
-  "react": "latest",
-  "react-dom": "latest",
-  "typescript": "latest",
-  "@types/react": "latest",
-  "@types/node": "latest",
-  "framer-motion": "latest",
-  "react-hook-form": "latest",
-  "@tsparticles/react": "^3.0.0",
-  "@tsparticles/slim": "^3.0.3",
-  "nodemailer": "^7.0.5"
-}
-```
+## Updating personal content
 
-## 🎨 Customization Guide
+The primary content locations are:
 
-### Replace Placeholder Content
+- `components/Hero.tsx` for the headline, role, expertise, and CV action
+- `components/About.tsx` for the biography, working principles, education, and
+  engineering evidence
+- `components/Skills.tsx` for technology and skill categories
+- `data/projects.ts` for all project records
+- `components/Contact.tsx` for phone, WhatsApp copy, opportunities, and social
+  links
+- `pages/index.tsx` for SEO titles, descriptions, and the canonical site URL
 
-1. **Images**: Replace files in `/public/images/`
-   - `avatar.jpg` - Your profile photo
-   - `project1.jpg` to `project4.jpg` - Project screenshots
+Current main assets:
 
-2. **CV**: Replace `/public/CV/Moses_Maina_CV.pdf` with your resume
+- Portrait: `public/images/avatar.png`
+- Resume: `public/CV/Moses_Maina_Software_Engineer_Resume.pdf`
+- Project previews: `public/images/rms.png`, `wpv.jpg`, `project1.jpg`,
+  `project3.jpg`, `project4.jpg`, and `viesta.png`
 
-3. **Personal Information**: Update content in components:
-   - `Navigation.tsx` - Logo and navigation items
-   - `Hero.tsx` - Name and tagline
-   - `About.tsx` - Bio and skills
-   - `data/projects.ts` - Project details and project actions
-   - `Contact.tsx` - Social links
+When replacing an image, preserve the file path or update the corresponding
+component or project record. Keep useful alternative text and review image
+cropping at mobile and desktop widths.
 
-### Add/Update Projects
+## Adding or updating projects
 
-Edit `/data/projects.ts`:
-
-```typescript
-const projects: Project[] = [
-  {
-    id: 1,
-    title: "Your Project Name",
-    description: "Project description highlighting tech stack and problem solved.",
-    image: "/images/your-project.jpg",
-    technologies: ["React", "Node.js", "MongoDB"],
-    category: "SaaS", // "Custom Software" | "SaaS" | "AI & Data" | "Web Applications"
-    demos: [
-      {
-        type: "live", // "live" | "video"
-        url: "https://your-demo-url.com"
-      }
-    ],
-    repository: {
-      visibility: "public", // "public" | "private"
-      url: "https://github.com/your-repo"
-    }
-  }
-  // Add more projects...
-];
-```
-
-For a private/client repository:
+Projects use the discriminated types in `types/index.ts` and live in
+`data/projects.ts`.
 
 ```typescript
 {
-  id: 2,
-  title: "Client Project",
-  description: "Confidential delivery for a client",
-  image: "/images/client-project.jpg",
-  technologies: ["React", "Node.js"],
-  category: "Custom Software",
+  id: 7,
+  title: 'Project name',
+  description: 'A concise description of the problem, users, and outcome.',
+  highlight: 'An optional verified engineering or product result.',
+  image: '/images/project-name.png',
+  technologies: ['Next.js', 'TypeScript'],
+  category: 'Web Applications',
+  status: 'Live Website',
   demos: [
     {
-      label: "Admin Demo", // Optional custom action label
-      type: "video",
-      url: "https://drive.google.com/your-video-link"
-    }
+      type: 'live',
+      label: 'Live Demo',
+      url: 'https://example.com',
+    },
   ],
   repository: {
-    visibility: "private",
-    reason: "Client project repository is private and not publicly shareable."
-  }
+    visibility: 'private',
+    reason: 'This production repository is private.',
+  },
 }
 ```
 
-How it behaves in UI:
-- `demos` supports one or multiple project actions
-- `demo.type = "live"` → default button label is `Live Demo`
-- `demo.type = "video"` → default button label is `Video Demo`
-- `demo.label` → replaces the default label with a named action such as `Admin Demo`
-- `featured = true` → displays the project as a full-width flagship card
-- `status` and `highlight` → add concise project context and a verified engineering result
-- `repository.visibility = "public"` → opens GitHub repository
-- `repository.visibility = "private"` → opens private-project modal with reason + demo access
-
-### Flagship Rental Management System
-
-The Rental Management System is presented as one flagship PropertyTech platform rather than four separate project cards. Its `demos` array keeps each role-specific walkthrough directly accessible:
-
-- `Admin Demo`
-- `Landlord Demo`
-- `Tenant Demo`
-- `Caretaker Demo`
-
-The project is configured with:
-
-- `featured = true`
-- `status = "Flagship Project · Currently Building"`
-- `category = "SaaS"`
-- `repository.visibility = "private"`
-
-### Project Categories
-
-Project filters are driven by the explicit `category` field instead of the technology list. This keeps the filter row concise even when new tools are added to a project.
-
-Available categories:
+Supported project categories:
 
 - `Custom Software`
 - `SaaS`
 - `AI & Data`
 - `Web Applications`
 
-### Customize Theme Colors
+Project behavior:
 
-Update CSS custom properties in `/styles/globals.css`:
+- Filters use the explicit `category` field, not the technology list.
+- `featured: true` creates a full-width flagship card.
+- `status` adds a compact project-state label.
+- `highlight` adds a separate evidence statement.
+- A demo without `label` defaults to `Live Demo` or `Video Demo` according to
+  its `type`.
+- The first demo is presented as the primary action.
+- Additional demos and repository actions use the secondary action style.
+- A public repository requires a `url` and renders as a real external link.
+- A private repository can include a `reason` and opens the repository-details
+  dialog.
 
-```css
-:root {
-  --color-primary: #your-color;
-  --color-background: #your-bg-color;
-  /* Update other color variables */
+Every project image must exist under `public/images` and should be optimized
+before being committed.
+
+## Technology icons
+
+Technology icons are stored under `public/icons/technologies` and rendered
+through `next/image`.
+
+To add a technology:
+
+1. Add an SVG or PNG asset to `public/icons/technologies`.
+2. Add the technology entry to the relevant category in
+   `components/Skills.tsx`.
+3. Add PNG filenames to `rasterTechnologyIcons` when the asset is not SVG.
+4. Document its source and licensing notes in
+   `public/icons/technologies/SOURCES.md`.
+
+Prefer an official vendor or project asset. Use a reputable brand-icon source
+when an official compact asset is unavailable. Self-host icons rather than
+depending on a runtime icon CDN.
+
+The technology accordion intentionally keeps one category open. The first
+category opens on initial load, and selecting another category closes the
+previous one.
+
+## Responsive, theme, and motion conventions
+
+- Mobile navigation is fixed to the bottom and uses one six-column row.
+- Desktop navigation is fixed to the top.
+- Mobile safe-area spacing uses `env(safe-area-inset-*)`.
+- Interactive controls should maintain at least a 44px target.
+- Shared card surfaces, borders, radii, and shadows come from
+  `styles/globals.css`.
+- Component-specific breakpoints remain in the relevant CSS Module.
+- Framer Motion interactions should check `useReducedMotion`.
+- Hover animation should be limited to devices detected by `useCanHover`.
+- CSS transitions require a `prefers-reduced-motion` override.
+
+## Accessibility behavior
+
+The current interface includes:
+
+- Semantic page sections and project articles
+- Labelled desktop and mobile navigation
+- Visible keyboard focus states
+- Active navigation and project-filter state announcements
+- Accordion trigger and panel relationships
+- Form labels, validation descriptions, and submission status messages
+- A private-repository dialog with initial focus, focus trapping, Escape
+  handling, scroll locking, and focus restoration
+- Decorative icon and background elements hidden from assistive technology
+- Reduced-motion behavior for animation-sensitive users
+
+Accessibility still requires manual browser and assistive-technology review
+when interaction or layout behavior changes.
+
+## Contact API behavior
+
+`POST /api/contact` accepts:
+
+```json
+{
+  "name": "Example Person",
+  "email": "person@example.com",
+  "message": "A message containing at least ten characters.",
+  "honeypot": ""
 }
 ```
 
-### Responsive & Motion System
+The API:
 
-The portfolio now uses a centralized responsive/motion architecture:
+- Rejects unsupported HTTP methods
+- Validates types and length limits
+- Rejects invalid email addresses and newline characters in names
+- Returns a successful response for filled honeypot submissions
+- Escapes user content before inserting it into HTML email
+- Sends both plain-text and HTML email content
+- Uses the visitor as `replyTo` while keeping `GMAIL_USER` as the sender
+- Allows five accepted submissions per client IP in a 15-minute window
 
-- Global layout + spacing + z-index + safe-area tokens live in `/styles/globals.css`
-- Shared animation variants and hover helpers live in `/utils/motion.ts`
-- Hover-heavy effects are automatically reduced on touch devices through `/hooks/useCanHover.ts`
-- Reduced-motion preferences are respected using Framer Motion's `useReducedMotion`
-- Hero particles adapt by viewport size and interaction mode for better performance
+The rate limiter is stored in process memory. It resets when an instance
+restarts and is not shared across serverless instances. Use a shared rate-limit
+store if traffic or abuse risk grows.
 
-If you add a new animated component, prefer reusing `createContainerVariants`, `createItemVariants`, and `hoverLift` from `/utils/motion.ts` to keep interactions consistent.
+## SEO and deployment
 
-## 🌙 Dark/Light Theme
+The canonical URL and social-image URL are created in `pages/index.tsx`.
+Update `siteUrl` there when the production domain changes.
 
-The theme system automatically:
-- Detects system preference on first visit
-- Persists user choice in localStorage
-- Provides smooth transitions between themes
-- Updates all components consistently
-- Theme toggle is located in the navigation bar (top-right on desktop, rightmost icon on mobile)
+The current social preview uses:
 
-### Theme Customization
-
-Modify theme colors in `/styles/globals.css` under `:root` and `[data-theme="dark"]` selectors.
-
-### Customize Navigation
-
-The navigation bar is responsive and includes:
-- **Desktop**: Fixed top navigation with logo, menu items, and theme toggle
-- **Mobile**: Fixed bottom navigation with icons and theme toggle
-
-To customize navigation items, edit `/components/Navigation.tsx`:
-
-```typescript
-const navItems = [
-  { id: 'hero', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'contact', label: 'Contact' },
-  // Add more sections as needed
-];
+```text
+/images/avatar.png
 ```
 
-Navigation automatically highlights the active section based on scroll position and provides smooth scrolling to sections when clicked.
+`vercel.json` delegates the production build to `npm run build` and identifies
+the framework as Next.js. Production deployments must provide the three contact
+environment variables if the form is expected to send email.
 
-### Email Sending Setup (Gmail SMTP)
+## Verification
 
-To enable the contact form to send emails, you need to configure environment variables for your Gmail account. The application uses Nodemailer with Gmail SMTP.
+Recommended checks after a change:
 
-**Important:** For security, you **MUST** use a [Gmail App Password](https://support.google.com/accounts/answer/185833?hl=en) instead of your regular Gmail password.
+```bash
+npm run type-check
+npm run lint
+npm run build
+```
 
-1.  **Generate a Gmail App Password:**
-    *   Go to your [Google Account Security page](https://myaccount.google.com/security).
-    *   Under "How you sign in to Google," select **2-Step Verification** and ensure it's turned on.
-    *   Scroll down and select **App passwords**.
-    *   Follow the instructions to generate a new app password. Select "Mail" for the app and "Other (Custom name)" for the device, then enter a name like "Portfolio Website".
-    *   Copy the generated 16-character password (e.g., `abcd efgh ijkl mnop`). You will only see this once.
+Manual browser review should cover:
 
-2.  **Create a `.env.local` file:**
-    In the root of your `portfolio` directory (where `package.json` is located), create a file named `.env.local`.
+- Light and dark themes
+- Keyboard-only navigation
+- Reduced-motion mode
+- Project filtering and private-repository dialogs
+- Contact validation, phone, and WhatsApp actions
+- Layouts around 320px, 360px, 768px, 900px, 1024px, and desktop widths
+- Contact email delivery in an environment with SMTP variables configured
 
-3.  **Add the following environment variables to `.env.local`:**
-    ```
-    GMAIL_USER=your_gmail_address@gmail.com
-    GMAIL_APP_PASSWORD=your_16_character_app_password
-    TARGET_EMAIL=cmosesmaina@gmail.com
-    ```
-    *   Replace `your_gmail_address@gmail.com` with the Gmail address you used to generate the App Password.
-    *   Replace `your_16_character_app_password` with the actual 16-character App Password you copied.
-    *   `TARGET_EMAIL` is the email address where you want to receive messages from the contact form.
+## Contact
 
-    **Note:** The `.env.local` file is ignored by Git (`.gitignore`) for security reasons and should not be committed to version control.
-
-### Contact Form Security
-
-The contact API treats all form data as untrusted input and applies:
-
-- Server-side type, format, and length validation
-- Honeypot verification on both the client and API route
-- HTML escaping before content is inserted into email markup
-- Plain-text and HTML email alternatives
-- Controlled sender identity using `GMAIL_USER` with the visitor assigned to `replyTo`
-- Best-effort per-instance IP throttling of five accepted submissions per 15 minutes
-
-For high-volume production traffic, replace the in-memory throttle with a shared store such as Redis or a managed rate-limiting service.
-
-### SEO Configuration
-
-Page-specific metadata is maintained in `/pages/index.tsx`, while `/pages/_app.tsx` contains only global viewport and favicon tags. When changing domains, update `siteUrl` in `/pages/index.tsx` so canonical and social-preview URLs remain aligned.
-
-## ♿ Accessibility Features
-
-- Semantic HTML5 elements
-- ARIA labels and roles
-- Keyboard navigation support
-- Focus trapping and restoration for the private-project dialog
-- Live regions for contact form submission feedback
-- Screen reader compatibility
-- Color contrast compliance
-
-## 📱 Responsive Design
-
-- Mobile-first approach
-- Fluid scaling with CSS `clamp()` for typography, spacing, and controls
-- Breakpoint strategy: `360px`, `420px`, `480px`, `560px`, `768px`, `900px`, `1024px+`
-- Flexible grid layouts
-- Touch-friendly interactions
-- Safe-area-aware mobile navigation and section spacing
-
-## 🔧 Development Notes
-
-### Code Quality
-- Strict TypeScript mode enabled
-- ESLint configuration included
-- Clean, commented code structure
-- Modular component architecture
-
-### Performance
-- Next.js Image optimization
-- Code splitting by route
-- Lazy loading for components
-- Optimized bundle size
-
-### SEO
-- Meta tags and Open Graph
-- Structured data markup
-- Semantic HTML structure
-- Fast loading times
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🤝 Contributing
-
-1. Create a feature branch
-2. Make your changes
-3. Test thoroughly
-4. Submit a pull request
-
-## 📞 Support
-
-For questions or support, please contact:
-- Email: cmosesmaina@gmail.com
+- Email: `cmosesmaina@gmail.com`
+- Phone: `+254 110 868 049`
 - GitHub: [@CamlineKe](https://github.com/CamlineKe)
-- LinkedIn: [Moses Maina](https://linkedin.com/in/moses-ongware)
+- LinkedIn: [Moses Maina](https://www.linkedin.com/in/moses-ongware/)
 
----
-
-**Built with ❤️ using Next.js & TypeScript by Camline**
+Built with Next.js and TypeScript by Moses Maina.
