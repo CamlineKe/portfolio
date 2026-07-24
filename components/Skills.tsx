@@ -147,7 +147,7 @@ const Skills: React.FC = () => {
     'Context Engineering',
     'Systems Thinking',
     'Computer Networks',
-    'System Administration'
+    'System Administration',
   ];
 
   const softSkills = [
@@ -157,7 +157,7 @@ const Skills: React.FC = () => {
     'Communication',
     'Teamwork',
     'Time Management',
-    'Curious Fast Learner'
+    'Curious Fast Learner',
   ];
 
   const mediaSkills = [
@@ -166,7 +166,7 @@ const Skills: React.FC = () => {
     'Video Editing',
     'Advertising',
     'Event Coverage',
-    'Content Creation'
+    'Content Creation',
   ];
 
   return (
@@ -179,18 +179,28 @@ const Skills: React.FC = () => {
           whileInView="visible"
           viewport={sectionViewport}
         >
+          <motion.p className={styles.eyebrow} variants={itemVariants}>
+            Capabilities
+          </motion.p>
           <motion.h2 className={styles.title} variants={itemVariants}>
             Skills & Technologies
           </motion.h2>
+          <motion.p className={styles.intro} variants={itemVariants}>
+            A practical toolkit for designing, building, testing, and operating
+            dependable digital products.
+          </motion.p>
 
-          {/* Technologies Section */}
           <motion.div className={styles.sectionBlock} variants={itemVariants}>
             <h3 className={styles.subtitle}>Technologies</h3>
             <p className={styles.technologiesIntro}>
-              Tools I use to build, ship, and operate reliable products.
+              Open a category to explore the tools I use across the product
+              lifecycle.
             </p>
 
-            <motion.div className={styles.technologyAccordion} variants={containerVariants}>
+            <motion.div
+              className={styles.technologyAccordion}
+              variants={containerVariants}
+            >
               {technologyCategories.map((category) => {
                 const isOpen = activeTechnologyCategory === category.id;
                 const triggerId = `technology-${category.id}-trigger`;
@@ -229,7 +239,9 @@ const Skills: React.FC = () => {
                         }}
                       >
                         <span className={styles.accordionLabel}>
-                          <span className={styles.accordionTitle}>{category.title}</span>
+                          <span className={styles.accordionTitle}>
+                            {category.title}
+                          </span>
                           <span className={styles.accordionPreview}>
                             {previewTechnologies}
                             {remainingTechnologyCount > 0
@@ -279,13 +291,23 @@ const Skills: React.FC = () => {
                       }}
                     >
                       <div className={styles.accordionPanelInner}>
-                        <div className={styles.technologyGrid}>
+                        <div
+                          className={styles.technologyGrid}
+                          role="list"
+                          aria-label={`${category.title} technologies`}
+                        >
                           {category.technologies.map((technology) => (
-                            <div key={technology.name} className={styles.technologyItem}>
+                            <div
+                              key={technology.name}
+                              className={styles.technologyItem}
+                              role="listitem"
+                            >
                               <div className={styles.technologyIcon}>
                                 {renderTechIcon(technology.icon)}
                               </div>
-                              <span className={styles.technologyName}>{technology.name}</span>
+                              <span className={styles.technologyName}>
+                                {technology.name}
+                              </span>
                             </div>
                           ))}
                         </div>
@@ -297,41 +319,56 @@ const Skills: React.FC = () => {
             </motion.div>
           </motion.div>
 
-          {/* New Skills Section */}
           <motion.div className={styles.skillsSection} variants={itemVariants}>
-            <h3 className={styles.subtitle}>Skills</h3>
+            <h3 className={styles.subtitle}>Core Skills</h3>
 
             <div className={styles.skillsCategories}>
               <div className={styles.categoryColumn}>
                 <h4 className={styles.categoryTitle}>Technical Skills</h4>
-                <div className={styles.tagCloud}>
-                  {technicalSkills.map((skill, index) => (
-                    <span key={index} className={styles.skillTag}>{skill}</span>
+                <div
+                  className={styles.tagCloud}
+                  role="list"
+                  aria-label="Technical skills"
+                >
+                  {technicalSkills.map((skill) => (
+                    <span key={skill} className={styles.skillTag} role="listitem">
+                      {skill}
+                    </span>
                   ))}
                 </div>
               </div>
 
               <div className={styles.categoryColumn}>
                 <h4 className={styles.categoryTitle}>Soft Skills</h4>
-                <div className={styles.tagCloud}>
-                  {softSkills.map((skill, index) => (
-                    <span key={index} className={styles.skillTag}>{skill}</span>
+                <div
+                  className={styles.tagCloud}
+                  role="list"
+                  aria-label="Soft skills"
+                >
+                  {softSkills.map((skill) => (
+                    <span key={skill} className={styles.skillTag} role="listitem">
+                      {skill}
+                    </span>
                   ))}
                 </div>
               </div>
 
               <div className={styles.categoryColumn}>
                 <h4 className={styles.categoryTitle}>Media & Creative</h4>
-                <div className={styles.tagCloud}>
-                  {mediaSkills.map((skill, index) => (
-                    <span key={index} className={styles.skillTag}>{skill}</span>
+                <div
+                  className={styles.tagCloud}
+                  role="list"
+                  aria-label="Media and creative skills"
+                >
+                  {mediaSkills.map((skill) => (
+                    <span key={skill} className={styles.skillTag} role="listitem">
+                      {skill}
+                    </span>
                   ))}
                 </div>
               </div>
-
             </div>
           </motion.div>
-
         </motion.div>
       </div>
     </section>

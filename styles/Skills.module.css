@@ -12,9 +12,11 @@
   left: 0;
   right: 0;
   height: 400px;
-  background: radial-gradient(ellipse at 50% 0%,
-      rgba(245, 158, 11, 0.05) 0%,
-      transparent 70%);
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(var(--color-primary-rgb), 0.055) 0%,
+    transparent 70%
+  );
   pointer-events: none;
   z-index: 0;
 }
@@ -26,47 +28,50 @@
   margin: 0 auto;
 }
 
+.eyebrow {
+  margin: 0 0 0.65rem;
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 .title {
   text-align: center;
   font-size: clamp(2rem, 4.6vw, 3rem);
-  margin-bottom: clamp(2.2rem, 4.5vw, 4rem);
+  margin-bottom: 0.8rem;
   color: var(--color-text-primary);
+}
+
+.intro {
+  max-width: var(--content-measure);
+  margin: 0 auto clamp(2.25rem, 4.5vw, 3.5rem);
+  color: var(--color-text-secondary);
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  line-height: 1.7;
+  text-align: center;
 }
 
 .subtitle {
-  font-size: clamp(1.35rem, 3.2vw, 2rem);
-  margin-bottom: 2rem;
-  color: var(--color-text-primary);
-  text-align: center;
-  font-weight: 700;
-  position: relative;
-  display: inline-block;
   width: 100%;
-}
-
-.subtitle::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background: linear-gradient(90deg,
-      var(--color-primary) 0%,
-      #7c3aed 50%,
-      var(--color-accent) 100%);
-  border-radius: 2px;
+  margin: 0 0 0.5rem;
+  color: var(--color-text-primary);
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 750;
+  text-align: center;
 }
 
 .sectionBlock {
-  margin-bottom: clamp(2.4rem, 5vw, 5rem);
+  margin-bottom: clamp(2.75rem, 5vw, 4.5rem);
 }
 
 .technologiesIntro {
-  max-width: 42rem;
-  margin: -0.5rem auto 1.5rem;
+  max-width: var(--content-measure);
+  margin: 0 auto 1.5rem;
   color: var(--color-text-secondary);
+  font-size: 0.9rem;
   text-align: center;
   line-height: 1.65;
 }
@@ -79,32 +84,23 @@
 }
 
 .accordionItem {
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.55);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--surface-elevated);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  box-shadow:
-    0 4px 12px var(--color-shadow),
-    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
-  overflow: hidden;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
-}
-
-[data-theme="dark"] .accordionItem {
-  background: rgba(15, 23, 42, 0.5);
-  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: var(--shadow-card);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast);
 }
 
 .accordionItemActive {
-  border-color: rgba(var(--color-primary-rgb), 0.5);
-  background: rgba(var(--color-primary-rgb), 0.05);
-  box-shadow: 0 10px 28px var(--color-shadow);
-}
-
-[data-theme="dark"] .accordionItemActive {
-  border-color: rgba(var(--color-primary-rgb), 0.55);
-  background: rgba(var(--color-primary-rgb), 0.08);
+  border-color: rgba(var(--color-primary-rgb), 0.4);
+  background: rgba(var(--color-primary-rgb), 0.045);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .accordionHeading {
@@ -168,8 +164,9 @@
 
 .technologyCount {
   padding: 0.25rem 0.6rem;
+  border: 1px solid var(--border-subtle);
   border-radius: 999px;
-  background: var(--color-background);
+  background: var(--surface-elevated-strong);
   font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;
@@ -191,7 +188,7 @@
 
 .accordionPanelInner {
   padding: clamp(1rem, 2.2vw, 1.5rem);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--border-subtle);
 }
 
 .technologyGrid {
@@ -206,10 +203,13 @@
   min-width: 0;
   gap: 0.65rem;
   padding: 0.65rem 0.75rem;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--border-subtle);
   border-radius: 0.75rem;
-  background: var(--color-background);
-  transition: border-color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
+  background: var(--surface-elevated-strong);
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .technologyIcon {
@@ -250,8 +250,8 @@
   }
 
   .technologyItem:hover {
-    border-color: rgba(var(--color-primary-rgb), 0.4);
-    background: rgba(var(--color-primary-rgb), 0.07);
+    border-color: rgba(var(--color-primary-rgb), 0.35);
+    background: rgba(var(--color-primary-rgb), 0.06);
     transform: translateY(-1px);
   }
 }
@@ -263,7 +263,7 @@
 }
 
 .skillsSection {
-  margin-top: clamp(2rem, 4vw, 3rem);
+  padding-top: clamp(0.25rem, 1vw, 0.75rem);
 }
 
 .skillsCategories {
@@ -274,64 +274,64 @@
 }
 
 .categoryColumn {
-  background: rgba(255, 255, 255, 0.5);
+  padding: clamp(1rem, 2.4vw, 1.6rem);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--surface-elevated);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  padding: clamp(1rem, 2.4vw, 2rem);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-  box-shadow: 0 4px 12px var(--color-shadow);
-}
-
-[data-theme="dark"] .categoryColumn {
-  background: rgba(15, 23, 42, 0.45);
-  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .categoryColumn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px -10px var(--color-shadow);
-    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(var(--color-primary-rgb), 0.35);
   }
 }
 
 .categoryTitle {
-  font-size: clamp(1.05rem, 2.4vw, 1.4rem);
-  color: var(--color-primary);
-  margin-bottom: 1rem;
+  margin: 0 0 1rem;
+  color: var(--color-text-primary);
+  font-size: clamp(1.02rem, 2.4vw, 1.25rem);
   font-weight: 700;
-  text-align: center;
 }
 
 .tagCloud {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .skillTag {
-  background: var(--color-background);
-  color: var(--color-text-primary);
-  padding: 0.45rem 0.85rem;
-  border-radius: 2rem;
-  font-size: 0.82rem;
-  font-weight: 500;
-  border: 1px solid var(--color-border);
-  transition: transform var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
-  cursor: default;
   display: inline-block;
+  padding: 0.42rem 0.75rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 2rem;
+  background: rgba(var(--color-primary-rgb), 0.04);
+  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: default;
+  transition:
+    transform var(--transition-fast),
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .skillTag:hover {
-    background: var(--color-primary);
-    color: white;
-    border-color: var(--color-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
+    background: rgba(var(--color-primary-rgb), 0.1);
+    color: var(--color-primary);
+    border-color: rgba(var(--color-primary-rgb), 0.35);
+    transform: translateY(-1px);
   }
 }
 
@@ -354,7 +354,22 @@
     gap: 0.65rem;
   }
 
+  .technologyCount {
+    display: none;
+  }
+
   .technologyGrid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordionItem,
+  .accordionTrigger,
+  .accordionChevron,
+  .technologyItem,
+  .categoryColumn,
+  .skillTag {
+    transition-duration: 0.01ms;
   }
 }
