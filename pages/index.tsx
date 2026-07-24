@@ -12,7 +12,7 @@ const Home: React.FC = () => {
   const siteUrl = 'https://moses-maina-portfolio.vercel.app';
   const title = 'Moses Maina | Systems-Driven Software Engineer';
   const description = 'Portfolio of Moses Maina, a systems-driven software engineer building reliable custom software, scalable products, and secure production-ready systems.';
-  const socialImage = `${siteUrl}/images/avatar.jpg`;
+  const socialImage = `${siteUrl}/images/avatar.png`;
 
   return (
     <>
@@ -28,14 +28,14 @@ const Home: React.FC = () => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={siteUrl} />
         <meta property="og:image" content={socialImage} />
-        <meta property="og:image:alt" content="Moses Maina" />
+        <meta property="og:image:alt" content="Portrait of Moses Maina" />
 
         {/* Twitter Card tags */}
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={socialImage} />
-        <meta name="twitter:image:alt" content="Moses Maina" />
+        <meta name="twitter:image:alt" content="Portrait of Moses Maina" />
 
         {/* Additional SEO tags */}
         <meta name="robots" content="index, follow" />
