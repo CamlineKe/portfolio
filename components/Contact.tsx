@@ -12,6 +12,12 @@ import {
 } from '../utils/motion';
 import styles from '../styles/Contact.module.css';
 
+const phoneNumber = '+254110868049';
+const formattedPhoneNumber = '+254 110 868 049';
+const whatsappMessage =
+  'Hello Moses, I found your portfolio and would like to discuss a project or opportunity with you.';
+const whatsappUrl = `https://wa.me/254110868049?text=${encodeURIComponent(whatsappMessage)}`;
+
 const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -46,11 +52,6 @@ const Contact: React.FC = () => {
       name: 'TikTok',
       url: 'https://tiktok.com/@camline_moses',
       icon: 'tiktok',
-    },
-    {
-      name: 'WhatsApp',
-      url: 'https://wa.me/254110868049',
-      icon: 'whatsapp',
     },
   ];
 
@@ -93,6 +94,16 @@ const Contact: React.FC = () => {
 
   const renderSocialIcon = (iconName: string) => {
     switch (iconName) {
+      case 'phone':
+        return (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.84.56 2.8.69A2 2 0 0 1 22 16.92Z"
+            />
+          </svg>
+        );
       case 'github':
         return (
           <svg viewBox="0 0 24 24" fill="currentColor">
@@ -147,6 +158,42 @@ const Contact: React.FC = () => {
             can contribute through reliable software and thoughtful engineering.
           </motion.p>
 
+          <motion.div className={styles.quickContact} variants={itemVariants}>
+            <motion.a
+              href={`tel:${phoneNumber}`}
+              className={styles.contactMethod}
+              whileHover={hoverLift(enableHoverMotion, -2, 1.01)}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+              aria-label={`Call Moses Maina at ${formattedPhoneNumber}`}
+            >
+              <span className={styles.contactMethodIcon} aria-hidden="true">
+                {renderSocialIcon('phone')}
+              </span>
+              <span className={styles.contactMethodText}>
+                <span className={styles.contactMethodLabel}>Call me</span>
+                <span className={styles.contactMethodValue}>{formattedPhoneNumber}</span>
+              </span>
+            </motion.a>
+
+            <motion.a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${styles.contactMethod} ${styles.whatsappMethod}`}
+              whileHover={hoverLift(enableHoverMotion, -2, 1.01)}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+              aria-label="Start a WhatsApp conversation with Moses Maina"
+            >
+              <span className={styles.contactMethodIcon} aria-hidden="true">
+                {renderSocialIcon('whatsapp')}
+              </span>
+              <span className={styles.contactMethodText}>
+                <span className={styles.contactMethodLabel}>WhatsApp</span>
+                <span className={styles.contactMethodValue}>Start a conversation</span>
+              </span>
+            </motion.a>
+          </motion.div>
+
           <div className={styles.contactContent}>
             <motion.div className={styles.formSection} variants={itemVariants}>
               <form onSubmit={handleSubmit(onSubmit)} className={styles.contactForm}>
@@ -168,6 +215,8 @@ const Contact: React.FC = () => {
                     id="name"
                     placeholder="Enter your full name"
                     className={`${styles.input} ${errors.name ? styles.error : ''}`}
+                    aria-invalid={Boolean(errors.name)}
+                    aria-describedby={errors.name ? 'name-error' : undefined}
                     {...register('name', {
                       required: 'Name is required',
                       maxLength: {
@@ -181,7 +230,9 @@ const Contact: React.FC = () => {
                     })}
                   />
                   {errors.name && (
-                    <span className={styles.errorMessage}>{errors.name.message}</span>
+                    <span id="name-error" className={styles.errorMessage}>
+                      {errors.name.message}
+                    </span>
                   )}
                 </div>
 
@@ -194,6 +245,8 @@ const Contact: React.FC = () => {
                     id="email"
                     placeholder="your.email@example.com"
                     className={`${styles.input} ${errors.email ? styles.error : ''}`}
+                    aria-invalid={Boolean(errors.email)}
+                    aria-describedby={errors.email ? 'email-error' : undefined}
                     {...register('email', {
                       required: 'Email is required',
                       maxLength: {
@@ -207,7 +260,9 @@ const Contact: React.FC = () => {
                     })}
                   />
                   {errors.email && (
-                    <span className={styles.errorMessage}>{errors.email.message}</span>
+                    <span id="email-error" className={styles.errorMessage}>
+                      {errors.email.message}
+                    </span>
                   )}
                 </div>
 
@@ -220,6 +275,8 @@ const Contact: React.FC = () => {
                     rows={5}
                     placeholder="Tell me about your project or idea..."
                     className={`${styles.textarea} ${errors.message ? styles.error : ''}`}
+                    aria-invalid={Boolean(errors.message)}
+                    aria-describedby={errors.message ? 'message-error' : undefined}
                     {...register('message', {
                       required: 'Message is required',
                       maxLength: {
@@ -233,7 +290,9 @@ const Contact: React.FC = () => {
                     })}
                   />
                   {errors.message && (
-                    <span className={styles.errorMessage}>{errors.message.message}</span>
+                    <span id="message-error" className={styles.errorMessage}>
+                      {errors.message.message}
+                    </span>
                   )}
                 </div>
 
@@ -241,8 +300,11 @@ const Contact: React.FC = () => {
                   type="submit"
                   className={`btn ${styles.submitButton}`}
                   disabled={isSubmitting}
+                  aria-busy={isSubmitting}
                   whileHover={isSubmitting ? undefined : hoverScale(enableHoverMotion, 1.05)}
-                  whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
+                  whileTap={
+                    isSubmitting || prefersReducedMotion ? undefined : { scale: 0.95 }
+                  }
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </motion.button>
@@ -252,7 +314,9 @@ const Contact: React.FC = () => {
                     className={styles.successMessage}
                     role="status"
                     aria-live="polite"
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={
+                      prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }
+                    }
                     animate={{ opacity: 1, y: 0 }}
                   >
                     Thank you! Your message has been sent successfully.
@@ -263,7 +327,9 @@ const Contact: React.FC = () => {
                   <motion.div
                     className={styles.errorMessage}
                     role="alert"
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={
+                      prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }
+                    }
                     animate={{ opacity: 1, y: 0 }}
                   >
                     Sorry, there was an error sending your message. Please try again.
@@ -293,10 +359,10 @@ const Contact: React.FC = () => {
                     rel="noopener noreferrer"
                     className={styles.socialLink}
                     whileHover={hoverLift(enableHoverMotion, -2, 1.08)}
-                    whileTap={{ scale: 0.95 }}
+                    whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
                     aria-label={`Visit ${social.name} profile`}
                   >
-                    <div className={styles.socialIcon}>
+                    <div className={styles.socialIcon} aria-hidden="true">
                       {renderSocialIcon(social.icon)}
                     </div>
                     <span className={styles.socialName}>{social.name}</span>
