@@ -7,7 +7,7 @@ import { useCanHover } from '../hooks/useCanHover';
 const ParticleBackground = () => {
   const prefersReducedMotion = useReducedMotion();
   const canHover = useCanHover();
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(true);
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -26,32 +26,27 @@ const ParticleBackground = () => {
   }, []);
 
   const particleOptions = useMemo(() => {
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || isSmallScreen) {
       return null;
     }
-
-    const particleCount = isSmallScreen ? 32 : 62;
-    const particleSpeed = isSmallScreen ? 0.55 : 0.8;
-    const fpsLimit = isSmallScreen ? 45 : 60;
-    const hoverEnabled = canHover && !isSmallScreen;
 
     return {
       fullScreen: { enable: false },
       background: {
         color: { value: 'transparent' },
       },
-      fpsLimit,
+      fpsLimit: 50,
       interactivity: {
         events: {
           onClick: { enable: false, mode: 'push' },
-          onHover: { enable: hoverEnabled, mode: 'grab' },
+          onHover: { enable: canHover, mode: 'grab' },
           resize: { enable: true },
         },
         modes: {
           push: { quantity: 2 },
           grab: {
             distance: 150,
-            links: { opacity: 0.35 },
+            links: { opacity: 0.25 },
           },
         },
       },
@@ -63,7 +58,7 @@ const ParticleBackground = () => {
           color: '#94a3b8',
           distance: 140,
           enable: true,
-          opacity: 0.22,
+          opacity: 0.15,
           width: 1,
         },
         move: {
@@ -73,15 +68,15 @@ const ParticleBackground = () => {
             default: 'bounce' as const,
           },
           random: false,
-          speed: particleSpeed,
+          speed: 0.55,
           straight: false,
         },
         number: {
           density: { enable: true },
-          value: particleCount,
+          value: 42,
         },
         opacity: {
-          value: 0.45,
+          value: 0.32,
           animation: {
             enable: true,
             speed: 0.4,

@@ -3,10 +3,15 @@ import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { scrollToSection } from '../utils/helpers';
 import { useCanHover } from '../hooks/useCanHover';
+import { hoverScale } from '../utils/motion';
 import styles from '../styles/Hero.module.css';
 import ParticleBackground from './ParticleBackground';
-import Typewriter from 'typewriter-effect';
-import { hoverScale } from '../utils/motion';
+
+const expertise = [
+  'Custom software',
+  'API integrations',
+  'Production systems',
+];
 
 const Hero: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
@@ -20,142 +25,80 @@ const Hero: React.FC = () => {
   return (
     <section className={styles.hero} id="hero">
       <div className={`container ${styles.heroContainer}`}>
-        <div className={styles.particlesWrapper}>
+        <div className={styles.particlesWrapper} aria-hidden="true">
           <ParticleBackground />
         </div>
+
         <motion.div
           className={styles.heroContent}
-          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: prefersReducedMotion ? 0.2 : 0.8, ease: 'easeOut' }}
+          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: prefersReducedMotion ? 0.2 : 0.5, ease: 'easeOut' }}
         >
-          <motion.div
-            className={styles.avatarContainer}
-            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              duration: prefersReducedMotion ? 0.2 : 0.8,
-              delay: prefersReducedMotion ? 0 : 0.2,
-              type: 'spring',
-              stiffness: 100,
-            }}
-            whileHover={enableHoverMotion ? { scale: 1.05 } : undefined}
-          >
-            <Image
-              src="/images/avatar.png"
-              alt="Moses Maina"
-              width={200}
-              height={200}
-              sizes="(max-width: 375px) 105px, (max-width: 750px) 120px, (max-width: 1250px) 16vw, 200px"
-              className={styles.avatar}
-              priority
-            />
-          </motion.div>
+          <div className={styles.portraitColumn}>
+            <motion.div
+              className={styles.portraitFrame}
+              whileHover={enableHoverMotion ? { y: -2 } : undefined}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+            >
+              <Image
+                src="/images/avatar.png"
+                alt="Portrait of Moses Maina"
+                width={520}
+                height={520}
+                sizes="(max-width: 899px) 256px, (max-width: 1200px) 32vw, 368px"
+                className={styles.avatar}
+                priority
+              />
+            </motion.div>
+          </div>
 
-          <motion.div
-            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: prefersReducedMotion ? 0.2 : 0.8, delay: prefersReducedMotion ? 0 : 0.3 }}
-          >
-            <h1 className={styles.name}>Moses Maina</h1>
-          </motion.div>
-
-          <motion.div
-            className={styles.typewriterWrapper}
-            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: prefersReducedMotion ? 0.2 : 0.8, delay: prefersReducedMotion ? 0 : 0.5 }}
-          >
-            <span>I am </span>
-            <div className={styles.typewriterText}>
-              {prefersReducedMotion ? (
-                <span>a Systems-Driven Software Engineer</span>
-              ) : (
-                <Typewriter
-                  options={{
-                    strings: [
-                      'a Systems-Driven Software Engineer',
-                      'building reliable custom software',
-                      'turning complex problems into clear solutions',
-                      'engineering products from idea to production',
-                    ],
-                    autoStart: true,
-                    loop: true,
-                    delay: 50,
-                    deleteSpeed: 30,
-                    cursor: '_',
-                    cursorClassName: styles.typewriterCursor,
-                  }}
-                />
-              )}
+          <div className={styles.heroCopy}>
+            <div className={styles.identity}>
+              <span className={styles.name}>Moses Maina</span>
+              <span className={styles.identityDivider} aria-hidden="true" />
+              <span className={styles.role}>Systems-Driven Software Engineer</span>
             </div>
-          </motion.div>
 
-          <motion.p
-            className={styles.bio}
-            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: prefersReducedMotion ? 0.2 : 0.8, delay: prefersReducedMotion ? 0 : 0.7 }}
-          >
-            I design and build reliable custom software that turns complex business
-            problems into secure, maintainable, and production-ready systems.
-          </motion.p>
+            <h1 className={styles.headline}>
+              Building <span>reliable software</span> for complex business problems.
+            </h1>
 
-          <motion.div
-            className={styles.buttonContainer}
-            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: prefersReducedMotion ? 0.2 : 0.8, delay: prefersReducedMotion ? 0 : 0.9 }}
-          >
-            <motion.button
-              className={`btn ${styles.primaryButton}`}
-              onClick={handleViewProjects}
-              whileHover={hoverScale(enableHoverMotion, 1.05)}
-              whileTap={{ scale: 0.95 }}
-            >
-              View Projects
-            </motion.button>
+            <p className={styles.bio}>
+              I design secure, maintainable systems and take products from idea to
+              production.
+            </p>
 
-            <motion.a
-              href="/CV/Moses_Maina_Software_Engineer_Resume.pdf"
-              download
-              className={`${styles.glassButton}`}
-              whileHover={hoverScale(enableHoverMotion, 1.05)}
-              whileTap={{ scale: 0.95 }}
-            >
-              Download CV
-            </motion.a>
-          </motion.div>
+            <div className={styles.buttonContainer}>
+              <motion.button
+                className={`btn ${styles.primaryButton}`}
+                onClick={handleViewProjects}
+                whileHover={hoverScale(enableHoverMotion, 1.02)}
+                whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+              >
+                View Projects
+              </motion.button>
+
+              <motion.a
+                href="/CV/Moses_Maina_Software_Engineer_Resume.pdf"
+                download
+                className={styles.secondaryButton}
+                whileHover={hoverScale(enableHoverMotion, 1.02)}
+                whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+              >
+                Download CV
+              </motion.a>
+            </div>
+
+            <ul className={styles.expertiseList} aria-label="Selected expertise">
+              {expertise.map((item) => (
+                <li key={item} className={styles.expertiseItem}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
         </motion.div>
-
-        <motion.button
-          type="button"
-          className={styles.scrollIndicator}
-          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: prefersReducedMotion ? 0.2 : 1, delay: prefersReducedMotion ? 0 : 1.5 }}
-          onClick={handleViewProjects}
-          aria-label="Scroll to featured projects"
-        >
-          <motion.div
-            className={styles.scrollArrow}
-            animate={prefersReducedMotion ? undefined : { y: [0, 10, 0] }}
-            transition={prefersReducedMotion ? undefined : { duration: 2, repeat: Infinity }}
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 5v14M19 12l-7 7-7-7" />
-            </svg>
-          </motion.div>
-        </motion.button>
       </div>
     </section>
   );
