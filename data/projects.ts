@@ -152,4 +152,26 @@ export const projects: Project[] = [
       url: 'https://github.com/CamlineKe/Task_Management',
     },
   },
+  {
+    id: 7,
+    title: 'Tuju Outspan Cyber Center Website',
+    description:
+      'A WhatsApp-first digital storefront for Tuju Outspan Cyber Center, a full-service cyber and digital solutions provider based at Chuka University with online services available countrywide. Fifteen static pages guide visitors through government, education, document, design, and IT services toward page-aware pre-filled WhatsApp chats, with SEO metadata and structured data supporting targeted conversions.',
+    highlight:
+      'Built as a 15-page static export with WhatsApp-first conversion flows, per-service enquiry modals, and a floating chat button; covered by a Vitest and Testing Library suite for accessible, keyboard-friendly interactions.',
+    image: '/images/tuju-outspan.png',
+    technologies: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Zod', 'Vitest'],
+    category: 'Web Applications',
+    status: 'Live Website',
+    demos: [
+      {
+        type: 'live',
+        url: 'https://tuju-outspan.vercel.app/',
+      },
+    ],
+    repository: {
+      visibility: 'public',
+      url: 'https://github.com/CamlineKe/Tuju_Outspan',
+    },
+  },
 ];
