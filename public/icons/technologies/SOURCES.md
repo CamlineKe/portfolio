@@ -1,6 +1,6 @@
 # Technology icon sources
 
-Retrieved on 2026-07-23.
+Retrieved on 2026-07-23 (new assets added 2026-08-05).
 
 These assets are self-hosted for the portfolio's technology list. Source selection favors an official project or vendor asset, then the corresponding [Simple Icons](https://simpleicons.org/) mark when an official downloadable icon was not readily available.
 
@@ -29,6 +29,8 @@ Simple Icons distributes its icon data under [CC0 1.0](https://github.com/simple
 | TanStack Query | `tanstack-query.svg` | [Simple Icons CDN](https://cdn.simpleicons.org/reactquery) | React Query mark used for the TanStack Query technology entry. |
 | React Router | `react-router.svg` | [Simple Icons CDN](https://cdn.simpleicons.org/reactrouter) | React Router brand mark from the Simple Icons catalog. |
 | Vite | `vite.svg` | [Simple Icons CDN](https://cdn.simpleicons.org/vite) | Vite brand mark from the Simple Icons catalog. |
+| Framer Motion | `framer.svg` | [Simple Icons CDN](https://cdn.simpleicons.org/framer) | Framer brand mark from the Simple Icons catalog, used for the Framer Motion technology entry. |
+| React Hook Form | `react-hook-form.svg` | [Simple Icons CDN](https://cdn.simpleicons.org/reacthookform) | React Hook Form brand mark from the Simple Icons catalog. |
 | Git | `git.svg` | [Simple Icons CDN](https://cdn.simpleicons.org/git) | Git brand mark from the Simple Icons catalog. |
 | GitHub Actions | `github-actions.svg` | [Simple Icons CDN](https://cdn.simpleicons.org/githubactions) | GitHub Actions brand mark from the Simple Icons catalog. |
 | Docker | `docker.svg` | [Simple Icons CDN](https://cdn.simpleicons.org/docker) | Docker brand mark from the Simple Icons catalog. |
@@ -38,7 +40,9 @@ Simple Icons distributes its icon data under [CC0 1.0](https://github.com/simple
 | Aiven | `aiven.svg` | [Official Aiven favicon](https://aiven.io/favicon-light.svg) | Official artwork served by Aiven's website. |
 | Winston | `winston.png` | [Official Winston GitHub organization avatar](https://github.com/winstonjs.png?size=128) | Project identity avatar used because Winston does not publish a dedicated compact product logo. |
 | k6 | `k6.svg` | [Simple Icons CDN](https://cdn.simpleicons.org/k6) | k6 brand mark from the Simple Icons catalog. |
+| pnpm | `pnpm.svg` | [Simple Icons CDN](https://cdn.simpleicons.org/pnpm) | pnpm brand mark from the Simple Icons catalog. |
 | Vitest | `vitest.svg` | [Simple Icons CDN](https://cdn.simpleicons.org/vitest) | Vitest brand mark from the Simple Icons catalog. |
+| Testing Library | `testing-library.png` | [Official Testing Library GitHub organization avatar](https://github.com/testing-library.png?size=128) | Official organization identity avatar used because Testing Library does not publish a dedicated compact product logo. |
 | TypeScript | `typescript.svg` | [Simple Icons CDN](https://cdn.simpleicons.org/typescript) | TypeScript brand mark from the Simple Icons catalog. |
 | JavaScript | `javascript.svg` | [Simple Icons CDN](https://cdn.simpleicons.org/javascript) | JavaScript mark from the Simple Icons catalog. |
 | Python | `python.svg` | [Simple Icons CDN](https://cdn.simpleicons.org/python) | Python brand mark from the Simple Icons catalog. |

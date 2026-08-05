@@ -24,6 +24,7 @@ const rasterTechnologyIcons = new Set([
   'bullmq',
   'm-pesa',
   'winston',
+  'testing-library',
 ]);
 
 const getTechnologyIconSource = (iconName: string) => {
@@ -70,6 +71,8 @@ const technologyCategories: TechCategory[] = [
       { name: 'TanStack Query', icon: 'tanstack-query' },
       { name: 'React Router', icon: 'react-router' },
       { name: 'Vite', icon: 'vite' },
+      { name: 'Framer Motion', icon: 'framer' },
+      { name: 'React Hook Form', icon: 'react-hook-form' },
     ],
   },
   {
@@ -85,7 +88,9 @@ const technologyCategories: TechCategory[] = [
       { name: 'Aiven', icon: 'aiven' },
       { name: 'Winston', icon: 'winston' },
       { name: 'k6', icon: 'k6' },
+      { name: 'pnpm', icon: 'pnpm' },
       { name: 'Vitest', icon: 'vitest' },
+      { name: 'Testing Library', icon: 'testing-library' },
     ],
   },
   {
