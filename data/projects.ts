@@ -143,8 +143,8 @@ export const projects: Project[] = [
     category: 'Web Applications',
     demos: [
       {
-        type: 'live',
-        url: 'https://task-management-psi-jade.vercel.app/',
+        type: 'video',
+        url: 'https://drive.google.com/file/d/1cnPHvzoPsThOcqoznf_QIPpyVNfJaRIV/view?usp=drive_link',
       },
     ],
     repository: {
