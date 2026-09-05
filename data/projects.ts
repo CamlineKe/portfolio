@@ -78,7 +78,6 @@ export const projects: Project[] = [
     description:
       'A conversion-focused e-commerce storefront for a Kenyan nutrition and wellness brand. Customers can discover products, compare confirmed offers, manage a persistent cart, validate delivery details, and send structured order requests through WhatsApp, creating a low-friction purchase journey without a traditional checkout backend.',
     image: '/images/viesta.png',
-    imagePosition: '28% 20%',
     technologies: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Zod', 'Vitest'],
     category: 'Web Applications',
     status: 'Live Website',
@@ -101,7 +100,6 @@ export const projects: Project[] = [
     highlight:
       'Built as a 15-page static export with WhatsApp-first conversion flows, per-service enquiry modals, and a floating chat button; covered by a Vitest and Testing Library suite for accessible, keyboard-friendly interactions.',
     image: '/images/tuju-outspan.png',
-    imagePosition: '32% 30%',
     technologies: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Zod', 'Vitest'],
     category: 'Web Applications',
     status: 'Live Website',

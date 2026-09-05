@@ -233,11 +233,7 @@ const Projects: React.FC = () => {
                     />
                   </motion.div>
 
-                  <motion.div
-                    className={styles.projectContent}
-                    layout={enableCardLayout}
-                    transition={layoutTransition}
-                  >
+                  <div className={styles.projectContent}>
                     {project.status && (
                       <span className={styles.projectStatus}>{project.status}</span>
                     )}
@@ -313,7 +309,7 @@ const Projects: React.FC = () => {
                         </motion.button>
                       )}
                     </div>
-                  </motion.div>
+                  </div>
                 </motion.article>
               ))}
             </AnimatePresence>
