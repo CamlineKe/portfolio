@@ -1,13 +1,12 @@
-import React, { useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { Project, ProjectDemo } from '../types';
 import { useCanHover } from '../hooks/useCanHover';
 import { projects } from '../data/projects';
 import { ProjectRank, packProjects } from '../utils/projectLayout';
 import {
+  cardLayoutTransition,
   createCardVariants,
   createContainerVariants,
   createItemVariants,
@@ -15,10 +14,6 @@ import {
   sectionViewport,
 } from '../utils/motion';
 import styles from '../styles/Projects.module.css';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const PROJECT_CATEGORY_ORDER: Project['category'][] = [
   'Custom Software',
@@ -136,69 +131,10 @@ const Projects: React.FC = () => {
     };
   }, [privateProject]);
 
-  const parallaxRefs = useRef<Map<number, HTMLDivElement>>(new Map());
-  const parallaxTweens = useRef<gsap.core.Tween[]>([]);
-
-  const setParallaxRef = useCallback(
-    (id: number) => (el: HTMLDivElement | null) => {
-      if (el) {
-        parallaxRefs.current.set(id, el);
-      } else {
-        parallaxRefs.current.delete(id);
-      }
-    },
-    []
-  );
-
-  useEffect(() => {
-    const prefersReduced = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-    if (prefersReduced) return;
-
-    // Clean up previous tweens when filter changes
-    parallaxTweens.current.forEach((t) => {
-      t.scrollTrigger?.kill();
-      t.kill();
-    });
-    parallaxTweens.current = [];
-
-    // Small delay so DOM is painted after filter animation
-    const timer = setTimeout(() => {
-      parallaxRefs.current.forEach((el) => {
-        const img = el.querySelector('img');
-        if (!img) return;
-
-        const tween = gsap.fromTo(
-          img,
-          { y: -8 },
-          {
-            y: 8,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: true,
-            },
-          }
-        );
-        parallaxTweens.current.push(tween);
-      });
-    }, 100);
-
-    return () => {
-      clearTimeout(timer);
-      parallaxTweens.current.forEach((t) => {
-        t.scrollTrigger?.kill();
-        t.kill();
-      });
-    };
-  }, [filteredProjects]);
-
   const containerVariants = createContainerVariants(Boolean(prefersReducedMotion), 0.18);
   const itemVariants = createItemVariants(Boolean(prefersReducedMotion), 24, 0.55);
   const cardVariants = createCardVariants(Boolean(prefersReducedMotion));
+  const enableCardLayout = !prefersReducedMotion;
 
   const handlePrivateRepositoryClick = (
     project: Project,
@@ -263,11 +199,8 @@ const Projects: React.FC = () => {
             </p>
           </motion.div>
 
-          <motion.div
-            className={styles.projectsGrid}
-            layout={!prefersReducedMotion}
-          >
-            <AnimatePresence mode="sync">
+          <div className={styles.projectsGrid}>
+            <AnimatePresence mode="popLayout">
               {packedProjects.map(({ project, rank }) => (
                 <motion.article
                   key={project.id}
@@ -276,13 +209,15 @@ const Projects: React.FC = () => {
                   initial="hidden"
                   animate="visible"
                   exit="exit"
-                  layout={!prefersReducedMotion}
+                  layout={enableCardLayout ? 'position' : false}
+                  transition={
+                    prefersReducedMotion
+                      ? { duration: 0 }
+                      : cardLayoutTransition
+                  }
                   whileHover={hoverLift(enableHoverMotion, -4, 1)}
                 >
-                  <div
-                    className={styles.projectImage}
-                    ref={setParallaxRef(project.id)}
-                  >
+                  <div className={styles.projectImage}>
                     <Image
                       src={project.image}
                       alt={`${project.title} interface preview`}
@@ -375,7 +310,7 @@ const Projects: React.FC = () => {
                 </motion.article>
               ))}
             </AnimatePresence>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
 
