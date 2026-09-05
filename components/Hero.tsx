@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { scrollToSection } from '../utils/helpers';
 import { useCanHover } from '../hooks/useCanHover';
-import { hoverScale } from '../utils/motion';
+import { hoverLift } from '../utils/motion';
 import styles from '../styles/Hero.module.css';
 import ParticleNetwork from './ParticleNetwork';
 
@@ -51,14 +51,15 @@ const Hero: React.FC = () => {
           <span className={styles.role}>Systems-Driven Software Engineer</span>
 
           <h1 className={styles.headline}>
-            Building <span className={styles.headlineAccent}>reliable software</span> for
-            complex business problems.
+            Bridging{' '}
+            <span className={styles.headlineAccent}>technology and business</span>{' '}
+            through reliable systems.
           </h1>
 
           <motion.button
             className={styles.ctaButton}
             onClick={() => scrollToSection('projects')}
-            whileHover={hoverScale(enableHoverMotion, 1.03)}
+            whileHover={hoverLift(enableHoverMotion, -2, 1.03)}
             whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
           >
             View Projects

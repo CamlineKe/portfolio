@@ -231,6 +231,12 @@
   min-width: 10rem;
   min-height: 2.85rem;
   margin-top: 0.25rem;
+  border: 1px solid var(--color-accent);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
 .submitButton:disabled {
@@ -337,6 +343,21 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .submitButton:not(:disabled):hover {
+    background: var(--color-accent-dark);
+    border-color: var(--color-accent-dark);
+    transform: none;
+    box-shadow:
+      0 0 20px rgba(59, 130, 246, 0.25),
+      0 4px 12px rgba(59, 130, 246, 0.15);
+  }
+
+  .submitButton:disabled:hover {
+    background: var(--color-accent);
+    transform: none;
+    box-shadow: none;
+  }
+
   .contactMethod:hover {
     border-color: var(--color-border-hover);
     background: rgba(var(--color-accent-rgb), 0.05);

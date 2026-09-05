@@ -11,7 +11,6 @@ import {
   createContainerVariants,
   createItemVariants,
   hoverLift,
-  hoverScale,
   sectionViewport,
 } from '../utils/motion';
 import styles from '../styles/Projects.module.css';
@@ -206,7 +205,7 @@ const Projects: React.FC = () => {
                     selectedFilter === category ? styles.active : ''
                   }`}
                   onClick={() => setSelectedFilter(category)}
-                  whileHover={hoverScale(enableHoverMotion, 1.02)}
+                  whileHover={hoverLift(enableHoverMotion, -2, 1)}
                   whileTap={
                     prefersReducedMotion ? undefined : { scale: 0.98 }
                   }
@@ -285,7 +284,11 @@ const Projects: React.FC = () => {
                               ? styles.primaryAction
                               : styles.secondaryAction
                           }`}
-                          whileHover={hoverScale(enableHoverMotion, 1.02)}
+                          whileHover={hoverLift(
+                            enableHoverMotion,
+                            -2,
+                            index === 0 ? 1.03 : 1
+                          )}
                           whileTap={
                             prefersReducedMotion ? undefined : { scale: 0.98 }
                           }
@@ -300,7 +303,7 @@ const Projects: React.FC = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           className={`${styles.actionButton} ${styles.secondaryAction}`}
-                          whileHover={hoverScale(enableHoverMotion, 1.02)}
+                          whileHover={hoverLift(enableHoverMotion, -2, 1)}
                           whileTap={
                             prefersReducedMotion ? undefined : { scale: 0.98 }
                           }
@@ -312,7 +315,7 @@ const Projects: React.FC = () => {
                         <motion.button
                           type="button"
                           className={`${styles.actionButton} ${styles.secondaryAction}`}
-                          whileHover={hoverScale(enableHoverMotion, 1.02)}
+                          whileHover={hoverLift(enableHoverMotion, -2, 1)}
                           whileTap={
                             prefersReducedMotion ? undefined : { scale: 0.98 }
                           }
@@ -414,7 +417,11 @@ const Projects: React.FC = () => {
                         ? styles.primaryAction
                         : styles.secondaryAction
                     }`}
-                    whileHover={hoverScale(enableHoverMotion, 1.02)}
+                    whileHover={hoverLift(
+                      enableHoverMotion,
+                      -2,
+                      index === 0 ? 1.03 : 1
+                    )}
                     whileTap={
                       prefersReducedMotion ? undefined : { scale: 0.98 }
                     }
@@ -426,7 +433,7 @@ const Projects: React.FC = () => {
                 <motion.button
                   type="button"
                   className={`${styles.actionButton} ${styles.secondaryAction}`}
-                  whileHover={hoverScale(enableHoverMotion, 1.02)}
+                  whileHover={hoverLift(enableHoverMotion, -2, 1)}
                   whileTap={
                     prefersReducedMotion ? undefined : { scale: 0.98 }
                   }

@@ -1,8 +1,22 @@
 .skills {
   padding-block: var(--section-space);
-  background: var(--color-base);
+  background-color: var(--color-base);
+  background-image: radial-gradient(
+    circle,
+    rgba(var(--color-accent-rgb), 0.035) 1px,
+    transparent 1px
+  );
+  background-size: 40px 40px;
   position: relative;
   overflow: hidden;
+}
+
+[data-theme='light'] .skills {
+  background-image: radial-gradient(
+    circle,
+    rgba(var(--color-accent-rgb), 0.02) 1px,
+    transparent 1px
+  );
 }
 
 .skills::before {
@@ -14,7 +28,7 @@
   height: 400px;
   background: radial-gradient(
     ellipse at 50% 0%,
-    rgba(var(--color-accent-rgb), 0.04) 0%,
+    rgba(var(--color-accent-rgb), 0.07) 0%,
     transparent 70%
   );
   pointer-events: none;
@@ -100,7 +114,7 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.5rem 0.9rem;
-  border: none;
+  border: 1px solid transparent;
   border-radius: var(--radius-full);
   background: transparent;
   color: var(--color-text-secondary);
@@ -112,7 +126,8 @@
   cursor: pointer;
   transition:
     color var(--transition-fast),
-    background-color var(--transition-fast);
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
 .tab:focus-visible {
@@ -122,6 +137,7 @@
 
 .tabActive {
   background: rgba(var(--color-accent-rgb), 0.12);
+  border-color: rgba(var(--color-accent-rgb), 0.25);
   color: var(--color-accent);
 }
 
@@ -152,7 +168,8 @@
 @media (hover: hover) and (pointer: fine) {
   .tab:not(.tabActive):hover {
     color: var(--color-text-primary);
-    background: rgba(var(--color-accent-rgb), 0.05);
+    background: rgba(var(--color-accent-rgb), 0.08);
+    border-color: var(--color-border-hover);
   }
 }
 

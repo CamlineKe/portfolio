@@ -12,10 +12,45 @@
   isolation: isolate;
 }
 
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.hero::before {
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    rgba(var(--color-accent-rgb), 0.035) 1px,
+    transparent 1px
+  );
+  background-size: 40px 40px;
+  z-index: 0;
+}
+
+.hero::after {
+  bottom: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--color-surface));
+  z-index: 2;
+}
+
+[data-theme='light'] .hero::before {
+  background-image: radial-gradient(
+    circle,
+    rgba(var(--color-accent-rgb), 0.02) 1px,
+    transparent 1px
+  );
+}
+
 .networkWrapper {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 1;
 }
 
 .heroContainer {
@@ -23,7 +58,7 @@
   display: grid;
   place-items: center;
   width: 100%;
-  z-index: 1;
+  z-index: 3;
 }
 
 .heroContent {
@@ -73,7 +108,7 @@
   justify-content: center;
   min-height: 3.2rem;
   padding: 0.85rem 2.2rem;
-  border: none;
+  border: 1px solid transparent;
   border-radius: var(--radius-full);
   background: var(--color-spark);
   color: #0a0f1a;
@@ -91,7 +126,10 @@
 @media (hover: hover) and (pointer: fine) {
   .ctaButton:hover {
     background: #fbbf24;
-    box-shadow: 0 0.5rem 2rem rgba(var(--color-spark-rgb), 0.25);
+    border-color: #fde68a;
+    box-shadow:
+      0 0 20px rgba(245, 158, 11, 0.25),
+      0 4px 12px rgba(245, 158, 11, 0.15);
   }
 }
 
@@ -106,7 +144,7 @@
   bottom: clamp(1.5rem, 4vw, 2.5rem);
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1;
+  z-index: 3;
 }
 
 .scrollLine {

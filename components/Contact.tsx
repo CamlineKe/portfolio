@@ -7,7 +7,6 @@ import {
   createContainerVariants,
   createItemVariants,
   hoverLift,
-  hoverScale,
   sectionViewport,
 } from '../utils/motion';
 import styles from '../styles/Contact.module.css';
@@ -304,7 +303,11 @@ const Contact: React.FC = () => {
                   className={`btn ${styles.submitButton}`}
                   disabled={isSubmitting}
                   aria-busy={isSubmitting}
-                  whileHover={isSubmitting ? undefined : hoverScale(enableHoverMotion, 1.05)}
+                  whileHover={
+                    isSubmitting
+                      ? undefined
+                      : hoverLift(enableHoverMotion, -2, 1.03)
+                  }
                   whileTap={
                     isSubmitting || prefersReducedMotion ? undefined : { scale: 0.95 }
                   }
@@ -361,7 +364,7 @@ const Contact: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.socialLink}
-                    whileHover={hoverLift(enableHoverMotion, -2, 1.08)}
+                    whileHover={hoverLift(enableHoverMotion, -2, 1)}
                     whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
                     aria-label={`Visit ${social.name} profile`}
                   >

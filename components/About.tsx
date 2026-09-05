@@ -7,7 +7,6 @@ import {
   createContainerVariants,
   createItemVariants,
   hoverLift,
-  hoverScale,
   sectionViewport,
 } from '../utils/motion';
 import styles from '../styles/About.module.css';
@@ -113,7 +112,7 @@ const About: React.FC = () => {
                     href="/CV/Moses_Maina_Software_Engineer_Resume.pdf"
                     download
                     className={styles.downloadCv}
-                    whileHover={hoverScale(enableHoverMotion, 1.02)}
+                    whileHover={hoverLift(enableHoverMotion, -2, 1)}
                     whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
                   >
                     Download CV
@@ -165,7 +164,7 @@ const About: React.FC = () => {
                   <motion.div
                     key={`${edu.degree}-${edu.school}`}
                     className={styles.educationCard}
-                    whileHover={hoverLift(enableHoverMotion, -4, 1.02)}
+                    whileHover={hoverLift(enableHoverMotion, -3, 1)}
                     transition={
                       prefersReducedMotion
                         ? { duration: 0 }
