@@ -135,6 +135,9 @@ const Projects: React.FC = () => {
   const itemVariants = createItemVariants(Boolean(prefersReducedMotion), 24, 0.55);
   const cardVariants = createCardVariants(Boolean(prefersReducedMotion));
   const enableCardLayout = !prefersReducedMotion;
+  const layoutTransition = prefersReducedMotion
+    ? { duration: 0 }
+    : cardLayoutTransition;
 
   const handlePrivateRepositoryClick = (
     project: Project,
@@ -200,7 +203,7 @@ const Projects: React.FC = () => {
           </motion.div>
 
           <div className={styles.projectsGrid}>
-            <AnimatePresence mode="popLayout">
+            <AnimatePresence mode="sync">
               {packedProjects.map(({ project, rank }) => (
                 <motion.article
                   key={project.id}
@@ -209,15 +212,15 @@ const Projects: React.FC = () => {
                   initial="hidden"
                   animate="visible"
                   exit="exit"
-                  layout={enableCardLayout ? 'position' : false}
-                  transition={
-                    prefersReducedMotion
-                      ? { duration: 0 }
-                      : cardLayoutTransition
-                  }
+                  layout={enableCardLayout}
+                  transition={layoutTransition}
                   whileHover={hoverLift(enableHoverMotion, -4, 1)}
                 >
-                  <div className={styles.projectImage}>
+                  <motion.div
+                    className={styles.projectImage}
+                    layout={enableCardLayout}
+                    transition={layoutTransition}
+                  >
                     <Image
                       src={project.image}
                       alt={`${project.title} interface preview`}
@@ -228,9 +231,13 @@ const Projects: React.FC = () => {
                         objectPosition: project.imagePosition ?? '50% 50%',
                       }}
                     />
-                  </div>
+                  </motion.div>
 
-                  <div className={styles.projectContent}>
+                  <motion.div
+                    className={styles.projectContent}
+                    layout={enableCardLayout}
+                    transition={layoutTransition}
+                  >
                     {project.status && (
                       <span className={styles.projectStatus}>{project.status}</span>
                     )}
@@ -306,7 +313,7 @@ const Projects: React.FC = () => {
                         </motion.button>
                       )}
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.article>
               ))}
             </AnimatePresence>
