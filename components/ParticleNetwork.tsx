@@ -6,6 +6,21 @@ import * as THREE from 'three';
 const ACCENT_BLUE = new THREE.Color('#3b82f6');
 const AMBER_SPARK = new THREE.Color('#f59e0b');
 const EDGE_COLOR = new THREE.Color('#3b82f6');
+const CONNECTION_DISTANCE = 3.2;
+const BASE_EDGE_OPACITY = 0.13;
+const HUB_ATTRACTION_RADIUS = 4;
+const HUB_MIN_DISTANCE = 0.5;
+const CURSOR_REPEL_RADIUS = 1.5;
+const CURSOR_ATTRACT_RADIUS = 4;
+
+const HUB_POSITIONS = [
+  [-4.5, 2.5, -1],
+  [-2.25, -2.25, 0.75],
+  [0, 0.5, -0.5],
+  [2.25, 2.25, 0.75],
+  [4.5, -2.5, -1],
+] as const;
+const HUB_COUNT = HUB_POSITIONS.length;
 
 interface ParticleData {
   positions: Float32Array;
@@ -14,6 +29,7 @@ interface ParticleData {
   opacities: Float32Array;
   sizes: Float32Array;
   count: number;
+  hubCount: number;
 }
 
 function createParticleData(count: number): ParticleData {
@@ -22,32 +38,55 @@ function createParticleData(count: number): ParticleData {
   const colors = new Float32Array(count * 3);
   const opacities = new Float32Array(count);
   const sizes = new Float32Array(count);
+  const hubCount = Math.min(HUB_COUNT, count);
 
   for (let i = 0; i < count; i++) {
     const i3 = i * 3;
+    const isHub = i < hubCount;
 
-    // Distribute particles in a bounded volume
-    positions[i3] = (Math.random() - 0.5) * 14;
-    positions[i3 + 1] = (Math.random() - 0.5) * 10;
-    positions[i3 + 2] = (Math.random() - 0.5) * 6;
+    if (isHub) {
+      const [x, y, z] = HUB_POSITIONS[i];
+      positions[i3] = x;
+      positions[i3 + 1] = y;
+      positions[i3 + 2] = z;
+    } else {
+      // Distribute regular particles in a bounded volume
+      positions[i3] = (Math.random() - 0.5) * 14;
+      positions[i3 + 1] = (Math.random() - 0.5) * 10;
+      positions[i3 + 2] = (Math.random() - 0.5) * 6;
+    }
 
-    // Slow ambient drift
-    velocities[i3] = (Math.random() - 0.5) * 0.003;
-    velocities[i3 + 1] = (Math.random() - 0.5) * 0.003;
-    velocities[i3 + 2] = (Math.random() - 0.5) * 0.002;
+    // Hub nodes drift more slowly than regular particles
+    const velocityScale = isHub ? 0.001 : 0.003;
+    velocities[i3] = (Math.random() - 0.5) * velocityScale;
+    velocities[i3 + 1] = (Math.random() - 0.5) * velocityScale;
+    velocities[i3 + 2] =
+      (Math.random() - 0.5) * (isHub ? 0.001 : 0.002);
 
-    // 1 in 8 particles are amber, rest are blue at varying brightness
-    const isAmber = i % 8 === 0;
+    // Hubs are blue; 1 in 8 regular particles provides an amber spark
+    const isAmber = !isHub && i % 8 === 0;
     const color = isAmber ? AMBER_SPARK : ACCENT_BLUE;
     colors[i3] = color.r;
     colors[i3 + 1] = color.g;
     colors[i3 + 2] = color.b;
 
-    opacities[i] = 0.3 + Math.random() * 0.5;
-    sizes[i] = 1.5 + Math.random() * 2.5;
+    opacities[i] = isHub
+      ? 0.7 + Math.random() * 0.2
+      : 0.3 + Math.random() * 0.2;
+    sizes[i] = isHub
+      ? 4 + Math.random() * 2
+      : 1.5 + Math.random();
   }
 
-  return { positions, velocities, colors, opacities, sizes, count };
+  return {
+    positions,
+    velocities,
+    colors,
+    opacities,
+    sizes,
+    count,
+    hubCount,
+  };
 }
 
 interface NetworkSceneProps {
@@ -62,7 +101,6 @@ function NetworkScene({ scrollProgress, reducedMotion }: NetworkSceneProps) {
   const { size, viewport } = useThree();
 
   const particleCount = size.width < 768 ? 28 : 55;
-  const connectionDistance = 2.8;
 
   const data = useMemo(() => createParticleData(particleCount), [particleCount]);
 
@@ -115,7 +153,7 @@ function NetworkScene({ scrollProgress, reducedMotion }: NetworkSceneProps) {
       new THREE.LineBasicMaterial({
         color: EDGE_COLOR,
         transparent: true,
-        opacity: 0.1,
+        opacity: BASE_EDGE_OPACITY,
         blending: THREE.AdditiveBlending,
         depthWrite: false,
       }),
@@ -146,19 +184,21 @@ function NetworkScene({ scrollProgress, reducedMotion }: NetworkSceneProps) {
     const globalOpacity = Math.max(0, 1 - scrollProgress * 1.5);
     particleMaterial.uniforms.uGlobalOpacity.value = globalOpacity;
     if (lineMaterial.opacity !== undefined) {
-      lineMaterial.opacity = 0.1 * globalOpacity;
+      lineMaterial.opacity = BASE_EDGE_OPACITY * globalOpacity;
     }
 
     // Mouse influence in world coordinates
-    const mouseWorld = new THREE.Vector3(
-      mouseRef.current.x * viewport.width * 0.5,
-      mouseRef.current.y * viewport.height * 0.5,
-      0
-    );
+    const mouseWorldX = mouseRef.current.x * viewport.width * 0.5;
+    const mouseWorldY = mouseRef.current.y * viewport.height * 0.5;
 
     const boundX = 7 + dispersal;
     const boundY = 5 + dispersal;
     const boundZ = 3 + dispersal * 0.5;
+    const hubMinDistanceSq = HUB_MIN_DISTANCE * HUB_MIN_DISTANCE;
+    const hubAttractionRadiusSq =
+      HUB_ATTRACTION_RADIUS * HUB_ATTRACTION_RADIUS;
+    const cursorAttractionRadiusSq =
+      CURSOR_ATTRACT_RADIUS * CURSOR_ATTRACT_RADIUS;
 
     for (let i = 0; i < data.count; i++) {
       const i3 = i * 3;
@@ -168,22 +208,67 @@ function NetworkScene({ scrollProgress, reducedMotion }: NetworkSceneProps) {
       positions[i3 + 1] += data.velocities[i3 + 1];
       positions[i3 + 2] += data.velocities[i3 + 2];
 
+      // Pull regular particles toward their nearest hub
+      if (i >= data.hubCount) {
+        let nearestHubIndex = -1;
+        let nearestHubDistanceSq = Number.POSITIVE_INFINITY;
+
+        for (let hubIndex = 0; hubIndex < data.hubCount; hubIndex++) {
+          const hubIndex3 = hubIndex * 3;
+          const dx = positions[hubIndex3] - positions[i3];
+          const dy = positions[hubIndex3 + 1] - positions[i3 + 1];
+          const dz = positions[hubIndex3 + 2] - positions[i3 + 2];
+          const distanceSq = dx * dx + dy * dy + dz * dz;
+
+          if (distanceSq < nearestHubDistanceSq) {
+            nearestHubDistanceSq = distanceSq;
+            nearestHubIndex = hubIndex;
+          }
+        }
+
+        if (
+          nearestHubIndex >= 0 &&
+          nearestHubDistanceSq > hubMinDistanceSq &&
+          nearestHubDistanceSq < hubAttractionRadiusSq
+        ) {
+          const hubIndex3 = nearestHubIndex * 3;
+          const distance = Math.sqrt(nearestHubDistanceSq);
+          const pull = 0.0003 * (1 - distance / HUB_ATTRACTION_RADIUS);
+
+          positions[i3] +=
+            ((positions[hubIndex3] - positions[i3]) / distance) * pull;
+          positions[i3 + 1] +=
+            ((positions[hubIndex3 + 1] - positions[i3 + 1]) / distance) * pull;
+          positions[i3 + 2] +=
+            ((positions[hubIndex3 + 2] - positions[i3 + 2]) / distance) * pull;
+        }
+      }
+
       // Scroll dispersal push
       if (scrollProgress > 0) {
         positions[i3 + 1] -= scrollProgress * 0.02;
       }
 
-      // Mouse repulsion
+      // Mouse repulsion nearby and attraction at medium range
       if (size.width >= 768) {
-        const dx = positions[i3] - mouseWorld.x;
-        const dy = positions[i3 + 1] - mouseWorld.y;
+        const dx = positions[i3] - mouseWorldX;
+        const dy = positions[i3 + 1] - mouseWorldY;
         const distSq = dx * dx + dy * dy;
-        const repelRadius = 3;
-        if (distSq < repelRadius * repelRadius && distSq > 0.01) {
+        if (
+          distSq < cursorAttractionRadiusSq &&
+          distSq > 0.01
+        ) {
           const dist = Math.sqrt(distSq);
-          const force = (1 - dist / repelRadius) * 0.015;
-          positions[i3] += (dx / dist) * force;
-          positions[i3 + 1] += (dy / dist) * force;
+
+          if (dist < CURSOR_REPEL_RADIUS) {
+            const force = (1 - dist / CURSOR_REPEL_RADIUS) * 0.03;
+            positions[i3] += (dx / dist) * force;
+            positions[i3 + 1] += (dy / dist) * force;
+          } else {
+            const force = 0.005;
+            positions[i3] -= (dx / dist) * force;
+            positions[i3 + 1] -= (dy / dist) * force;
+          }
         }
       }
 
@@ -208,7 +293,7 @@ function NetworkScene({ scrollProgress, reducedMotion }: NetworkSceneProps) {
           const dz = positions[i3 + 2] - positions[j3 + 2];
           const distSq = dx * dx + dy * dy + dz * dz;
 
-          if (distSq < connectionDistance * connectionDistance) {
+          if (distSq < CONNECTION_DISTANCE * CONNECTION_DISTANCE) {
             linePositions.push(
               positions[i3], positions[i3 + 1], positions[i3 + 2],
               positions[j3], positions[j3 + 1], positions[j3 + 2]
