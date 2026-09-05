@@ -14,6 +14,7 @@
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.0.3",
     "framer-motion": "latest",
+    "geist": "^1.7.2",
     "next": "^15.4.10",
     "nodemailer": "^7.0.5",
     "react": "latest",

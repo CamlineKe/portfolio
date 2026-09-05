@@ -7,19 +7,19 @@ import styles from '../styles/Navigation.module.css';
 
 const Navigation: React.FC = () => {
   const [activeSection, setActiveSection] = useState('hero');
+  const [scrolledPastHero, setScrolledPastHero] = useState(false);
   const prefersReducedMotion = useReducedMotion();
   const canHover = useCanHover();
   const enableHoverMotion = canHover && !prefersReducedMotion;
 
   const navItems = useMemo(() => [
     { id: 'hero', label: 'Home' },
+    { id: 'projects', label: 'Projects' },
     { id: 'about', label: 'About' },
     { id: 'skills', label: 'Skills' },
-    { id: 'projects', label: 'Projects' },
     { id: 'contact', label: 'Contact' },
   ], []);
 
-  // Handle smooth scrolling to sections
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -30,15 +30,27 @@ const Navigation: React.FC = () => {
     }
   };
 
-  // Track the section crossing the upper viewport marker, regardless of section height.
+  // Track whether we've scrolled past the hero section
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroEl = document.getElementById('hero');
+      if (!heroEl) return;
+      const heroBottom = heroEl.offsetTop + heroEl.offsetHeight;
+      setScrolledPastHero(window.scrollY > heroBottom - 100);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Track the active section
   useEffect(() => {
     const sections = navItems
       .map((item) => ({ id: item.id, element: document.getElementById(item.id) }))
       .filter((item): item is { id: string; element: HTMLElement } => Boolean(item.element));
 
-    if (!sections.length) {
-      return;
-    }
+    if (!sections.length) return;
 
     let animationFrameId: number | null = null;
 
@@ -74,7 +86,6 @@ const Navigation: React.FC = () => {
     return () => {
       window.removeEventListener('scroll', scheduleUpdate);
       window.removeEventListener('resize', scheduleUpdate);
-
       if (animationFrameId !== null) {
         window.cancelAnimationFrame(animationFrameId);
       }
@@ -83,43 +94,35 @@ const Navigation: React.FC = () => {
 
   return (
     <>
-      {/* Desktop Navigation */}
-      <nav className={styles.desktopNav} aria-label="Primary navigation">
+      {/* Desktop Navigation - hidden at hero, slides in on scroll */}
+      <nav
+        className={`${styles.desktopNav} ${scrolledPastHero ? styles.navVisible : ''}`}
+        aria-label="Primary navigation"
+      >
         <div className={styles.navContainer}>
-          <motion.button
+          <button
             type="button"
             className={styles.logo}
             onClick={() => scrollToSection('hero')}
-            initial={prefersReducedMotion ? false : { opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.45 }}
             aria-label="Return to the top of the portfolio"
           >
-            <span className={styles.logoText}>Moses Maina</span>
-          </motion.button>
+            <span className={styles.logoText}>MOSES MAINA</span>
+          </button>
 
           <div className={styles.navItems}>
-            {navItems.map((item, index) => (
-              <motion.button
+            {navItems.map((item) => (
+              <button
                 key={item.id}
                 type="button"
                 className={`${styles.navItem} ${
                   activeSection === item.id ? styles.active : ''
                 }`}
                 onClick={() => scrollToSection(item.id)}
-                initial={prefersReducedMotion ? false : { opacity: 0, y: -12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: prefersReducedMotion ? 0 : 0.4,
-                  delay: prefersReducedMotion ? 0 : index * 0.05,
-                }}
-                whileHover={hoverScale(enableHoverMotion, 1.02)}
-                whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
                 aria-label={`Navigate to ${item.label}`}
                 aria-current={activeSection === item.id ? 'location' : undefined}
               >
                 {item.label}
-              </motion.button>
+              </button>
             ))}
           </div>
 

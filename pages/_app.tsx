@@ -1,5 +1,7 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import '../styles/globals.css';
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -10,7 +12,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="alternate icon" href="/favicon.ico" />
       </Head>
-      <Component {...pageProps} />
+      <div className={`${GeistSans.variable} ${GeistMono.variable}`}>
+        <Component {...pageProps} />
+      </div>
     </>
   );
 }

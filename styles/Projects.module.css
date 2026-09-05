@@ -13,7 +13,7 @@
   right: 0;
   height: 400px;
   background: radial-gradient(ellipse at 50% 0%,
-      rgba(var(--color-primary-rgb), 0.06) 0%,
+      rgba(var(--color-accent-rgb), 0.04) 0%,
       transparent 70%);
   pointer-events: none;
   z-index: 0;
@@ -26,19 +26,21 @@
 
 .eyebrow {
   margin: 0 0 0.65rem;
-  color: var(--color-primary);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-align: center;
   text-transform: uppercase;
 }
 
 .title {
   text-align: center;
-  font-size: clamp(2rem, 4.6vw, 3rem);
+  font-size: clamp(2rem, 4.5vw, 3rem);
   margin-bottom: 0.8rem;
   color: var(--color-text-primary);
+  letter-spacing: -0.03em;
 }
 
 .intro {
@@ -59,50 +61,52 @@
 .filterButtons {
   display: flex;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 0.65rem;
   flex-wrap: wrap;
 }
 
 .filterButton {
-  min-height: 44px;
-  padding: 0.6rem 1.05rem;
-  border: 1px solid var(--border-subtle);
-  background: var(--surface-elevated);
+  font-family: var(--font-mono);
+  min-height: 40px;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--color-border);
+  background: transparent;
   color: var(--color-text-secondary);
-  border-radius: 2rem;
-  font-family: inherit;
-  font-size: 0.88rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
   font-weight: 600;
+  letter-spacing: 0.02em;
   cursor: pointer;
   transition:
     color var(--transition-fast),
     background-color var(--transition-fast),
-    border-color var(--transition-fast),
-    transform var(--transition-fast);
+    border-color var(--transition-fast);
 }
 
 .filterButton.active {
-  background: rgba(var(--color-primary-rgb), 0.12);
-  border-color: rgba(var(--color-primary-rgb), 0.4);
-  color: var(--color-primary);
+  background: rgba(var(--color-accent-rgb), 0.12);
+  border-color: rgba(var(--color-accent-rgb), 0.35);
+  color: var(--color-accent);
 }
 
 .filterButton:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
 .resultsSummary {
+  font-family: var(--font-mono);
   margin: 0;
   color: var(--color-text-tertiary);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   text-align: center;
+  letter-spacing: 0.02em;
 }
 
 .projectsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
-  gap: clamp(1rem, 2.4vw, 2rem);
+  gap: clamp(1rem, 2.4vw, 1.75rem);
 }
 
 .projectCard {
@@ -110,11 +114,9 @@
   flex-direction: column;
   min-height: 100%;
   overflow: hidden;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-card);
-  background: var(--surface-elevated);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-elevated);
   box-shadow: var(--shadow-card);
   transition:
     box-shadow var(--transition-fast),
@@ -123,24 +125,23 @@
 
 .featuredProject {
   grid-column: 1 / -1;
-  border-color: rgba(var(--color-primary-rgb), 0.32);
+  border-color: rgba(var(--color-accent-rgb), 0.2);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .filterButton:hover {
-    border-color: rgba(var(--color-primary-rgb), 0.4);
-    color: var(--color-primary);
-    background: rgba(var(--color-primary-rgb), 0.1);
-    transform: translateY(-1px);
+    border-color: var(--color-border-hover);
+    color: var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.06);
   }
 
   .projectCard:hover {
     box-shadow: var(--shadow-card-hover);
-    border-color: rgba(var(--color-primary-rgb), 0.42);
+    border-color: rgba(var(--color-accent-rgb), 0.3);
   }
 
   .projectCard:hover .image {
-    transform: scale(1.025);
+    transform: scale(1.02);
   }
 }
 
@@ -148,7 +149,7 @@
   position: relative;
   overflow: hidden;
   aspect-ratio: 16 / 9;
-  background: rgba(var(--color-primary-rgb), 0.04);
+  background: rgba(var(--color-accent-rgb), 0.03);
 }
 
 .image {
@@ -167,45 +168,47 @@
 }
 
 .projectContent {
-  padding: clamp(1rem, 2.8vw, 2rem);
+  padding: clamp(1rem, 2.8vw, 1.75rem);
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
 .projectTitle {
-  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
   font-weight: 700;
   color: var(--color-text-primary);
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
 }
 
 .projectStatus {
   align-self: flex-start;
-  margin-bottom: 0.75rem;
-  padding: 0.3rem 0.7rem;
-  border: 1px solid rgba(var(--color-primary-rgb), 0.25);
-  border-radius: 2rem;
-  background: rgba(var(--color-primary-rgb), 0.07);
-  color: var(--color-primary);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  margin-bottom: 0.7rem;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid rgba(var(--color-accent-rgb), 0.2);
+  border-radius: var(--radius-full);
+  background: rgba(var(--color-accent-rgb), 0.06);
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
 }
 
 .projectDescription {
   color: var(--color-text-secondary);
   line-height: 1.65;
   margin-bottom: 1rem;
-  font-size: clamp(0.9rem, 1.4vw, 0.98rem);
+  font-size: clamp(0.88rem, 1.4vw, 0.96rem);
 }
 
 .projectHighlight {
-  margin-bottom: 1.2rem;
-  padding-left: 0.9rem;
-  border-left: 3px solid var(--color-primary);
+  margin-bottom: 1.1rem;
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--color-accent);
   color: var(--color-text-primary);
-  font-size: clamp(0.86rem, 1.35vw, 0.94rem);
+  font-size: clamp(0.84rem, 1.35vw, 0.92rem);
   font-weight: 600;
   line-height: 1.55;
 }
@@ -213,24 +216,26 @@
 .techBadges {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.45rem;
-  margin-bottom: 1.4rem;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
 }
 
 .techBadge {
-  padding: 0.24rem 0.58rem;
-  border: 1px solid var(--border-subtle);
-  border-radius: 1rem;
-  background: rgba(var(--color-primary-rgb), 0.045);
+  font-family: var(--font-mono);
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: transparent;
   color: var(--color-text-secondary);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .projectActions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.65rem;
   margin-top: auto;
 }
 
@@ -240,12 +245,12 @@
   align-items: center;
   justify-content: center;
   min-width: fit-content;
-  min-height: 44px;
-  padding: 0.65rem 0.9rem;
+  min-height: 40px;
+  padding: 0.55rem 0.85rem;
   border: 1px solid;
-  border-radius: 0.65rem;
-  font-family: inherit;
-  font-size: 0.88rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
   font-weight: 600;
   text-align: center;
   text-decoration: none;
@@ -259,43 +264,44 @@
 }
 
 .primaryAction {
-  background: var(--color-primary);
+  background: var(--color-accent);
   color: white;
-  border-color: var(--color-primary);
+  border-color: var(--color-accent);
 }
 
 .secondaryAction {
-  background: var(--surface-elevated-strong);
+  background: transparent;
   color: var(--color-text-primary);
-  border-color: var(--border-subtle);
+  border-color: var(--color-border);
 }
 
 .actionButton:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .primaryAction:hover {
-    background: var(--color-primary-dark);
-    border-color: var(--color-primary-dark);
+    background: var(--color-accent-dark);
+    border-color: var(--color-accent-dark);
     color: white;
     transform: translateY(-2px);
-    box-shadow: 0 0.4rem 1rem rgba(var(--color-primary-rgb), 0.24);
+    box-shadow: 0 0.4rem 1rem rgba(var(--color-accent-rgb), 0.2);
   }
 
   .secondaryAction:hover {
-    background: rgba(var(--color-primary-rgb), 0.1);
-    color: var(--color-primary);
-    border-color: rgba(var(--color-primary-rgb), 0.4);
+    background: rgba(var(--color-accent-rgb), 0.08);
+    color: var(--color-accent);
+    border-color: var(--color-border-hover);
     transform: translateY(-2px);
   }
 }
 
+/* Modal */
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(2, 6, 23, 0.65);
+  background: rgba(2, 6, 23, 0.7);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   display: flex;
@@ -310,10 +316,10 @@
   width: min(100%, 32.5rem);
   max-height: min(90vh, 36rem);
   overflow-y: auto;
-  background: var(--surface-elevated-strong);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-card);
-  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
   padding: clamp(1.2rem, 3vw, 1.6rem);
 }
 
@@ -334,10 +340,10 @@
   right: 0.75rem;
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   padding: 0;
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--color-border);
   border-radius: 50%;
   background: transparent;
   color: var(--color-text-secondary);
@@ -349,27 +355,27 @@
 }
 
 .modalClose svg {
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 1.1rem;
+  height: 1.1rem;
 }
 
 .modalClose:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .modalClose:hover {
-    border-color: rgba(var(--color-primary-rgb), 0.4);
-    background: rgba(var(--color-primary-rgb), 0.08);
-    color: var(--color-primary);
+    border-color: var(--color-border-hover);
+    background: rgba(var(--color-accent-rgb), 0.06);
+    color: var(--color-accent);
   }
 }
 
 .modalActions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.65rem;
   margin-top: 1.15rem;
 }
 
@@ -400,8 +406,8 @@
   .filterButton {
     white-space: nowrap;
     flex-shrink: 0;
-    padding-inline: 0.9rem;
-    font-size: 0.8rem;
+    padding-inline: 0.8rem;
+    font-size: 0.75rem;
   }
 
   .modal {
