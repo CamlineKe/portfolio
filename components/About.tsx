@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useCanHover } from '../hooks/useCanHover';
+import { useCountUp } from '../hooks/useScrollAnimation';
 import {
   createContainerVariants,
   createItemVariants,
@@ -65,6 +66,7 @@ const About: React.FC = () => {
     },
   ];
 
+  const countUpRef = useCountUp();
   const containerVariants = createContainerVariants(Boolean(prefersReducedMotion), 0.18);
   const itemVariants = createItemVariants(Boolean(prefersReducedMotion), 24, 0.55);
 
@@ -182,7 +184,11 @@ const About: React.FC = () => {
             </motion.div>
           </div>
 
-          <motion.div className={styles.evidenceSection} variants={itemVariants}>
+          <motion.div
+            className={styles.evidenceSection}
+            variants={itemVariants}
+            ref={countUpRef}
+          >
             <div className={styles.evidenceHeader}>
               <h3 className={styles.evidenceTitle}>Evidence in practice</h3>
               <p className={styles.evidenceIntro}>
@@ -192,7 +198,7 @@ const About: React.FC = () => {
             <div className={styles.evidenceGrid}>
               {evidence.map((item) => (
                 <div className={styles.evidenceItem} key={item.label}>
-                  <strong>{item.value}</strong>
+                  <strong data-count={item.value}>{item.value}</strong>
                   <span>{item.label}</span>
                 </div>
               ))}

@@ -14,6 +14,7 @@
     "@react-three/fiber": "^9.7.0",
     "framer-motion": "latest",
     "geist": "^1.7.2",
+    "gsap": "^3.15.0",
     "next": "^15.4.10",
     "nodemailer": "^7.0.5",
     "react": "latest",

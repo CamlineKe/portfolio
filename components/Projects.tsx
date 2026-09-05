@@ -1,6 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { Project, ProjectDemo } from '../types';
 import { useCanHover } from '../hooks/useCanHover';
 import { projects } from '../data/projects';
@@ -13,6 +15,10 @@ import {
   sectionViewport,
 } from '../utils/motion';
 import styles from '../styles/Projects.module.css';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const Projects: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
@@ -88,6 +94,66 @@ const Projects: React.FC = () => {
       document.body.style.overflow = previousOverflow;
     };
   }, [privateProject]);
+
+  const parallaxRefs = useRef<Map<number, HTMLDivElement>>(new Map());
+  const parallaxTweens = useRef<gsap.core.Tween[]>([]);
+
+  const setParallaxRef = useCallback(
+    (id: number) => (el: HTMLDivElement | null) => {
+      if (el) {
+        parallaxRefs.current.set(id, el);
+      } else {
+        parallaxRefs.current.delete(id);
+      }
+    },
+    []
+  );
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (prefersReduced) return;
+
+    // Clean up previous tweens when filter changes
+    parallaxTweens.current.forEach((t) => {
+      t.scrollTrigger?.kill();
+      t.kill();
+    });
+    parallaxTweens.current = [];
+
+    // Small delay so DOM is painted after filter animation
+    const timer = setTimeout(() => {
+      parallaxRefs.current.forEach((el) => {
+        const img = el.querySelector('img');
+        if (!img) return;
+
+        const tween = gsap.fromTo(
+          img,
+          { y: -8 },
+          {
+            y: 8,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          }
+        );
+        parallaxTweens.current.push(tween);
+      });
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      parallaxTweens.current.forEach((t) => {
+        t.scrollTrigger?.kill();
+        t.kill();
+      });
+    };
+  }, [filteredProjects]);
 
   const containerVariants = createContainerVariants(Boolean(prefersReducedMotion), 0.18);
   const itemVariants = createItemVariants(Boolean(prefersReducedMotion), 24, 0.55);
@@ -172,7 +238,10 @@ const Projects: React.FC = () => {
                   layout={!prefersReducedMotion}
                   whileHover={hoverLift(enableHoverMotion, -4, 1)}
                 >
-                  <div className={styles.projectImage}>
+                  <div
+                    className={styles.projectImage}
+                    ref={setParallaxRef(project.id)}
+                  >
                     <Image
                       src={project.image}
                       alt={`${project.title} interface preview`}
