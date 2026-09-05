@@ -89,4 +89,5 @@ coverage/
 next-env.d.ts
 
 # Linting
-.eslintcacheDESIGN-DRAFT.md
+.eslintcache
+DESIGN-DRAFT.md

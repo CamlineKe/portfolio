@@ -10,9 +10,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@tsparticles/engine": "^3.0.3",
-    "@tsparticles/react": "^3.0.0",
-    "@tsparticles/slim": "^3.0.3",
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
     "framer-motion": "latest",
     "geist": "^1.7.2",
     "next": "^15.4.10",
@@ -20,12 +19,14 @@
     "react": "latest",
     "react-dom": "latest",
     "react-hook-form": "latest",
+    "three": "^0.185.1",
     "typewriter-effect": "^2.22.0"
   },
   "devDependencies": {
     "@types/node": "latest",
     "@types/nodemailer": "^6.4.14",
     "@types/react": "latest",
+    "@types/three": "^0.185.4",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "typescript": "latest"

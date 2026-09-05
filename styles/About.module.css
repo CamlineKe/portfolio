@@ -77,6 +77,108 @@
   gap: clamp(1.5rem, 3vw, 2.25rem);
 }
 
+/* Portrait block (moved from Hero) */
+.portraitBlock {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2rem);
+}
+
+.portraitFrame {
+  position: relative;
+  width: clamp(6rem, 14vw, 8rem);
+  flex: 0 0 auto;
+  aspect-ratio: 1;
+  padding: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.25rem;
+  background: linear-gradient(
+    145deg,
+    rgba(var(--color-accent-rgb), 0.88),
+    rgba(124, 58, 237, 0.72) 56%,
+    rgba(var(--color-spark-rgb), 0.78)
+  );
+  box-shadow:
+    0 0.75rem 2rem rgba(0, 0, 0, 0.2),
+    0 0 0 0.35rem rgba(var(--color-accent-rgb), 0.05);
+}
+
+.portraitFrame::after {
+  content: '';
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  width: 2rem;
+  height: 2rem;
+  border-top: 2px solid var(--color-spark);
+  border-right: 2px solid var(--color-spark);
+  border-radius: 0 0.8rem 0 0;
+}
+
+.avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+.portraitInfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.portraitName {
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.15rem;
+}
+
+.portraitRole {
+  color: var(--color-accent);
+  font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+  font-weight: 700;
+  margin-bottom: 0.65rem;
+}
+
+.portraitBio {
+  color: var(--color-text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin: 0 0 0.85rem;
+}
+
+.downloadCv {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .downloadCv:hover {
+    border-color: var(--color-border-hover);
+    background: rgba(var(--color-accent-rgb), 0.06);
+    color: var(--color-accent);
+  }
+}
+
 .sectionBlock {
   position: relative;
   max-width: var(--content-measure);

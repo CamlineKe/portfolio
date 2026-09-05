@@ -1,10 +1,12 @@
 import React from 'react';
+import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useCanHover } from '../hooks/useCanHover';
 import {
   createContainerVariants,
   createItemVariants,
   hoverLift,
+  hoverScale,
   sectionViewport,
 } from '../utils/motion';
 import styles from '../styles/About.module.css';
@@ -77,17 +79,49 @@ const About: React.FC = () => {
           viewport={sectionViewport}
         >
           <motion.p className={styles.eyebrow} variants={itemVariants}>
-            How I approach engineering
+            About
           </motion.p>
           <motion.h2 className={styles.title} variants={itemVariants}>
-            About <span className={styles.highlight}>Me</span>
+            How I Think About <span className={styles.highlight}>Engineering</span>
           </motion.h2>
 
           <div className={styles.gridContainer}>
             <motion.div className={styles.leftColumn} variants={itemVariants}>
+              {/* Portrait moved from Hero */}
+              <div className={styles.portraitBlock}>
+                <div className={styles.portraitFrame}>
+                  <Image
+                    src="/images/avatar.png"
+                    alt="Portrait of Moses Maina"
+                    width={520}
+                    height={520}
+                    sizes="(max-width: 899px) 200px, 240px"
+                    className={styles.avatar}
+                    priority
+                  />
+                </div>
+                <div className={styles.portraitInfo}>
+                  <span className={styles.portraitName}>Moses Maina</span>
+                  <span className={styles.portraitRole}>Systems-Driven Software Engineer</span>
+                  <p className={styles.portraitBio}>
+                    I design secure, maintainable systems and take products from idea to
+                    production.
+                  </p>
+                  <motion.a
+                    href="/CV/Moses_Maina_Software_Engineer_Resume.pdf"
+                    download
+                    className={styles.downloadCv}
+                    whileHover={hoverScale(enableHoverMotion, 1.02)}
+                    whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+                  >
+                    Download CV
+                  </motion.a>
+                </div>
+              </div>
+
               <div className={styles.sectionBlock}>
                 <p className={styles.lead}>
-                  I’m a systems-driven software engineer who turns complex workflows
+                  I&apos;m a systems-driven software engineer who turns complex workflows
                   and business problems into dependable web products.
                 </p>
                 <p className={styles.text}>

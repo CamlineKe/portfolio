@@ -47,9 +47,9 @@ const Home: React.FC = () => {
 
       <main>
         <Hero />
+        <Projects />
         <About />
         <Skills />
-        <Projects />
         <Contact />
       </main>
 
