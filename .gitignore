@@ -91,3 +91,4 @@ next-env.d.ts
 # Linting
 .eslintcache
 DESIGN-DRAFT.md
+PLAN.md
