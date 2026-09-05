@@ -149,8 +149,11 @@ const Contact: React.FC = () => {
           whileInView="visible"
           viewport={sectionViewport}
         >
+          <motion.p className={styles.eyebrow} variants={itemVariants}>
+            Contact
+          </motion.p>
           <motion.h2 className={styles.title} variants={itemVariants}>
-            Get In Touch
+            Let&apos;s Build Something
           </motion.h2>
 
           <motion.p className={styles.subtitle} variants={itemVariants}>

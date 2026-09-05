@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   createContainerVariants,
   createItemVariants,
@@ -29,7 +29,6 @@ const rasterTechnologyIcons = new Set([
 
 const getTechnologyIconSource = (iconName: string) => {
   const extension = rasterTechnologyIcons.has(iconName) ? 'png' : 'svg';
-
   return `/icons/technologies/${iconName}.${extension}`;
 };
 
@@ -62,7 +61,7 @@ const technologyCategories: TechCategory[] = [
   },
   {
     id: 'frontend-engineering',
-    title: 'Frontend Engineering',
+    title: 'Frontend',
     technologies: [
       { name: 'React 19', icon: 'react' },
       { name: 'Next.js', icon: 'nextjs' },
@@ -77,7 +76,7 @@ const technologyCategories: TechCategory[] = [
   },
   {
     id: 'cloud-devops-quality',
-    title: 'Cloud, DevOps & Quality',
+    title: 'Cloud & DevOps',
     technologies: [
       { name: 'Git', icon: 'git' },
       { name: 'GitHub Actions', icon: 'github-actions' },
@@ -95,7 +94,7 @@ const technologyCategories: TechCategory[] = [
   },
   {
     id: 'languages-foundations',
-    title: 'Languages & Foundations',
+    title: 'Languages',
     technologies: [
       { name: 'TypeScript', icon: 'typescript' },
       { name: 'JavaScript', icon: 'javascript' },
@@ -106,7 +105,7 @@ const technologyCategories: TechCategory[] = [
   },
   {
     id: 'integrations-security',
-    title: 'Integrations & Security',
+    title: 'Integrations',
     technologies: [
       { name: 'M-Pesa Daraja', icon: 'm-pesa' },
       { name: 'WhatsApp Cloud API', icon: 'whatsapp' },
@@ -120,17 +119,16 @@ const technologyCategories: TechCategory[] = [
 ];
 
 const Skills: React.FC = () => {
-  const [activeTechnologyCategory, setActiveTechnologyCategory] = useState(
-    technologyCategories[0].id,
-  );
+  const [activeTab, setActiveTab] = useState(technologyCategories[0].id);
   const prefersReducedMotion = useReducedMotion();
 
   const containerVariants = createContainerVariants(Boolean(prefersReducedMotion), 0.1);
   const itemVariants = createItemVariants(Boolean(prefersReducedMotion), 20, 0.5);
 
+  const activeCategory = technologyCategories.find((c) => c.id === activeTab);
+
   const renderTechIcon = (iconName: string) => {
     const iconSource = getTechnologyIconSource(iconName);
-
     return (
       <Image
         className={styles.technologyIconImage}
@@ -197,131 +195,82 @@ const Skills: React.FC = () => {
 
           <motion.div className={styles.sectionBlock} variants={itemVariants}>
             <h3 className={styles.subtitle}>Technologies</h3>
-            <p className={styles.technologiesIntro}>
-              Open a category to explore the tools I use across the product
-              lifecycle.
-            </p>
 
-            <motion.div
-              className={styles.technologyAccordion}
-              variants={containerVariants}
+            {/* Horizontal tab bar */}
+            <div
+              className={styles.tabBar}
+              role="tablist"
+              aria-label="Technology categories"
             >
-              {technologyCategories.map((category) => {
-                const isOpen = activeTechnologyCategory === category.id;
-                const triggerId = `technology-${category.id}-trigger`;
-                const panelId = `technology-${category.id}-panel`;
-                const previewTechnologies = category.technologies
-                  .slice(0, 3)
-                  .map((technology) => technology.name)
-                  .join(', ');
-                const remainingTechnologyCount = Math.max(
-                  category.technologies.length - 3,
-                  0,
-                );
+              {technologyCategories.map((category) => (
+                <button
+                  key={category.id}
+                  type="button"
+                  role="tab"
+                  id={`tab-${category.id}`}
+                  aria-selected={activeTab === category.id}
+                  aria-controls={`panel-${category.id}`}
+                  className={`${styles.tab} ${
+                    activeTab === category.id ? styles.tabActive : ''
+                  }`}
+                  onClick={() => setActiveTab(category.id)}
+                >
+                  <span className={styles.tabLabel}>{category.title}</span>
+                  <span className={styles.tabCount}>
+                    {category.technologies.length}
+                  </span>
+                </button>
+              ))}
+            </div>
 
-                return (
-                  <motion.article
-                    key={category.id}
-                    className={`${styles.accordionItem} ${
-                      isOpen ? styles.accordionItemActive : ''
-                    }`}
-                    variants={itemVariants}
+            {/* Tab panel with animated grid */}
+            <AnimatePresence mode="wait">
+              {activeCategory && (
+                <motion.div
+                  key={activeCategory.id}
+                  id={`panel-${activeCategory.id}`}
+                  role="tabpanel"
+                  aria-labelledby={`tab-${activeCategory.id}`}
+                  className={styles.tabPanel}
+                  initial={
+                    prefersReducedMotion
+                      ? { opacity: 1 }
+                      : { opacity: 0, y: 8 }
+                  }
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={
+                    prefersReducedMotion
+                      ? { opacity: 1 }
+                      : { opacity: 0, y: -4 }
+                  }
+                  transition={{
+                    duration: prefersReducedMotion ? 0 : 0.22,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                >
+                  <div
+                    className={styles.technologyGrid}
+                    role="list"
+                    aria-label={`${activeCategory.title} technologies`}
                   >
-                    <h4 className={styles.accordionHeading}>
-                      <button
-                        id={triggerId}
-                        type="button"
-                        className={`${styles.accordionTrigger} ${
-                          isOpen ? styles.accordionTriggerActive : ''
-                        }`}
-                        aria-expanded={isOpen}
-                        aria-disabled={isOpen}
-                        aria-controls={panelId}
-                        onClick={() => {
-                          if (!isOpen) {
-                            setActiveTechnologyCategory(category.id);
-                          }
-                        }}
+                    {activeCategory.technologies.map((technology) => (
+                      <div
+                        key={technology.name}
+                        className={styles.technologyItem}
+                        role="listitem"
                       >
-                        <span className={styles.accordionLabel}>
-                          <span className={styles.accordionTitle}>
-                            {category.title}
-                          </span>
-                          <span className={styles.accordionPreview}>
-                            {previewTechnologies}
-                            {remainingTechnologyCount > 0
-                              ? ` +${remainingTechnologyCount}`
-                              : ''}
-                          </span>
-                        </span>
-
-                        <span className={styles.accordionMeta}>
-                          <span className={styles.technologyCount}>
-                            {category.technologies.length} tools
-                          </span>
-                          <svg
-                            className={styles.accordionChevron}
-                            width="20"
-                            height="20"
-                            viewBox="0 0 20 20"
-                            fill="none"
-                            aria-hidden="true"
-                          >
-                            <path
-                              d="m5 7.5 5 5 5-5"
-                              stroke="currentColor"
-                              strokeWidth="1.8"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </h4>
-
-                    <motion.div
-                      id={panelId}
-                      className={styles.accordionPanel}
-                      role="region"
-                      aria-labelledby={triggerId}
-                      aria-hidden={!isOpen}
-                      initial={false}
-                      animate={{
-                        height: isOpen ? 'auto' : 0,
-                        opacity: isOpen ? 1 : 0,
-                      }}
-                      transition={{
-                        duration: prefersReducedMotion ? 0 : 0.22,
-                        ease: 'easeOut',
-                      }}
-                    >
-                      <div className={styles.accordionPanelInner}>
-                        <div
-                          className={styles.technologyGrid}
-                          role="list"
-                          aria-label={`${category.title} technologies`}
-                        >
-                          {category.technologies.map((technology) => (
-                            <div
-                              key={technology.name}
-                              className={styles.technologyItem}
-                              role="listitem"
-                            >
-                              <div className={styles.technologyIcon}>
-                                {renderTechIcon(technology.icon)}
-                              </div>
-                              <span className={styles.technologyName}>
-                                {technology.name}
-                              </span>
-                            </div>
-                          ))}
+                        <div className={styles.technologyIcon}>
+                          {renderTechIcon(technology.icon)}
                         </div>
+                        <span className={styles.technologyName}>
+                          {technology.name}
+                        </span>
                       </div>
-                    </motion.div>
-                  </motion.article>
-                );
-              })}
-            </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
 
           <motion.div className={styles.skillsSection} variants={itemVariants}>

@@ -58,7 +58,7 @@
 
 .subtitle {
   width: 100%;
-  margin: 0 0 0.5rem;
+  margin: 0 0 1.25rem;
   color: var(--color-text-primary);
   font-size: clamp(1.25rem, 3vw, 1.75rem);
   font-weight: 750;
@@ -70,134 +70,106 @@
   margin-bottom: clamp(2.75rem, 5vw, 4.5rem);
 }
 
-.technologiesIntro {
-  max-width: var(--content-measure);
-  margin: 0 auto 1.5rem;
-  color: var(--color-text-secondary);
-  font-size: 0.9rem;
-  text-align: center;
-  line-height: 1.65;
-}
+/* ============================================================
+   Tab bar (replaces accordion)
+   ============================================================ */
 
-.technologyAccordion {
-  display: grid;
-  gap: 0.65rem;
-  width: min(100%, 64rem);
-  margin: 0 auto;
-}
-
-.accordionItem {
-  overflow: hidden;
+.tabBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
+  padding: 0.3rem;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
   background: var(--color-surface);
-  box-shadow: var(--shadow-card);
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabBar::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  cursor: pointer;
   transition:
-    border-color var(--transition-fast),
-    box-shadow var(--transition-fast),
+    color var(--transition-fast),
     background-color var(--transition-fast);
 }
 
-.accordionItemActive {
-  border-color: rgba(var(--color-accent-rgb), 0.3);
-  background: rgba(var(--color-accent-rgb), 0.03);
-  box-shadow: var(--shadow-card-hover);
-}
-
-.accordionHeading {
-  margin: 0;
-}
-
-.accordionTrigger {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  padding: clamp(0.9rem, 2vw, 1.2rem) clamp(1rem, 2.4vw, 1.5rem);
-  border: 0;
-  background: transparent;
-  color: var(--color-text-primary);
-  font: inherit;
-  font-family: var(--font-sans);
-  text-align: left;
-  cursor: pointer;
-  transition: color var(--transition-fast), background-color var(--transition-fast);
-}
-
-.accordionTrigger:focus-visible {
+.tab:focus-visible {
   outline: 2px solid var(--color-accent);
-  outline-offset: -4px;
+  outline-offset: -2px;
 }
 
-.accordionTriggerActive {
+.tabActive {
+  background: rgba(var(--color-accent-rgb), 0.12);
   color: var(--color-accent);
-  cursor: default;
 }
 
-.accordionLabel {
-  display: grid;
-  min-width: 0;
-  gap: 0.25rem;
-}
-
-.accordionTitle {
-  font-size: clamp(1rem, 1.8vw, 1.2rem);
-  font-weight: 700;
+.tabLabel {
   line-height: 1.3;
 }
 
-.accordionPreview {
-  overflow: hidden;
-  color: var(--color-text-secondary);
-  font-size: 0.78rem;
-  font-weight: 500;
-  line-height: 1.35;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.accordionMeta {
-  display: flex;
+.tabCount {
+  display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  color: var(--color-text-secondary);
-}
-
-.technologyCount {
-  font-family: var(--font-mono);
-  padding: 0.22rem 0.55rem;
-  border: 1px solid var(--color-border);
+  justify-content: center;
+  min-width: 1.35rem;
+  height: 1.35rem;
+  padding: 0 0.3rem;
   border-radius: var(--radius-full);
-  background: var(--color-surface-elevated);
-  font-size: 0.72rem;
-  font-weight: 600;
-  white-space: nowrap;
+  background: rgba(var(--color-accent-rgb), 0.08);
+  color: var(--color-text-tertiary);
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1;
 }
 
-.accordionChevron {
-  flex: 0 0 auto;
-  transition: transform var(--transition-fast), color var(--transition-fast);
-}
-
-.accordionTriggerActive .accordionChevron {
+.tabActive .tabCount {
+  background: rgba(var(--color-accent-rgb), 0.2);
   color: var(--color-accent);
-  transform: rotate(180deg);
 }
 
-.accordionPanel {
-  overflow: hidden;
+@media (hover: hover) and (pointer: fine) {
+  .tab:not(.tabActive):hover {
+    color: var(--color-text-primary);
+    background: rgba(var(--color-accent-rgb), 0.05);
+  }
 }
 
-.accordionPanelInner {
-  padding: clamp(1rem, 2.2vw, 1.5rem);
-  border-top: 1px solid var(--color-border);
+/* ============================================================
+   Tab panel
+   ============================================================ */
+
+.tabPanel {
+  min-height: 10rem;
 }
 
 .technologyGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.55rem;
+  width: min(100%, 64rem);
+  margin: 0 auto;
 }
 
 .technologyItem {
@@ -208,7 +180,7 @@
   padding: 0.6rem 0.7rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  background: var(--color-surface-elevated);
+  background: var(--color-surface);
   transition:
     border-color var(--transition-fast),
     background-color var(--transition-fast),
@@ -225,7 +197,7 @@
   padding: 0.2rem;
   border: 1px solid var(--color-border);
   border-radius: 0.45rem;
-  background: var(--color-surface);
+  background: var(--color-surface-elevated);
   box-sizing: border-box;
 }
 
@@ -246,23 +218,16 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .accordionTrigger:not(.accordionTriggerActive):hover {
-    color: var(--color-accent);
-    background: rgba(var(--color-accent-rgb), 0.04);
-  }
-
   .technologyItem:hover {
     border-color: var(--color-border-hover);
-    background: rgba(var(--color-accent-rgb), 0.05);
+    background: rgba(var(--color-accent-rgb), 0.04);
     transform: translateY(-1px);
   }
 }
 
-@media (max-width: 1024px) {
-  .technologyGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
+/* ============================================================
+   Core skills (tag clouds)
+   ============================================================ */
 
 .skillsSection {
   padding-top: clamp(0.25rem, 1vw, 0.75rem);
@@ -335,9 +300,24 @@
   }
 }
 
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .technologyGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
   .skills {
     padding-block: var(--section-space-compact);
+  }
+
+  .tabBar {
+    justify-content: flex-start;
+    width: 100%;
   }
 
   .technologyGrid {
@@ -350,11 +330,12 @@
 }
 
 @media (max-width: 420px) {
-  .accordionTrigger {
-    gap: 0.65rem;
+  .tab {
+    padding: 0.45rem 0.65rem;
+    font-size: 0.68rem;
   }
 
-  .technologyCount {
+  .tabCount {
     display: none;
   }
 
@@ -364,9 +345,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .accordionItem,
-  .accordionTrigger,
-  .accordionChevron,
+  .tab,
   .technologyItem,
   .categoryColumn,
   .skillTag {
