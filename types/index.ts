@@ -31,6 +31,7 @@ export interface Project {
   title: string;
   description: string;
   image: string;
+  imagePosition?: string;
   technologies: string[];
   category: 'Custom Software' | 'SaaS' | 'AI & Data' | 'Web Applications';
   demos: ProjectDemo[];

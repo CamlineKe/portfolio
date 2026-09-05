@@ -72,6 +72,48 @@ export const projects: Project[] = [
     },
   },
   {
+    id: 5,
+    title: 'Viesta Nutrition',
+    description:
+      'A conversion-focused e-commerce storefront for a Kenyan nutrition and wellness brand. Customers can discover products, compare confirmed offers, manage a persistent cart, validate delivery details, and send structured order requests through WhatsApp, creating a low-friction purchase journey without a traditional checkout backend.',
+    image: '/images/viesta.png',
+    technologies: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Zod', 'Vitest'],
+    category: 'Web Applications',
+    status: 'Live Website',
+    demos: [
+      {
+        type: 'live',
+        url: 'https://viestanutrition.com/',
+      },
+    ],
+    repository: {
+      visibility: 'private',
+      reason: 'This production website has a private proprietary repository.',
+    },
+  },
+  {
+    id: 7,
+    title: 'Tuju Outspan Cyber Center Website',
+    description:
+      'A WhatsApp-first digital storefront for Tuju Outspan Cyber Center, a full-service cyber and digital solutions provider based at Chuka University with online services available countrywide. Fifteen static pages guide visitors through government, education, document, design, and IT services toward page-aware pre-filled WhatsApp chats, with SEO metadata and structured data supporting targeted conversions.',
+    highlight:
+      'Built as a 15-page static export with WhatsApp-first conversion flows, per-service enquiry modals, and a floating chat button; covered by a Vitest and Testing Library suite for accessible, keyboard-friendly interactions.',
+    image: '/images/tuju-outspan.png',
+    technologies: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Zod', 'Vitest'],
+    category: 'Web Applications',
+    status: 'Live Website',
+    demos: [
+      {
+        type: 'live',
+        url: 'https://tuju-outspan.vercel.app/',
+      },
+    ],
+    repository: {
+      visibility: 'public',
+      url: 'https://github.com/CamlineKe/Tuju_Outspan',
+    },
+  },
+  {
     id: 3,
     title: 'TaskFlow - Project Management Platform',
     description:
@@ -114,26 +156,6 @@ export const projects: Project[] = [
     },
   },
   {
-    id: 5,
-    title: 'Viesta Nutrition',
-    description:
-      'A conversion-focused e-commerce storefront for a Kenyan nutrition and wellness brand. Customers can discover products, compare confirmed offers, manage a persistent cart, validate delivery details, and send structured order requests through WhatsApp, creating a low-friction purchase journey without a traditional checkout backend.',
-    image: '/images/viesta.png',
-    technologies: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Zod', 'Vitest'],
-    category: 'Web Applications',
-    status: 'Live Website',
-    demos: [
-      {
-        type: 'live',
-        url: 'https://viestanutrition.com/',
-      },
-    ],
-    repository: {
-      visibility: 'private',
-      reason: 'This production website has a private proprietary repository.',
-    },
-  },
-  {
     id: 6,
     title: 'Task Management Platform',
     description:
@@ -150,28 +172,6 @@ export const projects: Project[] = [
     repository: {
       visibility: 'public',
       url: 'https://github.com/CamlineKe/Task_Management',
-    },
-  },
-  {
-    id: 7,
-    title: 'Tuju Outspan Cyber Center Website',
-    description:
-      'A WhatsApp-first digital storefront for Tuju Outspan Cyber Center, a full-service cyber and digital solutions provider based at Chuka University with online services available countrywide. Fifteen static pages guide visitors through government, education, document, design, and IT services toward page-aware pre-filled WhatsApp chats, with SEO metadata and structured data supporting targeted conversions.',
-    highlight:
-      'Built as a 15-page static export with WhatsApp-first conversion flows, per-service enquiry modals, and a floating chat button; covered by a Vitest and Testing Library suite for accessible, keyboard-friendly interactions.',
-    image: '/images/tuju-outspan.png',
-    technologies: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Zod', 'Vitest'],
-    category: 'Web Applications',
-    status: 'Live Website',
-    demos: [
-      {
-        type: 'live',
-        url: 'https://tuju-outspan.vercel.app/',
-      },
-    ],
-    repository: {
-      visibility: 'public',
-      url: 'https://github.com/CamlineKe/Tuju_Outspan',
     },
   },
 ];

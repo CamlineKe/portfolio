@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { Project, ProjectDemo } from '../types';
 import { useCanHover } from '../hooks/useCanHover';
 import { projects } from '../data/projects';
+import { ProjectRank, packProjects } from '../utils/projectLayout';
 import {
   createCardVariants,
   createContainerVariants,
@@ -19,6 +20,37 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+const PROJECT_CATEGORY_ORDER: Project['category'][] = [
+  'Custom Software',
+  'SaaS',
+  'AI & Data',
+  'Web Applications',
+];
+
+const getProjectCardClassName = (rank: ProjectRank) => {
+  if (rank === 'flagship') {
+    return `${styles.projectCard} ${styles.featuredProject}`;
+  }
+
+  if (rank === 'wide') {
+    return `${styles.projectCard} ${styles.wideProject}`;
+  }
+
+  return styles.projectCard;
+};
+
+const getProjectImageSizes = (rank: ProjectRank) => {
+  if (rank === 'flagship') {
+    return '(max-width: 375px) calc(100vw - 1.5rem), (max-width: 899px) calc(100vw - 3rem), (max-width: 1304px) calc(55vw - 2.2rem), 682px';
+  }
+
+  if (rank === 'wide') {
+    return '(max-width: 375px) calc(100vw - 1.5rem), (max-width: 655px) calc(100vw - 2rem), (max-width: 1024px) calc(100vw - 3rem), (max-width: 1304px) calc(66.666vw - 2.2rem), 800px';
+  }
+
+  return '(max-width: 375px) calc(100vw - 1.5rem), (max-width: 655px) calc(100vw - 2rem), (max-width: 1025px) calc(50vw - 2rem), (max-width: 1304px) calc(33.333vw - 2.667rem), 392px';
+};
+
 const Projects: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   const [privateProject, setPrivateProject] = useState<Project | null>(null);
@@ -30,14 +62,24 @@ const Projects: React.FC = () => {
   const enableHoverMotion = canHover && !prefersReducedMotion;
 
   const categories = useMemo(() => {
-    const uniqueCategories = new Set(projects.map((project) => project.category));
-    return ['all', ...Array.from(uniqueCategories)];
+    const present = new Set(projects.map((project) => project.category));
+    return [
+      'all',
+      ...PROJECT_CATEGORY_ORDER.filter((category) => present.has(category)),
+    ];
   }, []);
 
-  const filteredProjects =
-    selectedFilter === 'all'
-      ? projects
-      : projects.filter((project) => project.category === selectedFilter);
+  const filteredProjects = useMemo(
+    () =>
+      selectedFilter === 'all'
+        ? projects
+        : projects.filter((project) => project.category === selectedFilter),
+    [selectedFilter]
+  );
+  const packedProjects = useMemo(
+    () => packProjects(filteredProjects),
+    [filteredProjects]
+  );
 
   useEffect(() => {
     if (!privateProject) {
@@ -226,10 +268,10 @@ const Projects: React.FC = () => {
             layout={!prefersReducedMotion}
           >
             <AnimatePresence mode="sync">
-              {filteredProjects.map((project) => (
+              {packedProjects.map(({ project, rank }) => (
                 <motion.article
                   key={project.id}
-                  className={`${styles.projectCard} ${project.featured ? styles.featuredProject : ''}`}
+                  className={getProjectCardClassName(rank)}
                   variants={cardVariants}
                   initial="hidden"
                   animate="visible"
@@ -245,12 +287,11 @@ const Projects: React.FC = () => {
                       src={project.image}
                       alt={`${project.title} interface preview`}
                       fill
-                      sizes={
-                        project.featured
-                          ? '(max-width: 375px) calc(100vw - 1.5rem), (max-width: 899px) calc(100vw - 3rem), (max-width: 1304px) calc(55vw - 2.2rem), 682px'
-                          : '(max-width: 375px) calc(100vw - 1.5rem), (max-width: 655px) calc(100vw - 2rem), (max-width: 1025px) calc(50vw - 2rem), (max-width: 1304px) calc(33.333vw - 2.667rem), 392px'
-                      }
+                      sizes={getProjectImageSizes(rank)}
                       className={styles.image}
+                      style={{
+                        objectPosition: project.imagePosition ?? '50% 50%',
+                      }}
                     />
                   </div>
 
