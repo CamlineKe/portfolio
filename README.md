@@ -170,25 +170,31 @@ Current main assets:
 
 - Portrait: `public/images/avatar.png`
 - Resume: `public/CV/Moses_Maina_Software_Engineer_Resume.pdf`
-- Project previews: `public/images/rms.png`, `wpv.jpg`, `project1.jpg`,
-  `project3.jpg`, `project4.jpg`, and `viesta.png`
+- Project previews: `public/images/rms.png`, `wpv.jpg`, `viesta.png`,
+  `tuju-outspan.png`, `project4.jpg`, `project1.jpg`, and `project3.jpg`
 
 When replacing an image, preserve the file path or update the corresponding
-component or project record. Keep useful alternative text and review image
-cropping at mobile and desktop widths.
+component or project record. Keep useful alternative text and review the
+crop against the project media contract below.
 
 ## Adding or updating projects
 
 Projects use the discriminated types in `types/index.ts` and live in
-`data/projects.ts`.
+`data/projects.ts`. Array order is editorial order. Insert a project at the
+proof rank it deserves. Do not append it only because it is newest.
+
+Editorial rule: flagship proof, then complementary systems evidence, then
+live commercial work, then inspectable public work, then range. Recency
+never beats proof.
 
 ```typescript
 {
-  id: 7,
+  id: 8,
   title: 'Project name',
   description: 'A concise description of the problem, users, and outcome.',
   highlight: 'An optional verified engineering or product result.',
   image: '/images/project-name.png',
+  imagePosition: '50% 30%',
   technologies: ['Next.js', 'TypeScript'],
   category: 'Web Applications',
   status: 'Live Website',
@@ -206,6 +212,8 @@ Projects use the discriminated types in `types/index.ts` and live in
 }
 ```
 
+`imagePosition` is optional. Omit it to keep the default focal point.
+
 Supported project categories:
 
 - `Custom Software`
@@ -213,10 +221,39 @@ Supported project categories:
 - `AI & Data`
 - `Web Applications`
 
+Category filter chips stay in that order. They are not derived from array
+order.
+
+### Packing
+
+`utils/projectLayout.ts` assigns ranks for All and for every filtered set:
+
+- At most one `featured: true` record. If it is in the visible set, it is
+  the flagship and occupies the first full row.
+- At most one wide card. The first remaining project becomes wide unless
+  one or three projects remain, which stay standard.
+- Every other card is standard. Leftover cards keep their track width.
+  They do not stretch.
+
+Do not add a `wide` or `rank` field. Wide is computed. Adding a project
+means insert it in the editorial list and let packing run.
+
+### Media contract
+
+- Frame: 16:9, `object-fit: cover`
+- Minimum source: 1600 by 900
+- Safe region: keep important chrome inside the center 80 percent
+- Default focal point: `50% 50%`
+- Override: `imagePosition` on the record, as CSS `object-position`
+- Location: `public/images`, path on the record
+
+Recapture is optional when a current crop already fails. Prefer fixing the
+shot or setting `imagePosition` over changing the frame ratio.
+
 Project behavior:
 
 - Filters use the explicit `category` field, not the technology list.
-- `featured: true` creates a full-width flagship card.
+- `featured: true` marks the single flagship. Do not mark a second one.
 - `status` adds a compact project-state label.
 - `highlight` adds a separate evidence statement.
 - A demo without `label` defaults to `Live Demo` or `Video Demo` according to
