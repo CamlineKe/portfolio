@@ -120,9 +120,14 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 1rem;
   overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -342,21 +347,6 @@ textarea:focus {
 /* ============================================================
    Accessibility
    ============================================================ */
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
 
 *:focus-visible {
   outline: 2px solid var(--color-accent);
