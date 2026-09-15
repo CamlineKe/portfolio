@@ -70,15 +70,6 @@
   max-width: 52rem;
 }
 
-.name {
-  font-family: var(--font-mono);
-  color: var(--color-text-secondary);
-  font-size: clamp(0.72rem, 1.8vw, 0.82rem);
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  margin-bottom: 0.6rem;
-}
-
 .role {
   color: var(--color-accent);
   font-size: clamp(0.88rem, 2.2vw, 1.05rem);
@@ -89,7 +80,7 @@
 
 .headline {
   max-width: 16ch;
-  margin: 0 0 clamp(2rem, 5vw, 3rem);
+  margin: 0 0 clamp(1.25rem, 3vw, 1.75rem);
   color: var(--color-text-primary);
   font-size: clamp(2.4rem, 8vw, 5rem);
   font-weight: 800;
@@ -102,75 +93,79 @@
   color: var(--color-accent);
 }
 
-.ctaButton {
+.proof {
+  max-width: 28rem;
+  margin: 0 0 clamp(2rem, 5vw, 3rem);
+  color: var(--color-text-secondary);
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.ctaPrimary,
+.ctaSecondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 3.2rem;
   padding: 0.85rem 2.2rem;
-  border: 1px solid transparent;
   border-radius: var(--radius-full);
-  background: var(--color-spark);
-  color: #0a0f1a;
   font-family: var(--font-sans);
   font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: 0.01em;
+  text-decoration: none;
   cursor: pointer;
   transition:
     background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
     transform var(--transition-fast),
     box-shadow var(--transition-fast);
 }
 
+.ctaPrimary {
+  border: 1px solid transparent;
+  background: var(--color-spark);
+  color: var(--color-base);
+}
+
+.ctaSecondary {
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-primary);
+}
+
 @media (hover: hover) and (pointer: fine) {
-  .ctaButton:hover {
-    background: #fbbf24;
-    border-color: #fde68a;
+  .ctaPrimary:hover {
+    background: color-mix(in srgb, var(--color-spark) 88%, white);
+    border-color: color-mix(in srgb, var(--color-spark) 70%, white);
     box-shadow:
-      0 0 20px rgba(245, 158, 11, 0.25),
-      0 4px 12px rgba(245, 158, 11, 0.15);
+      0 0 20px rgba(var(--color-spark-rgb), 0.25),
+      0 4px 12px rgba(var(--color-spark-rgb), 0.15);
+  }
+
+  .ctaSecondary:hover {
+    border-color: var(--color-border-hover);
+    color: var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.08);
   }
 }
 
-.ctaButton:focus-visible {
+.ctaPrimary:focus-visible,
+.ctaSecondary:focus-visible {
   outline: 2px solid var(--color-spark);
   outline-offset: 3px;
 }
 
-/* Scroll indicator */
-.scrollIndicator {
-  position: absolute;
-  bottom: clamp(1.5rem, 4vw, 2.5rem);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-}
-
-.scrollLine {
-  width: 1px;
-  height: 3rem;
-  background: linear-gradient(
-    to bottom,
-    var(--color-accent),
-    transparent
-  );
-  animation: scrollPulse 2s ease-in-out infinite;
-}
-
-@keyframes scrollPulse {
-  0%, 100% {
-    opacity: 0.3;
-    transform: scaleY(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scaleY(1.15);
-    transform-origin: top;
-  }
-}
-
-/* Responsive */
 @media (min-width: 900px) {
   .headline {
     font-size: clamp(4rem, 6vw, 5.5rem);
@@ -182,15 +177,17 @@
   .headline {
     font-size: clamp(2rem, 9vw, 2.6rem);
   }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    width: 100%;
+    max-width: 18rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ctaButton {
+  .ctaPrimary,
+  .ctaSecondary {
     transition-duration: 0.01ms;
-  }
-
-  .scrollLine {
-    animation: none;
-    opacity: 0.5;
   }
 }

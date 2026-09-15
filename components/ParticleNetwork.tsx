@@ -3,15 +3,15 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useReducedMotion } from 'framer-motion';
 import * as THREE from 'three';
 
-const ACCENT_BLUE = new THREE.Color('#3b82f6');
-const AMBER_SPARK = new THREE.Color('#f59e0b');
-const EDGE_COLOR = new THREE.Color('#3b82f6');
 const CONNECTION_DISTANCE = 3.2;
 const BASE_EDGE_OPACITY = 0.13;
 const HUB_ATTRACTION_RADIUS = 4;
 const HUB_MIN_DISTANCE = 0.5;
 const CURSOR_REPEL_RADIUS = 1.5;
 const CURSOR_ATTRACT_RADIUS = 4;
+const BOUND_X = 7;
+const BOUND_Y = 5;
+const BOUND_Z = 3;
 
 const HUB_POSITIONS = [
   [-4.5, 2.5, -1],
@@ -21,6 +21,21 @@ const HUB_POSITIONS = [
   [4.5, -2.5, -1],
 ] as const;
 const HUB_COUNT = HUB_POSITIONS.length;
+
+interface ThemeColors {
+  accent: THREE.Color;
+  spark: THREE.Color;
+}
+
+function readThemeColors(): ThemeColors {
+  const styles = getComputedStyle(document.documentElement);
+  const accent = styles.getPropertyValue('--color-accent').trim() || '#3b82f6';
+  const spark = styles.getPropertyValue('--color-spark').trim() || '#f59e0b';
+  return {
+    accent: new THREE.Color(accent),
+    spark: new THREE.Color(spark),
+  };
+}
 
 interface ParticleData {
   positions: Float32Array;
@@ -32,7 +47,7 @@ interface ParticleData {
   hubCount: number;
 }
 
-function createParticleData(count: number): ParticleData {
+function createParticleData(count: number, themeColors: ThemeColors): ParticleData {
   const positions = new Float32Array(count * 3);
   const velocities = new Float32Array(count * 3);
   const colors = new Float32Array(count * 3);
@@ -50,22 +65,19 @@ function createParticleData(count: number): ParticleData {
       positions[i3 + 1] = y;
       positions[i3 + 2] = z;
     } else {
-      // Distribute regular particles in a bounded volume
       positions[i3] = (Math.random() - 0.5) * 14;
       positions[i3 + 1] = (Math.random() - 0.5) * 10;
       positions[i3 + 2] = (Math.random() - 0.5) * 6;
     }
 
-    // Hub nodes drift more slowly than regular particles
     const velocityScale = isHub ? 0.001 : 0.003;
     velocities[i3] = (Math.random() - 0.5) * velocityScale;
     velocities[i3 + 1] = (Math.random() - 0.5) * velocityScale;
     velocities[i3 + 2] =
       (Math.random() - 0.5) * (isHub ? 0.001 : 0.002);
 
-    // Hubs are blue; 1 in 8 regular particles provides an amber spark
     const isAmber = !isHub && i % 8 === 0;
-    const color = isAmber ? AMBER_SPARK : ACCENT_BLUE;
+    const color = isAmber ? themeColors.spark : themeColors.accent;
     colors[i3] = color.r;
     colors[i3 + 1] = color.g;
     colors[i3 + 2] = color.b;
@@ -90,21 +102,25 @@ function createParticleData(count: number): ParticleData {
 }
 
 interface NetworkSceneProps {
-  scrollProgress: number;
-  reducedMotion: boolean;
+  isActive: boolean;
+  themeColors: ThemeColors;
 }
 
-function NetworkScene({ scrollProgress, reducedMotion }: NetworkSceneProps) {
+function NetworkScene({ isActive, themeColors }: NetworkSceneProps) {
   const pointsRef = useRef<THREE.Points>(null);
   const linesRef = useRef<THREE.LineSegments>(null);
   const mouseRef = useRef(new THREE.Vector2(0, 0));
-  const { size, viewport } = useThree();
+  const linePositionsRef = useRef<Float32Array | null>(null);
+  const { size, viewport, invalidate } = useThree();
 
   const particleCount = size.width < 768 ? 28 : 55;
+  const maxLineVertices = (particleCount * (particleCount - 1)) / 2 * 2;
 
-  const data = useMemo(() => createParticleData(particleCount), [particleCount]);
+  const data = useMemo(
+    () => createParticleData(particleCount, themeColors),
+    [particleCount, themeColors]
+  );
 
-  // Vertex shader for particles with per-particle opacity and size
   const particleMaterial = useMemo(
     () =>
       new THREE.ShaderMaterial({
@@ -147,68 +163,64 @@ function NetworkScene({ scrollProgress, reducedMotion }: NetworkSceneProps) {
     []
   );
 
-  // Line material for edges
   const lineMaterial = useMemo(
     () =>
       new THREE.LineBasicMaterial({
-        color: EDGE_COLOR,
+        color: themeColors.accent,
         transparent: true,
         opacity: BASE_EDGE_OPACITY,
         blending: THREE.AdditiveBlending,
         depthWrite: false,
       }),
-    []
+    [themeColors]
   );
 
-  // Track mouse in normalized device coordinates
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseRef.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    lineMaterial.color.copy(themeColors.accent);
+  }, [lineMaterial, themeColors]);
+
+  useEffect(() => {
+    if (!isActive) return;
+
+    const handleMouseMove = (event: MouseEvent) => {
+      mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
     };
 
     if (size.width >= 768) {
       window.addEventListener('mousemove', handleMouseMove, { passive: true });
       return () => window.removeEventListener('mousemove', handleMouseMove);
     }
-  }, [size.width]);
+  }, [isActive, size.width]);
 
   useFrame(() => {
-    if (!pointsRef.current || reducedMotion) return;
+    if (!isActive || !pointsRef.current) return;
 
     const positions = pointsRef.current.geometry.attributes.position
       .array as Float32Array;
 
-    // Scroll-driven dispersion: particles drift apart and fade as scroll progresses
-    const dispersal = scrollProgress * 4;
-    const globalOpacity = Math.max(0, 1 - scrollProgress * 1.5);
-    particleMaterial.uniforms.uGlobalOpacity.value = globalOpacity;
+    particleMaterial.uniforms.uGlobalOpacity.value = 1;
     if (lineMaterial.opacity !== undefined) {
-      lineMaterial.opacity = BASE_EDGE_OPACITY * globalOpacity;
+      lineMaterial.opacity = BASE_EDGE_OPACITY;
     }
 
-    // Mouse influence in world coordinates
     const mouseWorldX = mouseRef.current.x * viewport.width * 0.5;
     const mouseWorldY = mouseRef.current.y * viewport.height * 0.5;
 
-    const boundX = 7 + dispersal;
-    const boundY = 5 + dispersal;
-    const boundZ = 3 + dispersal * 0.5;
     const hubMinDistanceSq = HUB_MIN_DISTANCE * HUB_MIN_DISTANCE;
     const hubAttractionRadiusSq =
       HUB_ATTRACTION_RADIUS * HUB_ATTRACTION_RADIUS;
     const cursorAttractionRadiusSq =
       CURSOR_ATTRACT_RADIUS * CURSOR_ATTRACT_RADIUS;
+    const connectionDistanceSq = CONNECTION_DISTANCE * CONNECTION_DISTANCE;
 
     for (let i = 0; i < data.count; i++) {
       const i3 = i * 3;
 
-      // Apply velocity
       positions[i3] += data.velocities[i3];
       positions[i3 + 1] += data.velocities[i3 + 1];
       positions[i3 + 2] += data.velocities[i3 + 2];
 
-      // Pull regular particles toward their nearest hub
       if (i >= data.hubCount) {
         let nearestHubIndex = -1;
         let nearestHubDistanceSq = Number.POSITIVE_INFINITY;
@@ -244,20 +256,11 @@ function NetworkScene({ scrollProgress, reducedMotion }: NetworkSceneProps) {
         }
       }
 
-      // Scroll dispersal push
-      if (scrollProgress > 0) {
-        positions[i3 + 1] -= scrollProgress * 0.02;
-      }
-
-      // Mouse repulsion nearby and attraction at medium range
       if (size.width >= 768) {
         const dx = positions[i3] - mouseWorldX;
         const dy = positions[i3 + 1] - mouseWorldY;
         const distSq = dx * dx + dy * dy;
-        if (
-          distSq < cursorAttractionRadiusSq &&
-          distSq > 0.01
-        ) {
+        if (distSq < cursorAttractionRadiusSq && distSq > 0.01) {
           const dist = Math.sqrt(distSq);
 
           if (dist < CURSOR_REPEL_RADIUS) {
@@ -272,17 +275,20 @@ function NetworkScene({ scrollProgress, reducedMotion }: NetworkSceneProps) {
         }
       }
 
-      // Boundary bounce
-      if (Math.abs(positions[i3]) > boundX) data.velocities[i3] *= -1;
-      if (Math.abs(positions[i3 + 1]) > boundY) data.velocities[i3 + 1] *= -1;
-      if (Math.abs(positions[i3 + 2]) > boundZ) data.velocities[i3 + 2] *= -1;
+      if (Math.abs(positions[i3]) > BOUND_X) data.velocities[i3] *= -1;
+      if (Math.abs(positions[i3 + 1]) > BOUND_Y) data.velocities[i3 + 1] *= -1;
+      if (Math.abs(positions[i3 + 2]) > BOUND_Z) data.velocities[i3 + 2] *= -1;
     }
 
     pointsRef.current.geometry.attributes.position.needsUpdate = true;
 
-    // Update edges
     if (linesRef.current) {
-      const linePositions: number[] = [];
+      if (!linePositionsRef.current) {
+        linePositionsRef.current = new Float32Array(maxLineVertices * 3);
+      }
+
+      const linePositions = linePositionsRef.current;
+      let vertexCount = 0;
 
       for (let i = 0; i < data.count; i++) {
         for (let j = i + 1; j < data.count; j++) {
@@ -293,22 +299,36 @@ function NetworkScene({ scrollProgress, reducedMotion }: NetworkSceneProps) {
           const dz = positions[i3 + 2] - positions[j3 + 2];
           const distSq = dx * dx + dy * dy + dz * dz;
 
-          if (distSq < CONNECTION_DISTANCE * CONNECTION_DISTANCE) {
-            linePositions.push(
-              positions[i3], positions[i3 + 1], positions[i3 + 2],
-              positions[j3], positions[j3 + 1], positions[j3 + 2]
-            );
+          if (distSq < connectionDistanceSq) {
+            linePositions[vertexCount++] = positions[i3];
+            linePositions[vertexCount++] = positions[i3 + 1];
+            linePositions[vertexCount++] = positions[i3 + 2];
+            linePositions[vertexCount++] = positions[j3];
+            linePositions[vertexCount++] = positions[j3 + 1];
+            linePositions[vertexCount++] = positions[j3 + 2];
           }
         }
       }
 
       const lineGeometry = linesRef.current.geometry as THREE.BufferGeometry;
-      lineGeometry.setAttribute(
-        'position',
-        new THREE.Float32BufferAttribute(linePositions, 3)
-      );
-      lineGeometry.attributes.position.needsUpdate = true;
+      let positionAttribute = lineGeometry.getAttribute(
+        'position'
+      ) as THREE.BufferAttribute | undefined;
+
+      if (!positionAttribute) {
+        positionAttribute = new THREE.BufferAttribute(linePositions, 3);
+        lineGeometry.setAttribute('position', positionAttribute);
+      } else {
+        (positionAttribute.array as Float32Array).set(
+          linePositions.subarray(0, vertexCount)
+        );
+        positionAttribute.needsUpdate = true;
+      }
+
+      lineGeometry.setDrawRange(0, vertexCount);
     }
+
+    invalidate();
   });
 
   return (
@@ -340,31 +360,67 @@ function NetworkScene({ scrollProgress, reducedMotion }: NetworkSceneProps) {
   );
 }
 
-interface ParticleNetworkProps {
-  scrollProgress?: number;
-}
-
-const ParticleNetwork: React.FC<ParticleNetworkProps> = ({ scrollProgress = 0 }) => {
+const ParticleNetwork: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
-  const [visible, setVisible] = useState(false);
   const reducedMotion = Boolean(prefersReducedMotion);
+  const [visible, setVisible] = useState(false);
+  const [heroInView, setHeroInView] = useState(true);
+  const [tabVisible, setTabVisible] = useState(true);
+  const [themeColors, setThemeColors] = useState<ThemeColors>(() =>
+    typeof document === 'undefined'
+      ? { accent: new THREE.Color('#3b82f6'), spark: new THREE.Color('#f59e0b') }
+      : readThemeColors()
+  );
 
-  // Delay mount slightly so hero text appears first
+  const isActive = !reducedMotion && heroInView && tabVisible;
+
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 100);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const hero = document.getElementById('hero');
+    if (!hero) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroInView(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleVisibility = () => setTabVisible(!document.hidden);
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, []);
+
+  useEffect(() => {
+    const syncThemeColors = () => setThemeColors(readThemeColors());
+
+    syncThemeColors();
+    const observer = new MutationObserver(syncThemeColors);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const handleCreated = useCallback((state: { gl: THREE.WebGLRenderer }) => {
     state.gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   }, []);
 
-  if (!visible) return null;
+  if (!visible || reducedMotion) return null;
 
   return (
     <Canvas
       camera={{ position: [0, 0, 8], fov: 55 }}
       dpr={[1, 2]}
+      frameloop={isActive ? 'always' : 'demand'}
       gl={{ antialias: false, alpha: true, powerPreference: 'high-performance' }}
       style={{
         position: 'absolute',
@@ -373,10 +429,7 @@ const ParticleNetwork: React.FC<ParticleNetworkProps> = ({ scrollProgress = 0 })
       }}
       onCreated={handleCreated}
     >
-      <NetworkScene
-        scrollProgress={scrollProgress}
-        reducedMotion={reducedMotion}
-      />
+      <NetworkScene isActive={isActive} themeColors={themeColors} />
     </Canvas>
   );
 };

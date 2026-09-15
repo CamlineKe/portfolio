@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { scrollToSection } from '../utils/helpers';
+import React from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useCanHover } from '../hooks/useCanHover';
 import { hoverLift } from '../utils/motion';
 import styles from '../styles/Hero.module.css';
@@ -11,28 +10,10 @@ const Hero: React.FC = () => {
   const canHover = useCanHover();
   const enableHoverMotion = canHover && !prefersReducedMotion;
 
-  // Track scroll progress through the hero section (0 = top, 1 = fully scrolled past)
-  const { scrollYProgress } = useScroll();
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const unsubscribe = scrollYProgress.on('change', (latest) => {
-      // Map first 100vh of scroll to 0-1 progress
-      const heroHeight = window.innerHeight;
-      const rawProgress = (latest * document.documentElement.scrollHeight) / heroHeight;
-      setScrollProgress(Math.min(Math.max(rawProgress, 0), 1));
-    });
-    return unsubscribe;
-  }, [scrollYProgress]);
-
-  // Parallax: content fades and lifts as user scrolls
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
-  const contentY = useTransform(scrollYProgress, [0, 0.3], [0, -40]);
-
   return (
     <section className={styles.hero} id="hero">
       <div className={styles.networkWrapper} aria-hidden="true">
-        <ParticleNetwork scrollProgress={scrollProgress} />
+        <ParticleNetwork />
       </div>
 
       <div className={`container ${styles.heroContainer}`}>
@@ -41,13 +22,7 @@ const Hero: React.FC = () => {
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: prefersReducedMotion ? 0.2 : 0.7, ease: 'easeOut' }}
-          style={
-            prefersReducedMotion
-              ? undefined
-              : { opacity: contentOpacity, y: contentY }
-          }
         >
-          <span className={styles.name}>MOSES MAINA</span>
           <span className={styles.role}>Systems-Driven Software Engineer</span>
 
           <h1 className={styles.headline}>
@@ -56,27 +31,30 @@ const Hero: React.FC = () => {
             through reliable systems.
           </h1>
 
-          <motion.button
-            className={styles.ctaButton}
-            onClick={() => scrollToSection('projects')}
-            whileHover={hoverLift(enableHoverMotion, -2, 1.03)}
-            whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
-          >
-            View Projects
-          </motion.button>
+          <p className={styles.proof}>
+            263 passing RMS backend tests across 67 suites.
+          </p>
+
+          <div className={styles.ctaRow}>
+            <motion.a
+              href="#contact"
+              className={styles.ctaPrimary}
+              whileHover={hoverLift(enableHoverMotion, -2, 1.03)}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
+            >
+              Start a conversation
+            </motion.a>
+            <motion.a
+              href="#projects"
+              className={styles.ctaSecondary}
+              whileHover={hoverLift(enableHoverMotion, -2, 1.02)}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
+            >
+              View projects
+            </motion.a>
+          </div>
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className={styles.scrollIndicator}
-        initial={prefersReducedMotion ? { opacity: 0.6 } : { opacity: 0 }}
-        animate={{ opacity: 0.6 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
-        aria-hidden="true"
-      >
-        <div className={styles.scrollLine} />
-      </motion.div>
     </section>
   );
 };
