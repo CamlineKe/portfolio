@@ -24,17 +24,6 @@
   z-index: 1;
 }
 
-.eyebrow {
-  margin: 0 0 0.65rem;
-  font-family: var(--font-mono);
-  color: var(--color-accent);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-align: center;
-  text-transform: uppercase;
-}
-
 .title {
   text-align: center;
   font-size: clamp(2rem, 4.5vw, 3rem);

@@ -182,9 +182,6 @@ const Skills: React.FC = () => {
           whileInView="visible"
           viewport={sectionViewport}
         >
-          <motion.p className={styles.eyebrow} variants={itemVariants}>
-            Capabilities
-          </motion.p>
           <motion.h2 className={styles.title} variants={itemVariants}>
             Skills & Technologies
           </motion.h2>

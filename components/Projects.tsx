@@ -161,9 +161,6 @@ const Projects: React.FC = () => {
           whileInView="visible"
           viewport={sectionViewport}
         >
-          <motion.p className={styles.eyebrow} variants={itemVariants}>
-            Selected work
-          </motion.p>
           <motion.h2 className={styles.title} variants={itemVariants}>
             Featured Projects
           </motion.h2>

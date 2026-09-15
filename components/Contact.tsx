@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { useForm } from 'react-hook-form';
+import { FieldErrors, useForm } from 'react-hook-form';
 import { ContactFormData, SocialLink } from '../types';
 import { useCanHover } from '../hooks/useCanHover';
 import {
@@ -29,7 +29,18 @@ const Contact: React.FC = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    setFocus,
   } = useForm<ContactFormData>();
+
+  const onInvalid = (fieldErrors: FieldErrors<ContactFormData>) => {
+    const firstInvalidField = (['name', 'email', 'message'] as const).find(
+      (field) => fieldErrors[field]
+    );
+
+    if (firstInvalidField) {
+      setFocus(firstInvalidField);
+    }
+  };
 
   const socialLinks: SocialLink[] = [
     {
@@ -148,9 +159,6 @@ const Contact: React.FC = () => {
           whileInView="visible"
           viewport={sectionViewport}
         >
-          <motion.p className={styles.eyebrow} variants={itemVariants}>
-            Contact
-          </motion.p>
           <motion.h2 className={styles.title} variants={itemVariants}>
             Let&apos;s Build Something
           </motion.h2>
@@ -198,7 +206,11 @@ const Contact: React.FC = () => {
 
           <div className={styles.contactContent}>
             <motion.div className={styles.formSection} variants={itemVariants}>
-              <form onSubmit={handleSubmit(onSubmit)} className={styles.contactForm}>
+              <form
+                onSubmit={handleSubmit(onSubmit, onInvalid)}
+                className={styles.contactForm}
+                noValidate
+              >
                 {/* Honeypot field for spam protection */}
                 <input
                   type="text"
@@ -215,6 +227,7 @@ const Contact: React.FC = () => {
                   <input
                     type="text"
                     id="name"
+                    autoComplete="name"
                     placeholder="Enter your full name"
                     className={`${styles.input} ${errors.name ? styles.error : ''}`}
                     aria-invalid={Boolean(errors.name)}
@@ -245,6 +258,7 @@ const Contact: React.FC = () => {
                   <input
                     type="email"
                     id="email"
+                    autoComplete="email"
                     placeholder="your.email@example.com"
                     className={`${styles.input} ${errors.email ? styles.error : ''}`}
                     aria-invalid={Boolean(errors.email)}
