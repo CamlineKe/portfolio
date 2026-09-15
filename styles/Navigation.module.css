@@ -26,7 +26,7 @@
 
 .navContainer {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 1.25rem;
   width: min(var(--container-max), 100% - 4rem);
@@ -43,6 +43,7 @@
   background: transparent;
   color: var(--color-text-primary);
   font: inherit;
+  text-decoration: none;
   cursor: pointer;
   transition: color var(--transition-fast);
 }
@@ -70,6 +71,7 @@
   font-family: var(--font-sans);
   font-size: 0.88rem;
   font-weight: 600;
+  text-decoration: none;
   cursor: pointer;
   transition: color var(--transition-fast);
 }
@@ -96,12 +98,6 @@
   transform: scaleX(1);
 }
 
-.themeToggleContainer {
-  display: flex;
-  align-items: center;
-  justify-self: end;
-}
-
 /* Mobile navigation */
 .mobileNav {
   position: fixed;
@@ -118,7 +114,7 @@
 
 .mobileNavContainer {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   align-items: center;
   gap: 0.3rem;
   width: min(100%, 34rem);
@@ -140,6 +136,7 @@
   background: transparent;
   color: var(--color-text-secondary);
   font: inherit;
+  text-decoration: none;
   cursor: pointer;
   transition:
     color var(--transition-fast),
@@ -174,12 +171,6 @@
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.mobileThemeToggle {
-  display: grid;
-  place-items: center;
-  min-width: 0;
 }
 
 /* Hover states */

@@ -1,3 +1,17 @@
+.chrome {
+  position: fixed;
+  top: calc(var(--safe-top) + 0.5rem);
+  right: max(0.75rem, env(safe-area-inset-right, 0px));
+  z-index: calc(var(--z-nav) + 1);
+}
+
+@media (min-width: 769px) {
+  .chrome {
+    top: calc(var(--safe-top) + (var(--nav-height-desktop) - 2.5rem) / 2);
+    right: max(2rem, env(safe-area-inset-right, 0px));
+  }
+}
+
 .themeToggle {
   position: relative;
   display: flex;

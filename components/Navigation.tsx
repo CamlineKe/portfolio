@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import ThemeToggle from './ThemeToggle';
 import { useCanHover } from '../hooks/useCanHover';
 import { hoverScale } from '../utils/motion';
 import styles from '../styles/Navigation.module.css';
@@ -20,17 +19,6 @@ const Navigation: React.FC = () => {
     { id: 'contact', label: 'Contact' },
   ], []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      setActiveSection(sectionId);
-      element.scrollIntoView({
-        behavior: prefersReducedMotion ? 'auto' : 'smooth',
-      });
-    }
-  };
-
-  // Track whether we've scrolled past the hero section
   useEffect(() => {
     const handleScroll = () => {
       const heroEl = document.getElementById('hero');
@@ -44,7 +32,6 @@ const Navigation: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Track the active section
   useEffect(() => {
     const sections = navItems
       .map((item) => ({ id: item.id, element: document.getElementById(item.id) }))
@@ -94,58 +81,47 @@ const Navigation: React.FC = () => {
 
   return (
     <>
-      {/* Desktop Navigation - hidden at hero, slides in on scroll */}
       <nav
         className={`${styles.desktopNav} ${scrolledPastHero ? styles.navVisible : ''}`}
         aria-label="Primary navigation"
       >
         <div className={styles.navContainer}>
-          <button
-            type="button"
+          <a
+            href="#hero"
             className={styles.logo}
-            onClick={() => scrollToSection('hero')}
             aria-label="Return to the top of the portfolio"
           >
             <span className={styles.logoText}>MOSES MAINA</span>
-          </button>
+          </a>
 
           <div className={styles.navItems}>
             {navItems.map((item) => (
-              <button
+              <a
                 key={item.id}
-                type="button"
+                href={`#${item.id}`}
                 className={`${styles.navItem} ${
                   activeSection === item.id ? styles.active : ''
                 }`}
-                onClick={() => scrollToSection(item.id)}
-                aria-label={`Navigate to ${item.label}`}
                 aria-current={activeSection === item.id ? 'location' : undefined}
               >
                 {item.label}
-              </button>
+              </a>
             ))}
-          </div>
-
-          <div className={styles.themeToggleContainer}>
-            <ThemeToggle />
           </div>
         </div>
       </nav>
 
-      {/* Mobile Navigation */}
       <nav className={styles.mobileNav} aria-label="Mobile navigation">
         <div className={styles.mobileNavContainer}>
           {navItems.map((item) => (
-            <motion.button
+            <motion.a
               key={item.id}
-              type="button"
+              href={`#${item.id}`}
               className={`${styles.mobileNavItem} ${
                 activeSection === item.id ? styles.active : ''
               }`}
-              onClick={() => scrollToSection(item.id)}
               whileHover={hoverScale(enableHoverMotion, 1.03)}
               whileTap={prefersReducedMotion ? undefined : { scale: 0.96 }}
-              aria-label={`Navigate to ${item.label}`}
               aria-current={activeSection === item.id ? 'location' : undefined}
             >
               <div className={styles.navIcon} aria-hidden="true">
@@ -176,12 +152,8 @@ const Navigation: React.FC = () => {
                 )}
               </div>
               <span className={styles.navLabel}>{item.label}</span>
-            </motion.button>
+            </motion.a>
           ))}
-
-          <div className={styles.mobileThemeToggle}>
-            <ThemeToggle />
-          </div>
         </div>
       </nav>
     </>
