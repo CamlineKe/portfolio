@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useCanHover } from '../hooks/useCanHover';
-import { useCountUp } from '../hooks/useScrollAnimation';
 import {
   createContainerVariants,
   createItemVariants,
@@ -50,22 +49,6 @@ const About: React.FC = () => {
     },
   ];
 
-  const evidence = [
-    {
-      value: '2',
-      label: 'Confidential client systems delivered and currently in use',
-    },
-    {
-      value: '263',
-      label: 'Passing RMS backend tests across 67 suites',
-    },
-    {
-      value: '3',
-      label: 'Completed certifications in AI, cloud tooling, and cybersecurity',
-    },
-  ];
-
-  const countUpRef = useCountUp();
   const containerVariants = createContainerVariants(Boolean(prefersReducedMotion), 0.18);
   const itemVariants = createItemVariants(Boolean(prefersReducedMotion), 24, 0.55);
 
@@ -79,16 +62,12 @@ const About: React.FC = () => {
           whileInView="visible"
           viewport={sectionViewport}
         >
-          <motion.p className={styles.eyebrow} variants={itemVariants}>
-            About
-          </motion.p>
           <motion.h2 className={styles.title} variants={itemVariants}>
             How I Think About <span className={styles.highlight}>Engineering</span>
           </motion.h2>
 
           <div className={styles.gridContainer}>
             <motion.div className={styles.leftColumn} variants={itemVariants}>
-              {/* Portrait moved from Hero */}
               <div className={styles.portraitBlock}>
                 <div className={styles.portraitFrame}>
                   <Image
@@ -130,6 +109,10 @@ const About: React.FC = () => {
                   maintainability, security, and the people who will operate the
                   product.
                 </p>
+                <p className={styles.text}>
+                  Two confidential client systems are in production use today, and I have
+                  completed three certifications in AI, cloud tooling, and cybersecurity.
+                </p>
               </div>
 
               <div
@@ -137,21 +120,16 @@ const About: React.FC = () => {
                 role="list"
                 aria-label="Working principles"
               >
-                {workingPrinciples.map((principle, index) => (
+                {workingPrinciples.map((principle) => (
                   <div
                     className={styles.principle}
                     key={principle.title}
                     role="listitem"
                   >
-                    <span className={styles.principleNumber} aria-hidden="true">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <div>
-                      <h3 className={styles.principleTitle}>{principle.title}</h3>
-                      <p className={styles.principleDescription}>
-                        {principle.description}
-                      </p>
-                    </div>
+                    <h3 className={styles.principleTitle}>{principle.title}</h3>
+                    <p className={styles.principleDescription}>
+                      {principle.description}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -182,27 +160,6 @@ const About: React.FC = () => {
               </div>
             </motion.div>
           </div>
-
-          <motion.div
-            className={styles.evidenceSection}
-            variants={itemVariants}
-            ref={countUpRef}
-          >
-            <div className={styles.evidenceHeader}>
-              <h3 className={styles.evidenceTitle}>Evidence in practice</h3>
-              <p className={styles.evidenceIntro}>
-                A few concrete signals behind how I build and deliver.
-              </p>
-            </div>
-            <div className={styles.evidenceGrid}>
-              {evidence.map((item) => (
-                <div className={styles.evidenceItem} key={item.label}>
-                  <strong data-count={item.value}>{item.value}</strong>
-                  <span>{item.label}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
         </motion.div>
       </div>
     </section>
