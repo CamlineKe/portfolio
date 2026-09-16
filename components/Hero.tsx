@@ -1,9 +1,13 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useCanHover } from '../hooks/useCanHover';
 import { hoverLift } from '../utils/motion';
 import styles from '../styles/Hero.module.css';
-import ParticleNetwork from './ParticleNetwork';
+
+const ParticleNetwork = dynamic(() => import('./ParticleNetwork'), {
+  ssr: false,
+});
 
 const Hero: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
