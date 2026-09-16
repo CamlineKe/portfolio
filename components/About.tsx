@@ -71,13 +71,13 @@ const About: React.FC = () => {
               <div className={styles.portraitBlock}>
                 <div className={styles.portraitFrame}>
                   <Image
-                    src="/images/avatar.png"
+                    src="/images/avatar.jpg"
                     alt="Portrait of Moses Maina"
-                    width={520}
-                    height={520}
+                    width={800}
+                    height={800}
                     sizes="(max-width: 899px) 200px, 240px"
                     className={styles.avatar}
-                    priority
+                    loading="lazy"
                   />
                 </div>
                 <div className={styles.portraitInfo}>

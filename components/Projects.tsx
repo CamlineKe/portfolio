@@ -337,6 +337,7 @@ const Projects: React.FC = () => {
                       fill
                       sizes={getProjectImageSizes(rank)}
                       className={styles.image}
+                      priority={rank === 'flagship'}
                       style={{
                         objectPosition: project.imagePosition ?? '50% 50%',
                       }}
