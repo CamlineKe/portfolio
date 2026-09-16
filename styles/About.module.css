@@ -321,7 +321,6 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--color-text-tertiary);
-  opacity: 0.7;
 }
 
 @media (max-width: 1024px) {

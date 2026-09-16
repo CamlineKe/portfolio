@@ -230,8 +230,7 @@
 
 .input::placeholder,
 .textarea::placeholder {
-  color: var(--color-text-tertiary);
-  opacity: 0.7;
+  color: var(--color-text-placeholder);
 }
 
 .input:focus-visible,
