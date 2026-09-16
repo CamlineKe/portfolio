@@ -119,9 +119,10 @@ const technologyCategories: TechCategory[] = [
 ];
 
 const ALL_TAB_ID = 'all';
+const DEFAULT_TAB_ID = technologyCategories[0].id;
 
 const Skills: React.FC = () => {
-  const [activeTab, setActiveTab] = useState(ALL_TAB_ID);
+  const [activeTab, setActiveTab] = useState(DEFAULT_TAB_ID);
   const prefersReducedMotion = useReducedMotion();
 
   const containerVariants = createContainerVariants(Boolean(prefersReducedMotion), 0.1);
