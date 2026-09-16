@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
@@ -118,14 +118,33 @@ const technologyCategories: TechCategory[] = [
   },
 ];
 
+const ALL_TAB_ID = 'all';
+
 const Skills: React.FC = () => {
-  const [activeTab, setActiveTab] = useState(technologyCategories[0].id);
+  const [activeTab, setActiveTab] = useState(ALL_TAB_ID);
   const prefersReducedMotion = useReducedMotion();
 
   const containerVariants = createContainerVariants(Boolean(prefersReducedMotion), 0.1);
   const itemVariants = createItemVariants(Boolean(prefersReducedMotion), 20, 0.5);
 
-  const activeCategory = technologyCategories.find((c) => c.id === activeTab);
+  const technologyTabs = useMemo(() => {
+    const totalCount = technologyCategories.reduce(
+      (count, category) => count + category.technologies.length,
+      0
+    );
+
+    return [
+      { id: ALL_TAB_ID, title: 'All', count: totalCount },
+      ...technologyCategories.map((category) => ({
+        id: category.id,
+        title: category.title,
+        count: category.technologies.length,
+      })),
+    ];
+  }, []);
+
+  const activeCategory = technologyCategories.find((category) => category.id === activeTab);
+  const isAllTab = activeTab === ALL_TAB_ID;
 
   const renderTechIcon = (iconName: string) => {
     const iconSource = getTechnologyIconSource(iconName);
@@ -193,41 +212,39 @@ const Skills: React.FC = () => {
           <motion.div className={styles.sectionBlock} variants={itemVariants}>
             <h3 className={styles.subtitle}>Technologies</h3>
 
-            {/* Horizontal tab bar */}
-            <div
-              className={styles.tabBar}
-              role="tablist"
-              aria-label="Technology categories"
-            >
-              {technologyCategories.map((category) => (
-                <button
-                  key={category.id}
-                  type="button"
-                  role="tab"
-                  id={`tab-${category.id}`}
-                  aria-selected={activeTab === category.id}
-                  aria-controls={`panel-${category.id}`}
-                  className={`${styles.tab} ${
-                    activeTab === category.id ? styles.tabActive : ''
-                  }`}
-                  onClick={() => setActiveTab(category.id)}
-                >
-                  <span className={styles.tabLabel}>{category.title}</span>
-                  <span className={styles.tabCount}>
-                    {category.technologies.length}
-                  </span>
-                </button>
-              ))}
+            <div className={styles.tabScrollWrap}>
+              <div
+                className={styles.tabBar}
+                role="tablist"
+                aria-label="Technology categories"
+              >
+                {technologyTabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    role="tab"
+                    id={`tab-${tab.id}`}
+                    aria-selected={activeTab === tab.id}
+                    aria-controls={`panel-${tab.id}`}
+                    className={`${styles.tab} ${
+                      activeTab === tab.id ? styles.tabActive : ''
+                    }`}
+                    onClick={() => setActiveTab(tab.id)}
+                  >
+                    <span className={styles.tabLabel}>{tab.title}</span>
+                    <span className={styles.tabCount}>{tab.count}</span>
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {/* Tab panel with animated grid */}
             <AnimatePresence mode="wait">
-              {activeCategory && (
+              {isAllTab ? (
                 <motion.div
-                  key={activeCategory.id}
-                  id={`panel-${activeCategory.id}`}
+                  key={ALL_TAB_ID}
+                  id={`panel-${ALL_TAB_ID}`}
                   role="tabpanel"
-                  aria-labelledby={`tab-${activeCategory.id}`}
+                  aria-labelledby={`tab-${ALL_TAB_ID}`}
                   className={styles.tabPanel}
                   initial={
                     prefersReducedMotion
@@ -246,26 +263,91 @@ const Skills: React.FC = () => {
                   }}
                 >
                   <div
-                    className={styles.technologyGrid}
-                    role="list"
-                    aria-label={`${activeCategory.title} technologies`}
+                    className={styles.allTechnologies}
+                    aria-label="All technologies grouped by category"
                   >
-                    {activeCategory.technologies.map((technology) => (
-                      <div
-                        key={technology.name}
-                        className={styles.technologyItem}
-                        role="listitem"
+                    {technologyCategories.map((category) => (
+                      <section
+                        key={category.id}
+                        className={styles.categoryGroup}
+                        aria-labelledby={`skills-group-${category.id}`}
                       >
-                        <div className={styles.technologyIcon}>
-                          {renderTechIcon(technology.icon)}
+                        <h4
+                          id={`skills-group-${category.id}`}
+                          className={styles.categoryGroupTitle}
+                        >
+                          {category.title}
+                        </h4>
+                        <div
+                          className={styles.technologyGrid}
+                          role="list"
+                          aria-label={`${category.title} technologies`}
+                        >
+                          {category.technologies.map((technology) => (
+                            <div
+                              key={technology.name}
+                              className={styles.technologyItem}
+                              role="listitem"
+                            >
+                              <div className={styles.technologyIcon}>
+                                {renderTechIcon(technology.icon)}
+                              </div>
+                              <span className={styles.technologyName}>
+                                {technology.name}
+                              </span>
+                            </div>
+                          ))}
                         </div>
-                        <span className={styles.technologyName}>
-                          {technology.name}
-                        </span>
-                      </div>
+                      </section>
                     ))}
                   </div>
                 </motion.div>
+              ) : (
+                activeCategory && (
+                  <motion.div
+                    key={activeCategory.id}
+                    id={`panel-${activeCategory.id}`}
+                    role="tabpanel"
+                    aria-labelledby={`tab-${activeCategory.id}`}
+                    className={styles.tabPanel}
+                    initial={
+                      prefersReducedMotion
+                        ? { opacity: 1 }
+                        : { opacity: 0, y: 8 }
+                    }
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={
+                      prefersReducedMotion
+                        ? { opacity: 1 }
+                        : { opacity: 0, y: -4 }
+                    }
+                    transition={{
+                      duration: prefersReducedMotion ? 0 : 0.22,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    <div
+                      className={styles.technologyGrid}
+                      role="list"
+                      aria-label={`${activeCategory.title} technologies`}
+                    >
+                      {activeCategory.technologies.map((technology) => (
+                        <div
+                          key={technology.name}
+                          className={styles.technologyItem}
+                          role="listitem"
+                        >
+                          <div className={styles.technologyIcon}>
+                            {renderTechIcon(technology.icon)}
+                          </div>
+                          <span className={styles.technologyName}>
+                            {technology.name}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )
               )}
             </AnimatePresence>
           </motion.div>

@@ -168,44 +168,17 @@ const Contact: React.FC = () => {
             can contribute through reliable software and thoughtful engineering.
           </motion.p>
 
-          <motion.div className={styles.quickContact} variants={itemVariants}>
-            <motion.a
-              href={`tel:${phoneNumber}`}
-              className={styles.contactMethod}
-              whileHover={hoverLift(enableHoverMotion, -2, 1.01)}
-              whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
-              aria-label={`Call Moses Maina at ${formattedPhoneNumber}`}
-            >
-              <span className={styles.contactMethodIcon} aria-hidden="true">
-                {renderSocialIcon('phone')}
-              </span>
-              <span className={styles.contactMethodText}>
-                <span className={styles.contactMethodLabel}>Call me</span>
-                <span className={styles.contactMethodValue}>{formattedPhoneNumber}</span>
-              </span>
-            </motion.a>
-
-            <motion.a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${styles.contactMethod} ${styles.whatsappMethod}`}
-              whileHover={hoverLift(enableHoverMotion, -2, 1.01)}
-              whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
-              aria-label="Start a WhatsApp conversation with Moses Maina"
-            >
-              <span className={styles.contactMethodIcon} aria-hidden="true">
-                {renderSocialIcon('whatsapp')}
-              </span>
-              <span className={styles.contactMethodText}>
-                <span className={styles.contactMethodLabel}>WhatsApp</span>
-                <span className={styles.contactMethodValue}>Start a conversation</span>
-              </span>
-            </motion.a>
-          </motion.div>
+          <motion.p className={styles.contactGuidance} variants={itemVariants}>
+            Best for project or role inquiries: send the form below or message on
+            WhatsApp.
+          </motion.p>
 
           <div className={styles.contactContent}>
             <motion.div className={styles.formSection} variants={itemVariants}>
+              <h3 className={styles.formHeading}>Send a message</h3>
+              <p className={styles.formIntro}>
+                Share a few details and I will follow up by email.
+              </p>
               <form
                 onSubmit={handleSubmit(onSubmit, onInvalid)}
                 className={styles.contactForm}
@@ -339,7 +312,12 @@ const Contact: React.FC = () => {
                     }
                     animate={{ opacity: 1, y: 0 }}
                   >
-                    Thank you! Your message has been sent successfully.
+                    <span className={styles.successTitle}>
+                      Thank you! Your message has been sent successfully.
+                    </span>
+                    <span className={styles.successDetail}>
+                      I usually reply within 24 to 48 hours.
+                    </span>
                   </motion.div>
                 )}
 
@@ -369,7 +347,52 @@ const Contact: React.FC = () => {
                   Kenya &amp; international · Remote, hybrid, or onsite
                 </p>
               </div>
-              <h3 className={styles.socialTitle}>Connect With Me</h3>
+
+              <div className={styles.quickPaths}>
+                <h3 className={styles.socialTitle}>Quick paths</h3>
+                <div className={styles.quickContact}>
+                  <motion.a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${styles.contactMethod} ${styles.whatsappMethod}`}
+                    whileHover={hoverLift(enableHoverMotion, -2, 1.01)}
+                    whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+                    aria-label="Start a WhatsApp conversation with Moses Maina"
+                  >
+                    <span className={styles.contactMethodIcon} aria-hidden="true">
+                      {renderSocialIcon('whatsapp')}
+                    </span>
+                    <span className={styles.contactMethodText}>
+                      <span className={styles.contactMethodLabel}>Recommended</span>
+                      <span className={styles.contactMethodValue}>Message on WhatsApp</span>
+                    </span>
+                  </motion.a>
+
+                  <motion.a
+                    href={`tel:${phoneNumber}`}
+                    className={`${styles.contactMethod} ${styles.callMethod}`}
+                    whileHover={hoverLift(enableHoverMotion, -2, 1.01)}
+                    whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+                    aria-label={`Call Moses Maina at ${formattedPhoneNumber}`}
+                  >
+                    <span className={styles.contactMethodIcon} aria-hidden="true">
+                      {renderSocialIcon('phone')}
+                    </span>
+                    <span className={styles.contactMethodText}>
+                      <span className={styles.contactMethodLabel}>Call</span>
+                      <span className={styles.contactMethodValue}>{formattedPhoneNumber}</span>
+                    </span>
+                  </motion.a>
+                </div>
+              </div>
+
+              <div className={styles.elsewhereSection}>
+                <h3 className={styles.socialTitle}>Elsewhere</h3>
+                <p className={styles.elsewhereIntro}>
+                  Profiles and background reading, not the fastest way to reach me.
+                </p>
+              </div>
               <div className={styles.socialLinks}>
                 {socialLinks.map((social) => (
                   <motion.a

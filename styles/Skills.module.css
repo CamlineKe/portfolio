@@ -77,12 +77,28 @@
    Tab bar (replaces accordion)
    ============================================================ */
 
+.tabScrollWrap {
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto clamp(1.25rem, 3vw, 2rem);
+}
+
+.tabScrollWrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 2.5rem;
+  pointer-events: none;
+  background: linear-gradient(to left, var(--color-base), transparent);
+}
+
 .tabBar {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  margin-bottom: clamp(1.25rem, 3vw, 2rem);
   padding: 0.3rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
@@ -168,6 +184,31 @@
 
 .tabPanel {
   min-height: 10rem;
+}
+
+.allTechnologies {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  width: min(100%, 64rem);
+  margin: 0 auto;
+}
+
+.categoryGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.categoryGroupTitle {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .technologyGrid {
@@ -313,6 +354,12 @@
 @media (max-width: 1024px) {
   .technologyGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 769px) {
+  .tabScrollWrap::after {
+    display: none;
   }
 }
 

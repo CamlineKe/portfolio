@@ -4,7 +4,8 @@ import { useReducedMotion } from 'framer-motion';
 import * as THREE from 'three';
 
 const CONNECTION_DISTANCE = 3.2;
-const BASE_EDGE_OPACITY = 0.13;
+const BASE_EDGE_OPACITY = 0.07;
+const GLOBAL_SCENE_OPACITY = 0.62;
 const HUB_ATTRACTION_RADIUS = 4;
 const HUB_MIN_DISTANCE = 0.5;
 const CURSOR_REPEL_RADIUS = 1.5;
@@ -76,18 +77,18 @@ function createParticleData(count: number, themeColors: ThemeColors): ParticleDa
     velocities[i3 + 2] =
       (Math.random() - 0.5) * (isHub ? 0.001 : 0.002);
 
-    const isAmber = !isHub && i % 8 === 0;
+    const isAmber = !isHub && i % 12 === 0;
     const color = isAmber ? themeColors.spark : themeColors.accent;
     colors[i3] = color.r;
     colors[i3 + 1] = color.g;
     colors[i3 + 2] = color.b;
 
     opacities[i] = isHub
-      ? 0.7 + Math.random() * 0.2
-      : 0.3 + Math.random() * 0.2;
+      ? 0.45 + Math.random() * 0.15
+      : 0.18 + Math.random() * 0.12;
     sizes[i] = isHub
-      ? 4 + Math.random() * 2
-      : 1.5 + Math.random();
+      ? 3 + Math.random() * 1.5
+      : 1.2 + Math.random() * 0.6;
   }
 
   return {
@@ -113,7 +114,7 @@ function NetworkScene({ isActive, themeColors }: NetworkSceneProps) {
   const linePositionsRef = useRef<Float32Array | null>(null);
   const { size, viewport, invalidate } = useThree();
 
-  const particleCount = size.width < 768 ? 28 : 55;
+  const particleCount = size.width < 768 ? 22 : 42;
   const maxLineVertices = (particleCount * (particleCount - 1)) / 2 * 2;
 
   const data = useMemo(
@@ -126,7 +127,7 @@ function NetworkScene({ isActive, themeColors }: NetworkSceneProps) {
       new THREE.ShaderMaterial({
         uniforms: {
           uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
-          uGlobalOpacity: { value: 1.0 },
+          uGlobalOpacity: { value: GLOBAL_SCENE_OPACITY },
         },
         vertexShader: `
           attribute float aOpacity;
@@ -199,7 +200,7 @@ function NetworkScene({ isActive, themeColors }: NetworkSceneProps) {
     const positions = pointsRef.current.geometry.attributes.position
       .array as Float32Array;
 
-    particleMaterial.uniforms.uGlobalOpacity.value = 1;
+    particleMaterial.uniforms.uGlobalOpacity.value = GLOBAL_SCENE_OPACITY;
     if (lineMaterial.opacity !== undefined) {
       lineMaterial.opacity = BASE_EDGE_OPACITY;
     }

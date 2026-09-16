@@ -22,6 +22,17 @@ const PROJECT_CATEGORY_ORDER: Project['category'][] = [
   'Web Applications',
 ];
 
+const RMS_PROJECT_ID = 1;
+const RMS_OTHER_ROLES_LABEL = 'Other role demos';
+
+const splitRmsDemos = (demos: ProjectDemo[]) => {
+  const [primaryDemo, ...otherRoleDemos] = demos;
+  return { primaryDemo, otherRoleDemos };
+};
+
+const isRmsProject = (project: Project) =>
+  project.id === RMS_PROJECT_ID && project.demos.length > 1;
+
 const getProjectCardClassName = (rank: ProjectRank) => {
   if (rank === 'flagship') {
     return `${styles.projectCard} ${styles.featuredProject}`;
@@ -151,6 +162,106 @@ const Projects: React.FC = () => {
     return demo.label ?? (demo.type === 'video' ? 'Video Demo' : 'Live Demo');
   };
 
+  const renderRepositoryAction = (project: Project) => {
+    if (project.repository.visibility === 'public') {
+      return (
+        <motion.a
+          href={project.repository.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${styles.actionButton} ${styles.secondaryAction}`}
+          whileHover={hoverLift(enableHoverMotion, -2, 1)}
+          whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+          aria-label={`Source code for ${project.title} (opens in a new tab)`}
+        >
+          Source Code
+        </motion.a>
+      );
+    }
+
+    return (
+      <motion.button
+        type="button"
+        className={`${styles.actionButton} ${styles.secondaryAction}`}
+        whileHover={hoverLift(enableHoverMotion, -2, 1)}
+        whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+        onClick={(event) =>
+          handlePrivateRepositoryClick(project, event.currentTarget)
+        }
+      >
+        Repository Details
+      </motion.button>
+    );
+  };
+
+  const renderDemoLink = (
+    project: Project,
+    demo: ProjectDemo,
+    label: string,
+    isPrimary: boolean
+  ) => (
+    <motion.a
+      key={`${project.id}-${label}`}
+      href={demo.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${styles.actionButton} ${
+        isPrimary ? styles.primaryAction : styles.secondaryAction
+      }`}
+      whileHover={hoverLift(enableHoverMotion, -2, isPrimary ? 1.03 : 1)}
+      whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+      aria-label={`${label} for ${project.title} (opens in a new tab)`}
+    >
+      {label}
+    </motion.a>
+  );
+
+  const renderRmsDemoActions = (project: Project) => {
+    const { primaryDemo, otherRoleDemos } = splitRmsDemos(project.demos);
+    const primaryLabel = getDemoLabel(primaryDemo);
+
+    return (
+      <>
+        {renderDemoLink(project, primaryDemo, primaryLabel, true)}
+        <div
+          className={styles.otherRoleDemosGroup}
+          role="group"
+          aria-label={`Other role demos for ${project.title}`}
+        >
+          <p className={styles.otherRoleDemosLabel}>{RMS_OTHER_ROLES_LABEL}</p>
+          {otherRoleDemos.map((demo) =>
+            renderDemoLink(project, demo, getDemoLabel(demo), false)
+          )}
+        </div>
+      </>
+    );
+  };
+
+  const renderProjectActions = (project: Project) => {
+    if (isRmsProject(project)) {
+      return (
+        <>
+          {renderRmsDemoActions(project)}
+          {renderRepositoryAction(project)}
+        </>
+      );
+    }
+
+    return (
+      <>
+        {project.demos.map((demo, index) =>
+          renderDemoLink(
+            project,
+            demo,
+            getDemoLabel(demo),
+            index === 0
+          )
+        )}
+        {renderRepositoryAction(project)}
+      </>
+    );
+  };
+
   return (
     <section className={styles.projects} id="projects">
       <div className="container">
@@ -170,28 +281,30 @@ const Projects: React.FC = () => {
           </motion.p>
 
           <motion.div className={styles.filterContainer} variants={itemVariants}>
-            <div
-              className={styles.filterButtons}
-              role="group"
-              aria-label="Filter projects by category"
-            >
-              {categories.map((category) => (
-                <motion.button
-                  key={category}
-                  type="button"
-                  className={`${styles.filterButton} ${
-                    selectedFilter === category ? styles.active : ''
-                  }`}
-                  onClick={() => setSelectedFilter(category)}
-                  whileHover={hoverLift(enableHoverMotion, -2, 1)}
-                  whileTap={
-                    prefersReducedMotion ? undefined : { scale: 0.98 }
-                  }
-                  aria-pressed={selectedFilter === category}
-                >
-                  {category === 'all' ? 'All Projects' : category}
-                </motion.button>
-              ))}
+            <div className={styles.filterScrollWrap}>
+              <div
+                className={styles.filterButtons}
+                role="group"
+                aria-label="Filter projects by category"
+              >
+                {categories.map((category) => (
+                  <motion.button
+                    key={category}
+                    type="button"
+                    className={`${styles.filterButton} ${
+                      selectedFilter === category ? styles.active : ''
+                    }`}
+                    onClick={() => setSelectedFilter(category)}
+                    whileHover={hoverLift(enableHoverMotion, -2, 1)}
+                    whileTap={
+                      prefersReducedMotion ? undefined : { scale: 0.98 }
+                    }
+                    aria-pressed={selectedFilter === category}
+                  >
+                    {category === 'all' ? 'All Projects' : category}
+                  </motion.button>
+                ))}
+              </div>
             </div>
             <p className={styles.resultsSummary} aria-live="polite">
               Showing {filteredProjects.length}{' '}
@@ -248,63 +361,12 @@ const Projects: React.FC = () => {
                       ))}
                     </div>
 
-                    <div className={styles.projectActions}>
-                      {project.demos.map((demo, index) => (
-                        <motion.a
-                          key={`${project.id}-${getDemoLabel(demo)}`}
-                          href={demo.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`${styles.actionButton} ${
-                            index === 0
-                              ? styles.primaryAction
-                              : styles.secondaryAction
-                          }`}
-                          whileHover={hoverLift(
-                            enableHoverMotion,
-                            -2,
-                            index === 0 ? 1.03 : 1
-                          )}
-                          whileTap={
-                            prefersReducedMotion ? undefined : { scale: 0.98 }
-                          }
-                          aria-label={`${getDemoLabel(demo)} for ${project.title} (opens in a new tab)`}
-                        >
-                          {getDemoLabel(demo)}
-                        </motion.a>
-                      ))}
-                      {project.repository.visibility === 'public' ? (
-                        <motion.a
-                          href={project.repository.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`${styles.actionButton} ${styles.secondaryAction}`}
-                          whileHover={hoverLift(enableHoverMotion, -2, 1)}
-                          whileTap={
-                            prefersReducedMotion ? undefined : { scale: 0.98 }
-                          }
-                          aria-label={`Source code for ${project.title} (opens in a new tab)`}
-                        >
-                          Source Code
-                        </motion.a>
-                      ) : (
-                        <motion.button
-                          type="button"
-                          className={`${styles.actionButton} ${styles.secondaryAction}`}
-                          whileHover={hoverLift(enableHoverMotion, -2, 1)}
-                          whileTap={
-                            prefersReducedMotion ? undefined : { scale: 0.98 }
-                          }
-                          onClick={(event) =>
-                            handlePrivateRepositoryClick(
-                              project,
-                              event.currentTarget
-                            )
-                          }
-                        >
-                          Repository Details
-                        </motion.button>
-                      )}
+                    <div
+                      className={`${styles.projectActions} ${
+                        isRmsProject(project) ? styles.projectActionsStacked : ''
+                      }`}
+                    >
+                      {renderProjectActions(project)}
                     </div>
                   </div>
                 </motion.article>
@@ -381,31 +443,21 @@ const Projects: React.FC = () => {
                 </p>
               </div>
 
-              <div className={styles.modalActions}>
-                {privateProject.demos.map((demo, index) => (
-                  <motion.a
-                    key={`${privateProject.id}-${getDemoLabel(demo)}`}
-                    href={demo.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`${styles.actionButton} ${
-                      index === 0
-                        ? styles.primaryAction
-                        : styles.secondaryAction
-                    }`}
-                    whileHover={hoverLift(
-                      enableHoverMotion,
-                      -2,
-                      index === 0 ? 1.03 : 1
+              <div
+                className={`${styles.modalActions} ${
+                  isRmsProject(privateProject) ? styles.projectActionsStacked : ''
+                }`}
+              >
+                {isRmsProject(privateProject)
+                  ? renderRmsDemoActions(privateProject)
+                  : privateProject.demos.map((demo, index) =>
+                      renderDemoLink(
+                        privateProject,
+                        demo,
+                        getDemoLabel(demo),
+                        index === 0
+                      )
                     )}
-                    whileTap={
-                      prefersReducedMotion ? undefined : { scale: 0.98 }
-                    }
-                    aria-label={`${getDemoLabel(demo)} for ${privateProject.title} (opens in a new tab)`}
-                  >
-                    {getDemoLabel(demo)}
-                  </motion.a>
-                ))}
                 <motion.button
                   type="button"
                   className={`${styles.actionButton} ${styles.secondaryAction}`}

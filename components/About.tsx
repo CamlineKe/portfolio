@@ -105,13 +105,10 @@ const About: React.FC = () => {
                   and business problems into dependable web products.
                 </p>
                 <p className={styles.text}>
-                  I work across the stack, choosing technology around real constraints,
-                  maintainability, security, and the people who will operate the
-                  product.
-                </p>
-                <p className={styles.text}>
-                  Two confidential client systems are in production use today, and I have
-                  completed three certifications in AI, cloud tooling, and cybersecurity.
+                  I work across the stack around real constraints, maintainability, and
+                  security. Two confidential client systems are in production use today,
+                  and I have completed three certifications in AI, cloud tooling, and
+                  cybersecurity.
                 </p>
               </div>
 

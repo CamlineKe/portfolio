@@ -6,7 +6,6 @@ import styles from '../styles/Navigation.module.css';
 
 const Navigation: React.FC = () => {
   const [activeSection, setActiveSection] = useState('hero');
-  const [scrolledPastHero, setScrolledPastHero] = useState(false);
   const prefersReducedMotion = useReducedMotion();
   const canHover = useCanHover();
   const enableHoverMotion = canHover && !prefersReducedMotion;
@@ -18,19 +17,6 @@ const Navigation: React.FC = () => {
     { id: 'skills', label: 'Skills' },
     { id: 'contact', label: 'Contact' },
   ], []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const heroEl = document.getElementById('hero');
-      if (!heroEl) return;
-      const heroBottom = heroEl.offsetTop + heroEl.offsetHeight;
-      setScrolledPastHero(window.scrollY > heroBottom - 100);
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     const sections = navItems
@@ -81,10 +67,7 @@ const Navigation: React.FC = () => {
 
   return (
     <>
-      <nav
-        className={`${styles.desktopNav} ${scrolledPastHero ? styles.navVisible : ''}`}
-        aria-label="Primary navigation"
-      >
+      <nav className={styles.desktopNav} aria-label="Primary navigation">
         <div className={styles.navContainer}>
           <a
             href="#hero"

@@ -23,6 +23,7 @@ const Hero: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: prefersReducedMotion ? 0.2 : 0.7, ease: 'easeOut' }}
         >
+          <p className={styles.name}>Moses Maina</p>
           <span className={styles.role}>Systems-Driven Software Engineer</span>
 
           <h1 className={styles.headline}>
@@ -32,7 +33,11 @@ const Hero: React.FC = () => {
           </h1>
 
           <p className={styles.proof}>
-            263 passing RMS backend tests across 67 suites.
+            Flagship rental platform backed by{' '}
+            <a href="#projects" className={styles.proofLink}>
+              263 automated tests
+            </a>
+            .
           </p>
 
           <div className={styles.ctaRow}>

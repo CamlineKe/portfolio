@@ -51,6 +51,19 @@
   position: absolute;
   inset: 0;
   z-index: 1;
+  opacity: 0.72;
+  mask-image: radial-gradient(
+    ellipse at 50% 42%,
+    rgb(0 0 0 / 0.95) 0%,
+    rgb(0 0 0 / 0.35) 58%,
+    transparent 82%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse at 50% 42%,
+    rgb(0 0 0 / 0.95) 0%,
+    rgb(0 0 0 / 0.35) 58%,
+    transparent 82%
+  );
 }
 
 .heroContainer {
@@ -68,6 +81,14 @@
   text-align: center;
   gap: 0;
   max-width: 52rem;
+}
+
+.name {
+  margin: 0 0 0.45rem;
+  color: var(--color-text-primary);
+  font-size: clamp(1rem, 2.4vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 .role {
@@ -100,6 +121,24 @@
   font-size: clamp(0.9rem, 2vw, 1rem);
   line-height: 1.6;
   text-wrap: pretty;
+}
+
+.proofLink {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(var(--color-accent-rgb), 0.35);
+  text-underline-offset: 0.15em;
+  transition:
+    color var(--transition-fast),
+    text-decoration-color var(--transition-fast);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .proofLink:hover {
+    color: var(--color-accent-dark);
+    text-decoration-color: rgba(var(--color-accent-rgb), 0.65);
+  }
 }
 
 .ctaRow {
@@ -164,6 +203,15 @@
 .ctaSecondary:focus-visible {
   outline: 2px solid var(--color-spark);
   outline-offset: 3px;
+}
+
+@media (min-width: 769px) {
+  .hero {
+    padding-top: max(
+      5.5rem,
+      calc(var(--nav-height-desktop) + 1.75rem + var(--safe-top))
+    );
+  }
 }
 
 @media (min-width: 900px) {

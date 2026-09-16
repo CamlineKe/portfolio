@@ -47,6 +47,22 @@
   margin-bottom: clamp(1.75rem, 4vw, 3rem);
 }
 
+.filterScrollWrap {
+  position: relative;
+  max-width: 100%;
+}
+
+.filterScrollWrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0.35rem;
+  width: 2.5rem;
+  pointer-events: none;
+  background: linear-gradient(to left, var(--color-surface), transparent);
+}
+
 .filterButtons {
   display: flex;
   justify-content: center;
@@ -285,6 +301,32 @@
   outline-offset: 2px;
 }
 
+.projectActionsStacked {
+  flex-direction: column;
+}
+
+.projectActionsStacked .actionButton {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.otherRoleDemosGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.otherRoleDemosLabel {
+  margin: 0.1rem 0 0;
+  color: var(--color-text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .primaryAction:hover {
     background: var(--color-accent-dark);
@@ -384,6 +426,12 @@
   margin-top: 1.15rem;
 }
 
+@media (max-width: 1024px) {
+  .featuredProject .projectActions {
+    flex-direction: column;
+  }
+}
+
 @media (max-width: 768px) {
   .projects {
     padding-block: var(--section-space-compact);
@@ -392,6 +440,18 @@
   .projectActions,
   .modalActions {
     flex-direction: column;
+  }
+
+  .projectActions .actionButton,
+  .modalActions .actionButton {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
+
+@media (min-width: 561px) {
+  .filterScrollWrap::after {
+    display: none;
   }
 }
 

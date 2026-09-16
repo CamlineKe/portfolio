@@ -159,7 +159,7 @@ export const projects: Project[] = [
   },
   {
     id: 6,
-    title: 'Task Management Platform',
+    title: 'Task Management Platform (Vue + Laravel)',
     description:
       'A full-stack task management platform with enforced workflow transitions and real-time analytics. A Vue 3 interface connects to a Laravel REST API backed by indexed MySQL queries and containerized deployment.',
     image: '/images/project3.jpg',
