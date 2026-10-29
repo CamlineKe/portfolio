@@ -156,7 +156,7 @@
   .downloadCv:hover {
     border-color: var(--color-border-hover);
     background: rgba(var(--color-accent-rgb), 0.08);
-    color: var(--color-accent);
+    color: var(--color-accent) !important;
   }
 }
 
