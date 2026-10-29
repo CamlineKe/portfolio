@@ -23,6 +23,12 @@ export const projects: Project[] = [
     category: 'SaaS',
     featured: true,
     status: 'Flagship Project · Currently Building',
+    specs: [
+      { label: 'Concurrency Control', value: 'Advisory Locks (Pessimistic)' },
+      { label: 'Payment Seam', value: 'Idempotent M-Pesa Callbacks' },
+      { label: 'Backend Architecture', value: 'Multi-Tenant Monolith (Express)' },
+      { label: 'Test Suite', value: '263 Tests / 67 Suites' },
+    ],
     demos: [
       {
         label: 'Admin Demo',
@@ -61,6 +67,12 @@ export const projects: Project[] = [
     imagePosition: '50% 70%',
     technologies: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'WhatsApp Cloud API'],
     category: 'Custom Software',
+    specs: [
+      { label: 'Verification Seam', value: 'WhatsApp Cloud Webhook' },
+      { label: 'Data Concurrency', value: 'PostgreSQL Row-Level Locks' },
+      { label: 'Latency Benchmark', value: 'Sub-24ms p95 Response' },
+      { label: 'Security Layer', value: 'HMAC Signature & Rate Limits' },
+    ],
     demos: [
       {
         type: 'video',

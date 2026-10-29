@@ -354,6 +354,17 @@ const Projects: React.FC = () => {
                       <p className={styles.projectHighlight}>{project.highlight}</p>
                     )}
 
+                    {project.specs && (
+                      <div className={styles.dossierSpecs} aria-label="Architecture and systems contracts">
+                        {project.specs.map((spec) => (
+                          <div key={spec.label} className={styles.specItem}>
+                            <span className={styles.specLabel}>{spec.label}</span>
+                            <span className={styles.specValue}>{spec.value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
                     <div className={styles.techBadges}>
                       {project.technologies.map((tech) => (
                         <span key={tech} className={styles.techBadge}>

@@ -26,6 +26,11 @@ export interface ProjectDemoVideo {
 
 export type ProjectDemo = ProjectDemoLive | ProjectDemoVideo;
 
+export interface ProjectSpec {
+  label: string;
+  value: string;
+}
+
 export interface Project {
   id: number;
   title: string;
@@ -38,6 +43,7 @@ export interface Project {
   featured?: boolean;
   status?: string;
   highlight?: string;
+  specs?: ProjectSpec[];
   repository: ProjectRepository;
 }
 
