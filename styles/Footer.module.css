@@ -70,8 +70,8 @@
 @media (hover: hover) and (pointer: fine) {
   .backToTop:hover {
     border-color: var(--color-border-hover);
-    background: rgba(var(--color-accent-rgb), 0.08);
-    color: var(--color-accent);
+    background: var(--color-surface-overlay);
+    color: var(--color-text-primary);
   }
 }
 

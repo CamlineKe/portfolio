@@ -19,10 +19,10 @@ const Footer: React.FC = () => {
         >
           <div className={styles.footerText}>
             <p className={styles.copyright}>
-              © {currentYear} Moses Maina. All rights reserved.
+              © {currentYear} Moses Maina. Systems-driven software engineer.
             </p>
             <p className={styles.builtWith}>
-              Built with Next.js & TypeScript by Moses Maina.
+              Built with Next.js 15 & TypeScript. Specified via DESIGN.md.
             </p>
           </div>
           <motion.a
