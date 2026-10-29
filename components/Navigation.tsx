@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useCanHover } from '../hooks/useCanHover';
 import { hoverScale } from '../utils/motion';
+import ThemeToggle from './ThemeToggle';
 import styles from '../styles/Navigation.module.css';
 
 const Navigation: React.FC = () => {
@@ -90,6 +91,10 @@ const Navigation: React.FC = () => {
                 {item.label}
               </a>
             ))}
+          </div>
+
+          <div className={styles.navActions}>
+            <ThemeToggle />
           </div>
         </div>
       </nav>

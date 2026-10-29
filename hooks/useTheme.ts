@@ -6,17 +6,14 @@ export const useTheme = () => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Sync with the theme attribute set synchronously by _document.tsx script
+    const activeTheme =
+      (document.documentElement.getAttribute('data-theme') as Theme) ||
+      (localStorage.getItem('theme') as Theme) ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+    setTheme(activeTheme);
     setMounted(true);
-    
-    // Check for saved theme preference or default to system preference
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      // Check system preference
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(systemPrefersDark ? 'dark' : 'light');
-    }
   }, []);
 
   useEffect(() => {

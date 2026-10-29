@@ -263,7 +263,7 @@
   margin-top: 0.25rem;
   border: 1px solid var(--color-spark);
   background: var(--color-spark);
-  color: var(--color-base);
+  color: var(--color-spark-contrast);
   transition:
     transform var(--transition-fast),
     box-shadow var(--transition-fast),

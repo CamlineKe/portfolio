@@ -51,6 +51,12 @@
   gap: clamp(0.75rem, 1.6vw, 1.5rem);
 }
 
+.navActions {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+}
+
 .navItem {
   position: relative;
   padding: 0.5rem 0.1rem;

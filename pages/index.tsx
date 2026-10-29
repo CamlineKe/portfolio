@@ -5,7 +5,6 @@ import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
 import Projects from '../components/Projects';
 import Footer from '../components/Footer';
-import LazyMount from '../components/LazyMount';
 
 const About = dynamic(() => import('../components/About'));
 const Skills = dynamic(() => import('../components/Skills'));
@@ -52,12 +51,8 @@ const Home: React.FC = () => {
         <Hero />
         <Projects />
         <About />
-        <LazyMount sectionId="skills">
-          <Skills />
-        </LazyMount>
-        <LazyMount sectionId="contact">
-          <Contact />
-        </LazyMount>
+        <Skills />
+        <Contact />
       </main>
 
       <Footer />

@@ -7,8 +7,7 @@
 
 @media (min-width: 769px) {
   .chrome {
-    top: calc(var(--safe-top) + (var(--nav-height-desktop) - 2.5rem) / 2);
-    right: max(2rem, env(safe-area-inset-right, 0px));
+    display: none;
   }
 }
 
@@ -17,8 +16,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: max(2.5rem, 40px);
-  height: max(2.5rem, 40px);
+  width: max(2.75rem, 44px);
+  height: max(2.75rem, 44px);
   padding: 0;
   border: 1px solid var(--color-border);
   border-radius: 50%;
@@ -50,8 +49,8 @@
 }
 
 .placeholder {
-  width: max(2.5rem, 40px);
-  height: max(2.5rem, 40px);
+  width: max(2.75rem, 44px);
+  height: max(2.75rem, 44px);
   border: 1px solid var(--color-border);
   border-radius: 50%;
   background: var(--color-surface-elevated);

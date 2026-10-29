@@ -25,6 +25,7 @@
   /* spark: contact and conversion CTAs only */
   --color-spark: #f59e0b;
   --color-spark-rgb: 245, 158, 11;
+  --color-spark-contrast: #0a0f1a;
 
   --color-cyan: #22d3ee;
 
@@ -97,6 +98,7 @@
 
   --color-spark: #d97706;
   --color-spark-rgb: 217, 119, 6;
+  --color-spark-contrast: #0a0f1a;
 
   --color-cyan: #0891b2;
 
@@ -167,6 +169,12 @@ body::before {
 
 section {
   scroll-margin-top: calc(var(--nav-height-desktop) + 1rem);
+}
+
+#skills,
+#contact {
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
 }
 
 /* ============================================================

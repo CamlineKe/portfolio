@@ -174,7 +174,7 @@
 .ctaPrimary {
   border: 1px solid transparent;
   background: var(--color-spark);
-  color: var(--color-base);
+  color: var(--color-spark-contrast);
 }
 
 .ctaSecondary {
