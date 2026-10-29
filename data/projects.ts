@@ -27,22 +27,22 @@ export const projects: Project[] = [
       {
         label: 'Admin Demo',
         type: 'video',
-        url: 'https://drive.google.com/file/d/1vQkj6HdHQXVyt0Cn9McN_gwkQ01NUPmT/view?usp=drive_link',
+        url: 'https://drive.google.com/file/d/1fskJSbQ9XA6Mpbzn7TlM145S015qdGsG/view?usp=drive_link',
       },
       {
         label: 'Landlord Demo',
         type: 'video',
-        url: 'https://drive.google.com/file/d/1tyP9-ITQJWi44fHPQATA_t1kcUpM2Hmi/view?usp=drive_link',
+        url: 'https://drive.google.com/file/d/1fypTiD6LowzUKntncmBzoWhdfKU_kG4c/view?usp=drive_link',
       },
       {
         label: 'Tenant Demo',
         type: 'video',
-        url: 'https://drive.google.com/file/d/1nriaaCbh1VZjzqmMHOISmeayJXjALIWs/view?usp=drive_link',
+        url: 'https://drive.google.com/file/d/1hU3etQncAG2cUebQtONILXqNYKXO-RQn/view?usp=drive_link',
       },
       {
         label: 'Caretaker Demo',
         type: 'video',
-        url: 'https://drive.google.com/file/d/13jv4YrgeIuqRz8JzQdQTpclrVQ9M0LSZ/view?usp=drive_link',
+        url: 'https://drive.google.com/file/d/1jXYEYVjkSEw1VPV8YbtpNECEh1MASsif/view?usp=drive_link',
       },
     ],
     repository: {
