@@ -27,39 +27,48 @@ const Hero: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: prefersReducedMotion ? 0.2 : 0.7, ease: 'easeOut' }}
         >
-          <p className={styles.name}>Moses Maina</p>
-          <span className={styles.role}>Systems-Driven Software Engineer</span>
+          <div className={styles.heroTag}>
+            <span className={styles.tagText}>Systems-Driven Software Engineer</span>
+          </div>
 
           <h1 className={styles.headline}>
-            Bridging{' '}
-            <span className={styles.headlineAccent}>technology and business</span>{' '}
-            through reliable systems.
+            Engineering reliable, scalable, and{' '}
+            <span className={styles.headlineAccent}>fault-tolerant</span> systems.
           </h1>
 
           <p className={styles.proof}>
-            Flagship rental platform backed by{' '}
-            <a href="#projects" className={styles.proofLink}>
-              263 automated tests
-            </a>
-            .
+            Full-stack software engineer specializing in resilient financial infrastructure,
+            transaction integrity, and high-performance web applications. Evaluated on
+            verifiable production proof.
           </p>
 
           <div className={styles.ctaRow}>
             <motion.a
-              href="#contact"
+              href="#projects"
               className={styles.ctaPrimary}
               whileHover={hoverLift(enableHoverMotion, -2, 1.03)}
               whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
             >
-              Start a conversation
+              Inspect Flagship Systems
             </motion.a>
             <motion.a
-              href="#projects"
+              href="https://github.com/CamlineKe"
+              target="_blank"
+              rel="noopener noreferrer"
               className={styles.ctaSecondary}
               whileHover={hoverLift(enableHoverMotion, -2, 1.02)}
               whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
             >
-              View projects
+              GitHub Architecture
+            </motion.a>
+            <motion.a
+              href="/Moses_Maina_Software_Engineer_CV.pdf"
+              download
+              className={styles.ctaGhost}
+              whileHover={hoverLift(enableHoverMotion, -2, 1.02)}
+              whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
+            >
+              Download CV
             </motion.a>
           </div>
         </motion.div>

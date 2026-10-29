@@ -68,8 +68,9 @@
 
 .heroContainer {
   position: relative;
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   z-index: 3;
 }
@@ -79,34 +80,39 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0;
   max-width: 52rem;
+  margin: 0 auto;
 }
 
-.name {
-  margin: 0 0 0.45rem;
-  color: var(--color-text-primary);
-  font-size: clamp(1rem, 2.4vw, 1.2rem);
-  font-weight: 700;
-  letter-spacing: 0.01em;
+.heroTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.5rem;
 }
 
-.role {
+.tagText {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
   color: var(--color-accent);
-  font-size: clamp(0.88rem, 2.2vw, 1.05rem);
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .headline {
-  max-width: 16ch;
-  margin: 0 0 clamp(1.25rem, 3vw, 1.75rem);
+  max-width: 22ch;
+  margin: 0 auto clamp(1.25rem, 3vw, 1.75rem);
   color: var(--color-text-primary);
-  font-size: clamp(2.4rem, 8vw, 5rem);
+  font-size: clamp(2.4rem, 6.5vw, 4.25rem);
   font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
   text-wrap: balance;
 }
 
@@ -115,11 +121,11 @@
 }
 
 .proof {
-  max-width: 28rem;
-  margin: 0 0 clamp(2rem, 5vw, 3rem);
+  max-width: 38rem;
+  margin: 0 auto clamp(1.75rem, 4vw, 2.75rem);
   color: var(--color-text-secondary);
-  font-size: clamp(0.9rem, 2vw, 1rem);
-  line-height: 1.6;
+  font-size: clamp(1rem, 2vw, 1.12rem);
+  line-height: 1.65;
   text-wrap: pretty;
 }
 
@@ -146,20 +152,21 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
 .ctaPrimary,
-.ctaSecondary {
+.ctaSecondary,
+.ctaGhost {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 3.2rem;
-  padding: 0.85rem 2.2rem;
-  border-radius: var(--radius-full);
+  min-height: 3rem;
+  padding: 0.75rem 1.6rem;
+  border-radius: var(--radius-md);
   font-family: var(--font-sans);
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 0.92rem;
+  font-weight: 600;
   letter-spacing: 0.01em;
   text-decoration: none;
   cursor: pointer;
@@ -172,36 +179,54 @@
 }
 
 .ctaPrimary {
-  border: 1px solid transparent;
-  background: var(--color-spark);
-  color: var(--color-spark-contrast);
+  border: 1px solid var(--color-accent);
+  background: var(--color-accent);
+  color: #ffffff !important;
 }
 
 .ctaSecondary {
   border: 1px solid var(--color-border);
-  background: transparent;
+  background: var(--color-surface-elevated);
   color: var(--color-text-primary);
+}
+
+.ctaGhost {
+  border: 1px solid var(--color-border-subtle);
+  background: transparent;
+  color: var(--color-text-secondary);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .ctaPrimary:hover {
-    background: color-mix(in srgb, var(--color-spark) 88%, white);
-    border-color: color-mix(in srgb, var(--color-spark) 70%, white);
-    box-shadow:
-      0 0 20px rgba(var(--color-spark-rgb), 0.25),
-      0 4px 12px rgba(var(--color-spark-rgb), 0.15);
+    background: var(--color-accent-dark);
+    border-color: var(--color-accent-dark);
+    color: #ffffff !important;
+    box-shadow: 0 0 16px var(--color-accent-glow);
   }
 
   .ctaSecondary:hover {
     border-color: var(--color-border-hover);
     color: var(--color-accent);
-    background: rgba(var(--color-accent-rgb), 0.08);
+    background: var(--color-surface-overlay);
+  }
+
+  .ctaGhost:hover {
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+    background: var(--color-surface);
   }
 }
 
-.ctaPrimary:focus-visible,
-.ctaSecondary:focus-visible {
-  outline: 2px solid var(--color-spark);
+.ctaPrimary:focus,
+.ctaPrimary:focus-visible {
+  color: #ffffff !important;
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.ctaSecondary:focus-visible,
+.ctaGhost:focus-visible {
+  outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
 
@@ -214,22 +239,21 @@
   }
 }
 
-@media (min-width: 900px) {
+@media (max-width: 480px) {
   .headline {
-    font-size: clamp(4rem, 6vw, 5.5rem);
-    max-width: 14ch;
+    font-size: clamp(2rem, 8.5vw, 2.5rem);
   }
-}
 
-@media (max-width: 420px) {
-  .headline {
-    font-size: clamp(2rem, 9vw, 2.6rem);
+  .ctaRow {
+    flex-direction: column;
+    width: 100%;
   }
 
   .ctaPrimary,
-  .ctaSecondary {
+  .ctaSecondary,
+  .ctaGhost {
     width: 100%;
-    max-width: 18rem;
+    max-width: 20rem;
   }
 }
 
