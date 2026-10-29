@@ -62,7 +62,7 @@ const Hero: React.FC = () => {
               GitHub Architecture
             </motion.a>
             <motion.a
-              href="/Moses_Maina_Software_Engineer_CV.pdf"
+              href="/CV/Moses_Maina_Software_Engineer_Resume.pdf"
               download
               className={styles.ctaGhost}
               whileHover={hoverLift(enableHoverMotion, -2, 1.02)}
